@@ -1,0 +1,129 @@
+[gd_scene load_steps=11 format=3 uid="uid://cvwph5rg4n3fy"]
+
+[ext_resource type="PackedScene" uid="uid://jidhq2tj324l" path="res://assets/obsidianblk/PA/cooler/Cooler.glb" id="1_7ew5m"]
+[ext_resource type="PackedScene" uid="uid://brdflkohtoac8" path="res://assets/obsidianblk/PA/cooler/Cooler_Door.glb" id="2_lpxus"]
+[ext_resource type="Shader" path="res://objects/obsidianblk/PA/cooler/frosted_glass.gdshader" id="3_reh0g"]
+[ext_resource type="PackedScene" uid="uid://btjow38la4xb8" path="res://assets/obsidianblk/PA/cooler/Cooler_Rack.glb" id="4_onp5m"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_64mq5"]
+size = Vector3(2, 0.5, 1.2)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_cr7vq"]
+fractal_type = 0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_1ugde"]
+width = 128
+height = 128
+seamless = true
+noise = SubResource("FastNoiseLite_cr7vq")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0f6dc"]
+render_priority = 0
+shader = ExtResource("3_reh0g")
+shader_parameter/distortion_size = 0.015
+shader_parameter/tint = Color(1, 1, 1, 1)
+shader_parameter/glass = SubResource("NoiseTexture2D_1ugde")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ni2kt"]
+material = SubResource("ShaderMaterial_0f6dc")
+size = Vector2(0.875, 1.57)
+orientation = 2
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_q5boi"]
+size = Vector3(1, 1.28, 0.115)
+
+[node name="Cooler" type="Node3D"]
+
+[node name="InteriorLight" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.03238, 0)
+light_color = Color(0.984314, 1, 0.831373, 1)
+light_energy = 6.0
+distance_fade_enabled = true
+omni_range = 1.0
+omni_attenuation = 0.68302
+
+[node name="Base" type="StaticBody3D" parent="."]
+
+[node name="Cooler" parent="Base" instance=ExtResource("1_7ew5m")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Base"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+shape = SubResource("BoxShape3D_64mq5")
+
+[node name="LDoor" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.969213, 0, 0.600374)
+
+[node name="Cooler_Door" parent="LDoor" instance=ExtResource("2_lpxus")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.491096, 1.27129, 0.0262361)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="LDoor/Cooler_Door"]
+mesh = SubResource("PlaneMesh_ni2kt")
+
+[node name="Area3D" type="Area3D" parent="LDoor"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LDoor/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.475, 1.22, 0)
+shape = SubResource("BoxShape3D_q5boi")
+
+[node name="RDoor" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.969, 0, 0.6)
+
+[node name="Cooler_Door" parent="RDoor" instance=ExtResource("2_lpxus")]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -0.491, 1.2806, 0.026)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RDoor/Cooler_Door"]
+mesh = SubResource("PlaneMesh_ni2kt")
+
+[node name="ShelveLayer" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.512729, 0)
+
+[node name="Cooler_Rack" parent="ShelveLayer" instance=ExtResource("4_onp5m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.466, 0, 0.131208)
+
+[node name="Cooler_Rack2" parent="ShelveLayer" instance=ExtResource("4_onp5m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.466, 0, 0.131208)
+
+[node name="ShelveLayer2" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.773249, 0)
+
+[node name="Cooler_Rack" parent="ShelveLayer2" instance=ExtResource("4_onp5m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.466, 0, 0.131208)
+
+[node name="Cooler_Rack2" parent="ShelveLayer2" instance=ExtResource("4_onp5m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.466, 0, 0.131208)
+
+[node name="ShelveLayer3" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.03425, 0)
+
+[node name="Cooler_Rack" parent="ShelveLayer3" instance=ExtResource("4_onp5m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.466, 0, 0.131208)
+
+[node name="Cooler_Rack2" parent="ShelveLayer3" instance=ExtResource("4_onp5m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.466, 0, 0.131208)
+
+[node name="ShelveLayer4" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.29525, 0)
+
+[node name="Cooler_Rack" parent="ShelveLayer4" instance=ExtResource("4_onp5m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.466, 0, 0.131208)
+
+[node name="Cooler_Rack2" parent="ShelveLayer4" instance=ExtResource("4_onp5m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.466, 0, 0.131208)
+
+[node name="ShelveLayer5" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.55625, 0)
+
+[node name="Cooler_Rack" parent="ShelveLayer5" instance=ExtResource("4_onp5m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.466, 0, 0.131208)
+
+[node name="Cooler_Rack2" parent="ShelveLayer5" instance=ExtResource("4_onp5m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.466, 0, 0.131208)
+
+[node name="ShelveLayer6" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.81725, 0)
+
+[node name="Cooler_Rack" parent="ShelveLayer6" instance=ExtResource("4_onp5m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.466, 0, 0.131208)
+
+[node name="Cooler_Rack2" parent="ShelveLayer6" instance=ExtResource("4_onp5m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.466, 0, 0.131208)

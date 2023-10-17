@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://bvsc0wwdrpvmx"
-path="res://.godot/imported/window_lcap.glb-2f16e766e99259c98c8a012b9636ed21.scn"
+uid="uid://cw2ax8uwbga71"
+path="res://.godot/imported/twall_01.glb-b1b82c507a8e8d8e2c9b038589e5fa7b.scn"
 
 [deps]
 
-source_file="res://assets/obsidianblk/PA/tileset/walls/window_lcap.glb"
-dest_files=["res://.godot/imported/window_lcap.glb-2f16e766e99259c98c8a012b9636ed21.scn"]
+source_file="res://assets/obsidianblk/PA/tileset/walls/twall_01.glb"
+dest_files=["res://.godot/imported/twall_01.glb-b1b82c507a8e8d8e2c9b038589e5fa7b.scn"]
 
 [params]
 
@@ -36,7 +36,7 @@ _subresources={
 }
 },
 "nodes": {
-"PATH:Window_LCap": {
+"PATH:TWall_01": {
 "generate/physics": true,
 "physics/shape_type": 2
 }

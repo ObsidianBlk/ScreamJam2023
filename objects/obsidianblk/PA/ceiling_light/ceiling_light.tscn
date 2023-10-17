@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://defgr7i0mukls"]
+
+[ext_resource type="PackedScene" uid="uid://dggikpykoqm2g" path="res://assets/obsidianblk/PA/objects/light_frame.glb" id="1_yse6u"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4ofvp"]
+resource_local_to_scene = true
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_5jjcx"]
+material = SubResource("StandardMaterial3D_4ofvp")
+size = Vector3(0.89, 0.015, 1.9)
+
+[node name="CeilingLight" type="Node3D"]
+
+[node name="light_frame" parent="." instance=ExtResource("1_yse6u")]
+
+[node name="LightBlockMesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_5jjcx")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.231978, 0)
+light_specular = 0.0
+shadow_enabled = true
+distance_fade_enabled = true
+omni_range = 10.0
+omni_shadow_mode = 0

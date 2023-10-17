@@ -15,6 +15,10 @@ run/main_scene="res://scenes/world/world.tscn"
 config/features=PackedStringArray("4.1", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+Relay="*res://scripts/autos/relay.gd"
+
 [input]
 
 move_forward={
@@ -61,3 +65,9 @@ look_down={
 "events": [Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":-1,"axis":3,"axis_value":1.0,"script":null)
 ]
 }
+
+[layer_names]
+
+3d_physics/layer_1="World"
+3d_physics/layer_2="Interactables"
+3d_physics/layer_4="Player"

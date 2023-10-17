@@ -37,7 +37,8 @@ _subresources={
 },
 "nodes": {
 "PATH:Window_RCap": {
-"generate/physics": true
+"generate/physics": true,
+"physics/shape_type": 2
 }
 }
 }

@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://bvsc0wwdrpvmx"
-path="res://.godot/imported/window_lcap.glb-2f16e766e99259c98c8a012b9636ed21.scn"
+uid="uid://b7uvl87661yx1"
+path="res://.godot/imported/drop_ceiling_frame.glb-1266c6d79e6295db3444c0f07bceebbd.scn"
 
 [deps]
 
-source_file="res://assets/obsidianblk/PA/tileset/walls/window_lcap.glb"
-dest_files=["res://.godot/imported/window_lcap.glb-2f16e766e99259c98c8a012b9636ed21.scn"]
+source_file="res://assets/obsidianblk/PA/tileset/ceilings/drop_ceiling_frame.glb"
+dest_files=["res://.godot/imported/drop_ceiling_frame.glb-1266c6d79e6295db3444c0f07bceebbd.scn"]
 
 [params]
 
@@ -33,12 +33,6 @@ _subresources={
 "PA_Material": {
 "use_external/enabled": true,
 "use_external/path": "res://assets/obsidianblk/PA/materials/PA_Material.tres"
-}
-},
-"nodes": {
-"PATH:Window_LCap": {
-"generate/physics": true,
-"physics/shape_type": 2
 }
 }
 }

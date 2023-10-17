@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cj15wryhvfsn6"]
+[gd_scene load_steps=10 format=3 uid="uid://cj15wryhvfsn6"]
 
 [ext_resource type="PackedScene" uid="uid://84hdbjvftsye" path="res://assets/obsidianblk/PA/tileset/walls/corner_01.glb" id="1_se72d"]
 [ext_resource type="PackedScene" uid="uid://0ov4jcbxxn87" path="res://assets/obsidianblk/PA/tileset/walls/doorway.glb" id="2_oeank"]
@@ -7,19 +7,33 @@
 [ext_resource type="PackedScene" uid="uid://c1sntg3rgci5e" path="res://assets/obsidianblk/PA/tileset/walls/window.glb" id="5_abfbq"]
 [ext_resource type="PackedScene" uid="uid://bvsc0wwdrpvmx" path="res://assets/obsidianblk/PA/tileset/walls/window_lcap.glb" id="6_5h8si"]
 [ext_resource type="PackedScene" uid="uid://cafksvlpq6fln" path="res://assets/obsidianblk/PA/tileset/walls/window_rcap.glb" id="7_ujk1e"]
+[ext_resource type="PackedScene" uid="uid://bnhiybjlcg2d8" path="res://assets/obsidianblk/PA/tileset/walls/corner_02.glb" id="8_2bshi"]
+[ext_resource type="PackedScene" uid="uid://cw2ax8uwbga71" path="res://assets/obsidianblk/PA/tileset/walls/twall_01.glb" id="9_yo50f"]
 
 [node name="PA_Walls" type="Node3D"]
 
 [node name="corner_01" parent="." instance=ExtResource("1_se72d")]
+visible = false
 
 [node name="doorway" parent="." instance=ExtResource("2_oeank")]
+visible = false
 
 [node name="wall_01" parent="." instance=ExtResource("3_ccoma")]
+visible = false
 
 [node name="wall_02" parent="." instance=ExtResource("4_cankw")]
+visible = false
 
 [node name="window" parent="." instance=ExtResource("5_abfbq")]
+visible = false
 
 [node name="window_lcap" parent="." instance=ExtResource("6_5h8si")]
 
 [node name="window_rcap" parent="." instance=ExtResource("7_ujk1e")]
+visible = false
+
+[node name="corner_02" parent="." instance=ExtResource("8_2bshi")]
+visible = false
+
+[node name="twall_01" parent="." instance=ExtResource("9_yo50f")]
+visible = false

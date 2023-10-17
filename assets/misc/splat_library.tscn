@@ -1,0 +1,25 @@
+[gd_scene load_steps=7 format=3 uid="uid://darffg44waike"]
+
+[ext_resource type="PackedScene" uid="uid://b31rk3ahywtom" path="res://assets/obsidianblk/PA/tileset/floors/floor_01.glb" id="1_nnsfb"]
+[ext_resource type="Shader" path="res://shaders/splat.gdshader" id="2_w5x8o"]
+[ext_resource type="Texture2D" uid="uid://1xio1sgh8xb7" path="res://assets/obsidianblk/PA/textures/PA_Albedo.png" id="3_6kdpv"]
+[ext_resource type="Texture2D" uid="uid://codg27jqplmx3" path="res://assets/obsidianblk/PA/textures/PA_Normals.png" id="4_8hny5"]
+[ext_resource type="Texture2D" uid="uid://c0i7xfudvtstt" path="res://assets/splat/DirtFloor_001.png" id="5_7ym55"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_v3k0v"]
+render_priority = 0
+shader = ExtResource("2_w5x8o")
+shader_parameter/ground_area = Vector2(0, 0)
+shader_parameter/ground_offset = Vector2(0, 0)
+shader_parameter/base_texture = ExtResource("3_6kdpv")
+shader_parameter/normal_texture = ExtResource("4_8hny5")
+shader_parameter/overlay_texture = ExtResource("5_7ym55")
+
+[node name="Splat_Library" type="Node3D"]
+
+[node name="floor_01" parent="." instance=ExtResource("1_nnsfb")]
+
+[node name="Floor_01" parent="floor_01" index="0"]
+surface_material_override/0 = SubResource("ShaderMaterial_v3k0v")
+
+[editable path="floor_01"]

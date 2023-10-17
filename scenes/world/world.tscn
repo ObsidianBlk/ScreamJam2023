@@ -1,31 +1,138 @@
-[gd_scene load_steps=4 format=3 uid="uid://db8w46fysc7cw"]
+[gd_scene load_steps=18 format=3 uid="uid://db8w46fysc7cw"]
 
 [ext_resource type="MeshLibrary" uid="uid://blmh7t6epmapp" path="res://assets/obsidianblk/PA/PA_Walls.meshlib" id="1_wmvv7"]
-[ext_resource type="MeshLibrary" uid="uid://cf8y0ntbexr72" path="res://assets/obsidianblk/PA/PA_Floors.meshlib" id="2_8iqg3"]
+[ext_resource type="Script" path="res://scripts/splat/SplatCanvas.gd" id="2_emooc"]
+[ext_resource type="Shader" path="res://objects/obsidianblk/PA/cooler/frosted_glass.gdshader" id="3_6k3ne"]
+[ext_resource type="Script" path="res://scripts/splat/SplatBrush.gd" id="3_36v5w"]
 [ext_resource type="PackedScene" uid="uid://8mvywc0khqvv" path="res://objects/fpsc/fpsc.tscn" id="3_otw1f"]
+[ext_resource type="PackedScene" uid="uid://cvwph5rg4n3fy" path="res://objects/obsidianblk/PA/cooler/cooler.tscn" id="4_awcom"]
+[ext_resource type="Texture2D" uid="uid://biwffi5fdrujk" path="res://assets/splat/brushes/brush_001.png" id="4_rgvvy"]
+[ext_resource type="MeshLibrary" uid="uid://gllyskye2x8a" path="res://assets/misc/splat_library.meshlib" id="5_v23ne"]
+[ext_resource type="Script" path="res://scripts/splat/SplatGrid.gd" id="6_xaocl"]
+[ext_resource type="MeshLibrary" uid="uid://dngcwibgip7qk" path="res://assets/obsidianblk/PA/PA_FloorCeiling.meshlib" id="8_1x5rx"]
+[ext_resource type="PackedScene" uid="uid://defgr7i0mukls" path="res://objects/obsidianblk/PA/ceiling_light/ceiling_light.tscn" id="9_jbcrb"]
+[ext_resource type="Environment" uid="uid://313mxsafop62" path="res://scenes/world/market_env.tres" id="10_ndv23"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_6jk4a"]
+noise_type = 2
+frequency = 0.03
+fractal_type = 3
+fractal_octaves = 2
+cellular_distance_function = 2
+cellular_return_type = 6
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_vj0i0"]
+noise = SubResource("FastNoiseLite_6jk4a")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_54coa"]
+render_priority = 0
+shader = ExtResource("3_6k3ne")
+shader_parameter/distortion_size = 0.4
+shader_parameter/tint = Color(0.909804, 1, 0.329412, 1)
+shader_parameter/glass = SubResource("NoiseTexture2D_vj0i0")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ul0cf"]
+material = SubResource("ShaderMaterial_54coa")
+size = Vector2(7.73, 2.04)
+orientation = 0
+
+[sub_resource type="Resource" id="Resource_xl2f8"]
+script = ExtResource("3_36v5w")
+name = &"Mop"
+texture = ExtResource("4_rgvvy")
+texture_rotation = 0.0
+texture_scale = Vector2(1, 1)
+modulate = Color(0, 0, 0, 1)
 
 [node name="World" type="Node3D"]
 
-[node name="Walls" type="GridMap" parent="."]
+[node name="Floor1" type="Node3D" parent="."]
+
+[node name="Cooler" parent="Floor1" instance=ExtResource("4_awcom")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.9353, 0, 6.93587)
+
+[node name="Cooler2" parent="Floor1" instance=ExtResource("4_awcom")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.8827, 0, 6.93587)
+
+[node name="Cooler3" parent="Floor1" instance=ExtResource("4_awcom")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.8117, 0, 6.93587)
+
+[node name="Cooler4" parent="Floor1" instance=ExtResource("4_awcom")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.9623, 0, 6.93587)
+
+[node name="Cooler5" parent="Floor1" instance=ExtResource("4_awcom")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.9097, 0, 6.93587)
+
+[node name="Walls" type="GridMap" parent="Floor1"]
 mesh_library = ExtResource("1_wmvv7")
 cell_size = Vector3(1, 4, 1)
 cell_center_x = false
 cell_center_y = false
 cell_center_z = false
 data = {
-"cells": PackedInt32Array(1, 3, 0, 7, 65535, 0, 65527, 65527, 655360, 1, 65527, 1048576, 1, 65531, 1441792, 1, 65535, 655360, 7, 65531, 1048576, 65527, 65530, 1048578, 65527, 3, 1441792, 65527, 65534, 1441793, 65527, 65532, 1441796, 65527, 0, 1441796, 65534, 3, 655365, 65532, 3, 655366, 65532, 65527, 655366, 65534, 65527, 655365, 65530, 65527, 655362, 65530, 3, 655362, 4, 65535, 655362, 4, 65531, 655362)
+"cells": PackedInt32Array(0, 0, 1048576, 65533, 0, 2, 65530, 3, 1048578, 0, 3, 1048578, 65530, 0, 655368, 65527, 0, 655362, 65524, 0, 655360, 65524, 3, 1048578, 65524, 6, 8, 65530, 6, 8, 0, 6, 1048584, 65533, 6, 1, 65527, 6, 1, 0, 9, 1441793, 0, 12, 0, 65530, 12, 655368, 65524, 12, 655360, 65527, 12, 655362, 65533, 12, 655362, 65525, 14, 655362, 65527, 14, 655362, 65529, 14, 655362, 65524, 15, 1048577, 65524, 17, 1048578, 65524, 20, 0, 65525, 16, 2, 65527, 16, 2, 65529, 16, 2, 65521, 6, 2, 65515, 6, 2, 65513, 6, 2, 65510, 6, 1441792, 65510, 3, 1441793, 65510, 1, 1441794, 65510, 65534, 655368, 65513, 65534, 655362, 65515, 65534, 655362, 65518, 65534, 1048576, 65518, 1, 1048578, 65518, 3, 1048578, 65518, 6, 8, 65507, 65534, 2, 65505, 65534, 2, 65502, 65534, 655360, 65502, 1, 1441797, 65502, 3, 1441798, 65502, 5, 1441797, 65502, 7, 1441798, 65502, 9, 1441793, 65502, 11, 1441797, 65502, 13, 1441798, 65502, 15, 1441797, 65502, 17, 1441798, 65502, 20, 1441792, 65521, 20, 655362, 65519, 20, 655362, 65517, 20, 655362, 65515, 20, 655362, 65513, 20, 655362, 65511, 20, 655362, 65509, 20, 655362, 65507, 20, 655362, 65505, 20, 655362)
 }
 
-[node name="BasicFloor" type="GridMap" parent="."]
-mesh_library = ExtResource("2_8iqg3")
+[node name="MI_Glass_01" type="MeshInstance3D" parent="Floor1/Walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.974, 1.95908, 4.00419)
+mesh = SubResource("PlaneMesh_ul0cf")
+
+[node name="MI_Glass_02" type="MeshInstance3D" parent="Floor1/Walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.974, 1.95908, 14.1181)
+mesh = SubResource("PlaneMesh_ul0cf")
+
+[node name="SplatCanvas" type="SubViewport" parent="Floor1"]
+transparent_bg = true
+size = Vector2i(128, 128)
+script = ExtResource("2_emooc")
+clear_color = Color(1, 1, 1, 1)
+brushes = Array[ExtResource("3_36v5w")]([SubResource("Resource_xl2f8")])
+
+[node name="DirtyFloor" type="GridMap" parent="Floor1" node_paths=PackedStringArray("splat_view")]
+mesh_library = ExtResource("5_v23ne")
 cell_size = Vector3(2, 1, 2)
-cell_center_x = false
 cell_center_y = false
-cell_center_z = false
 data = {
-"cells": PackedInt32Array(0, 0, 0, 0, 65535, 0, 0, 65534, 0, 0, 65533, 0, 0, 65532, 0, 65535, 65532, 0, 65534, 65532, 0, 65533, 65532, 0, 65533, 65533, 0, 65532, 65533, 0, 65532, 65534, 0, 65533, 65534, 0, 65533, 65535, 0, 65533, 0, 0, 65534, 0, 0, 65535, 0, 0, 65535, 65535, 0, 65535, 65534, 0, 65535, 65533, 0, 65534, 65533, 0, 65534, 65534, 0, 65534, 65535, 0, 65532, 65532, 0, 65532, 65535, 0, 65532, 0, 0, 65532, 1, 0, 65533, 1, 0, 65534, 1, 0, 65535, 1, 0, 0, 1, 0, 1, 65535, 0, 1, 65534, 0, 2, 65534, 0, 2, 65535, 0, 3, 65535, 0, 3, 65534, 0)
+"cells": PackedInt32Array(65519, 9, 655360, 65519, 8, 655360, 65519, 7, 655360, 65519, 6, 655360, 65519, 5, 655360, 65519, 4, 655360, 65519, 3, 655360, 65519, 2, 655360, 65519, 1, 655360, 65519, 0, 655360, 65519, 65535, 655360, 65520, 65535, 655360, 65521, 65535, 655360, 65522, 65535, 655360, 65522, 0, 655360, 65521, 0, 655360, 65520, 0, 655360, 65520, 1, 655360, 65520, 2, 655360, 65520, 3, 655360, 65520, 4, 655360, 65520, 5, 655360, 65520, 6, 655360, 65520, 7, 655360, 65520, 8, 655360, 65520, 9, 655360, 65521, 9, 655360, 65521, 8, 655360, 65521, 7, 655360, 65521, 6, 655360, 65521, 5, 655360, 65521, 4, 655360, 65521, 3, 655360, 65521, 2, 655360, 65521, 1, 655360, 65522, 1, 655360, 65522, 2, 655360, 65522, 3, 655360, 65522, 4, 655360, 65522, 5, 655360, 65522, 6, 655360, 65522, 7, 655360, 65522, 8, 655360, 65522, 9, 655360, 65523, 9, 655360, 65523, 8, 655360, 65523, 7, 655360, 65523, 6, 655360, 65523, 5, 655360, 65523, 4, 655360, 65523, 3, 655360, 65523, 2, 655360, 65523, 1, 655360, 65523, 0, 655360, 65523, 65535, 655360, 65524, 65535, 655360, 65524, 0, 655360, 65524, 1, 655360, 65524, 2, 655360, 65524, 3, 655360, 65524, 4, 655360, 65524, 5, 655360, 65524, 6, 655360, 65524, 7, 655360, 65524, 8, 655360, 65524, 9, 655360, 65525, 9, 655360, 65525, 8, 655360, 65525, 7, 655360, 65525, 6, 655360, 65525, 5, 655360, 65525, 4, 655360, 65525, 3, 655360, 65525, 2, 655360, 65525, 1, 655360, 65525, 0, 655360, 65525, 65535, 655360, 65526, 65535, 655360, 65526, 0, 655360, 65526, 1, 655360, 65526, 2, 655360, 65526, 3, 655360, 65526, 4, 655360, 65526, 5, 655360, 65526, 6, 655360, 65526, 7, 655360, 65526, 8, 655360, 65526, 9, 655360, 65527, 9, 655360, 65527, 8, 655360, 65527, 7, 655360, 65527, 6, 655360, 65527, 5, 655360, 65527, 4, 655360, 65528, 4, 655360, 65528, 5, 655360, 65528, 6, 655360, 65528, 7, 655360, 65528, 8, 655360, 65528, 9, 655360, 65529, 9, 655360, 65529, 8, 655360, 65529, 7, 655360, 65529, 6, 655360, 65529, 5, 655360, 65529, 4, 655360, 65527, 3, 655360, 65528, 3, 655360, 65529, 3, 655360, 65530, 3, 655360, 65531, 3, 655360, 65532, 3, 655360, 65532, 4, 655360, 65533, 3, 655360, 65534, 3, 655360, 65535, 3, 655360, 65535, 4, 655360, 65535, 5, 655360, 65534, 5, 655360, 65533, 5, 655360, 65533, 4, 655360, 65532, 5, 655360, 65531, 5, 655360, 65530, 5, 655360, 65530, 4, 655360, 65531, 4, 655360, 65534, 4, 655360, 65535, 2, 655360, 65534, 2, 655360, 65533, 2, 655360, 65532, 2, 655360, 65531, 2, 655360, 65530, 2, 655360, 65530, 1, 655360, 65531, 1, 655360, 65532, 1, 655360, 65533, 1, 655360, 65534, 1, 655360, 65535, 1, 655360, 65535, 0, 655360, 65534, 0, 655360, 65533, 0, 655360, 65532, 0, 655360, 65531, 0, 655360, 65530, 0, 655360)
 }
+script = ExtResource("6_xaocl")
+tile_name = "Floor_01"
+splat_view = NodePath("../SplatCanvas")
+
+[node name="Ceiling" type="GridMap" parent="Floor1"]
+mesh_library = ExtResource("8_1x5rx")
+cell_size = Vector3(2, 1, 2)
+cell_center_y = false
+data = {
+"cells": PackedInt32Array(262130, 65535, 1048581, 262129, 65535, 1048579, 262128, 65535, 1048579, 262127, 65535, 1048579, 262127, 0, 1048579, 262128, 0, 1048579, 262129, 0, 1048579, 262130, 0, 1048579, 262127, 1, 1048579, 262127, 2, 1048579, 262127, 3, 1048579, 262127, 4, 1048579, 262127, 5, 1048579, 262127, 6, 1048579, 262127, 7, 1048579, 262127, 8, 1048579, 262127, 9, 1048579, 262128, 1, 1048582, 262128, 2, 1048579, 262128, 3, 1048579, 262128, 4, 1048579, 262128, 5, 1048579, 262128, 6, 1048579, 262128, 7, 1048579, 262128, 8, 1048582, 262128, 9, 1048579, 262129, 1, 1048579, 262129, 2, 1048579, 262129, 3, 1048579, 262129, 4, 1048581, 262129, 5, 1048579, 262129, 6, 1048579, 262129, 7, 1048579, 262129, 8, 1048579, 262129, 9, 1048579, 262130, 1, 1048579, 262130, 2, 1048579, 262130, 3, 1048579, 262130, 4, 1048579, 262130, 5, 1048580, 262130, 6, 1048579, 262130, 7, 1048579, 262130, 8, 1048579, 262130, 9, 1048579, 262131, 3, 1048579, 262131, 4, 1048579, 262131, 5, 1048579, 262131, 6, 1048579, 262131, 7, 1048581, 262131, 8, 1048579, 262131, 9, 1048579, 262132, 3, 1048579, 262132, 4, 1048579, 262132, 5, 1048582, 262132, 6, 1048579, 262132, 7, 1048579, 262132, 8, 1048579, 262132, 9, 1048579, 262133, 3, 1048579, 262133, 4, 1048579, 262133, 5, 1048579, 262133, 6, 1048580, 262133, 7, 1048579, 262133, 8, 1048580, 262133, 9, 1048579, 262134, 3, 1048579, 262134, 4, 1048579, 262134, 5, 1048579, 262134, 6, 1048579, 262134, 7, 1048579, 262134, 8, 1048579, 262134, 9, 1048579, 262135, 3, 1048579, 262135, 4, 1048579, 262135, 5, 1048581, 262135, 6, 1048579, 262135, 7, 1048579, 262135, 8, 1048582, 262135, 9, 1048579, 262136, 3, 1048579, 262136, 4, 1048579, 262136, 5, 1048579, 262136, 6, 1048580, 262136, 7, 1048579, 262136, 8, 1048579, 262136, 9, 1048579, 262137, 3, 1048579, 262137, 4, 1048579, 262137, 5, 1048579, 262137, 6, 1048579, 262137, 7, 1048579, 262137, 8, 1048579, 262137, 9, 1048579, 262138, 3, 1048579, 262139, 3, 1048579, 262140, 3, 1048579, 262141, 3, 1048579, 262142, 3, 1048579, 262143, 3, 1048579, 262143, 4, 1048579, 262143, 5, 1048579, 262142, 5, 1048579, 262141, 5, 1048579, 262140, 5, 1048579, 262139, 5, 1048579, 262138, 5, 1048579, 262138, 4, 1048581, 262139, 4, 1048579, 262140, 4, 1048579, 262141, 4, 1048579, 262142, 4, 1048579)
+}
+metadata/_editor_floor_ = Vector3(0, 3, 0)
+
+[node name="CeilingLights" type="Node3D" parent="Floor1"]
+
+[node name="CeilingLight" parent="Floor1/CeilingLights" instance=ExtResource("9_jbcrb")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -29.0085, 2.91762, 0.522522)
+
+[node name="CeilingLight2" parent="Floor1/CeilingLights" instance=ExtResource("9_jbcrb")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -29.0085, 2.91762, 8.50572)
+
+[node name="CeilingLight3" parent="Floor1/CeilingLights" instance=ExtResource("9_jbcrb")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -29.0085, 2.91762, 16.4964)
+
+[node name="CeilingLight4" parent="Floor1/CeilingLights" instance=ExtResource("9_jbcrb")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -20.9891, 2.91762, 8.50572)
+
+[node name="CeilingLight5" parent="Floor1/CeilingLights" instance=ExtResource("9_jbcrb")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -20.9891, 2.91762, 16.4964)
+
+[node name="CeilingLight6" parent="Floor1/CeilingLights" instance=ExtResource("9_jbcrb")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -12.9904, 2.91762, 8.50572)
+
+[node name="CeilingLight7" parent="Floor1/CeilingLights" instance=ExtResource("9_jbcrb")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.82451, 2.91762, 8.50572)
 
 [node name="FPSC" parent="." instance=ExtResource("3_otw1f")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.68963, 0, -2.59249)
-speed = 3.0
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32.0664, 0, 9.08477)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("10_ndv23")
