@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://bknsc2w3s1k1h"]
+
+[ext_resource type="PackedScene" uid="uid://b31rk3ahywtom" path="res://assets/obsidianblk/PA/tileset/floors/floor_01.glb" id="1_k18vb"]
+[ext_resource type="PackedScene" uid="uid://cpxf1mjn6skpa" path="res://assets/obsidianblk/PA/tileset/floors/floor_02.glb" id="2_xadis"]
+[ext_resource type="PackedScene" uid="uid://c2yb1ghtm3l2f" path="res://assets/obsidianblk/PA/tileset/floors/stairs.glb" id="3_qac20"]
+
+[node name="PA_Floors" type="Node3D"]
+
+[node name="floor_01" parent="." instance=ExtResource("1_k18vb")]
+
+[node name="floor_02" parent="." instance=ExtResource("2_xadis")]
+
+[node name="stairs" parent="." instance=ExtResource("3_qac20")]

@@ -1,0 +1,44 @@
+[remap]
+
+importer="scene"
+importer_version=1
+type="PackedScene"
+uid="uid://bvsc0wwdrpvmx"
+path="res://.godot/imported/window_lcap.glb-2f16e766e99259c98c8a012b9636ed21.scn"
+
+[deps]
+
+source_file="res://assets/obsidianblk/PA/tileset/walls/window_lcap.glb"
+dest_files=["res://.godot/imported/window_lcap.glb-2f16e766e99259c98c8a012b9636ed21.scn"]
+
+[params]
+
+nodes/root_type="Node3D"
+nodes/root_name="Scene Root"
+nodes/apply_root_scale=true
+nodes/root_scale=1.0
+meshes/ensure_tangents=true
+meshes/generate_lods=true
+meshes/create_shadow_meshes=true
+meshes/light_baking=1
+meshes/lightmap_texel_size=0.2
+skins/use_named_skins=true
+animation/import=true
+animation/fps=30
+animation/trimming=false
+animation/remove_immutable_tracks=true
+import_script/path=""
+_subresources={
+"materials": {
+"PA_Material": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/obsidianblk/PA/materials/PA_Material.tres"
+}
+},
+"nodes": {
+"PATH:Window_LCap": {
+"generate/physics": true
+}
+}
+}
+gltf/embedded_image_handling=0
