@@ -52,9 +52,9 @@ func _unhandled_input(event: InputEvent) -> void:
 #			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 		return
 	
-	if event.is_action_pressed("ui_cancel"):
-		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-	elif event is InputEventMouseMotion:
+#	if event.is_action_pressed("ui_cancel"):
+#		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	if event is InputEventMouseMotion:
 		_UpdateCamera(event.relative * _mouse_sensitivity)
 	elif event.is_action("look_down") or event.is_action("look_up") or event.is_action("turn_left") or event.is_action("turn_right"):
 		var rel : Vector2 = Input.get_vector("turn_left", "turn_right", "look_up", "look_down")

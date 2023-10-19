@@ -1,5 +1,6 @@
-[gd_scene load_steps=19 format=3 uid="uid://cmk7e78enjrj7"]
+[gd_scene load_steps=20 format=3 uid="uid://cmk7e78enjrj7"]
 
+[ext_resource type="Script" path="res://scripts/nodes/level3d.gd" id="1_jtixp"]
 [ext_resource type="PackedScene" uid="uid://cvwph5rg4n3fy" path="res://objects/obsidianblk/PA/cooler/cooler.tscn" id="1_ttthf"]
 [ext_resource type="MeshLibrary" uid="uid://blmh7t6epmapp" path="res://assets/obsidianblk/PA/PA_Walls.meshlib" id="2_j6fm3"]
 [ext_resource type="Shader" path="res://objects/obsidianblk/PA/cooler/frosted_glass.gdshader" id="3_o14a0"]
@@ -46,6 +47,8 @@ texture_scale = Vector2(1, 1)
 modulate = Color(0, 0, 0, 1)
 
 [node name="Market" type="Node3D"]
+script = ExtResource("1_jtixp")
+pause_action_name = &"ui_cancel"
 
 [node name="Floor1" type="Node3D" parent="."]
 

@@ -1,37 +1,30 @@
 extends Node3D
+class_name Level3D
 
 # ------------------------------------------------------------------------------
-# Onready Variables
+# Signals
 # ------------------------------------------------------------------------------
-@onready var _ui = $UIRoot
+signal requested(action : StringName, payload : Dictionary)
+
+
+# ------------------------------------------------------------------------------
+# Exports
+# ------------------------------------------------------------------------------
+@export_category("Level 3D")
+@export var pause_action_name : StringName = &""
 
 # ------------------------------------------------------------------------------
 # Override Methods
 # ------------------------------------------------------------------------------
-func _ready() -> void:
-	get_tree().paused = true
-
-# ------------------------------------------------------------------------------
-# Private Methods
-# ------------------------------------------------------------------------------
+func _unhandled_input(event : InputEvent) -> void:
+	if pause_action_name == &"": return
+	if event.is_action_pressed(pause_action_name, false, true):
+		requested.emit(&"pause_game", {})
+		get_viewport().set_input_as_handled()
 
 # ------------------------------------------------------------------------------
 # Public Methods
 # ------------------------------------------------------------------------------
-func request(action : StringName, payload : Dictionary = {}) -> void:
-	match action:
-		&"start_game":
-			if get_tree().paused:
-				_ui.close_all()
-				get_tree().paused = false
-				Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-		&"pause_game":
-			if not get_tree().paused:
-				get_tree().paused = true
-				Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-				_ui.show_ui(&"MainMenu")
-		&"quit_game":
-			pass
-		&"quit_application":
-			get_tree().quit()
+func request(action : StringName, payload : Dictionary) -> void:
+	requested.emit(action, payload)
 
