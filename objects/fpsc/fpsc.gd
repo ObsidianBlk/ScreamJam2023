@@ -43,12 +43,13 @@ var _mopping : bool = false
 # Override Methods
 # ------------------------------------------------------------------------------
 func _ready() -> void:
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	pass
+	#Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _unhandled_input(event: InputEvent) -> void:
 	if Input.mouse_mode != Input.MOUSE_MODE_CAPTURED:
-		if event.is_action_pressed("ui_cancel"):
-			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+#		if event.is_action_pressed("ui_cancel"):
+#			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 		return
 	
 	if event.is_action_pressed("ui_cancel"):
