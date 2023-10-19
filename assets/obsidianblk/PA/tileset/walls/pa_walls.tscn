@@ -13,27 +13,19 @@
 [node name="PA_Walls" type="Node3D"]
 
 [node name="corner_01" parent="." instance=ExtResource("1_se72d")]
-visible = false
 
 [node name="doorway" parent="." instance=ExtResource("2_oeank")]
-visible = false
 
 [node name="wall_01" parent="." instance=ExtResource("3_ccoma")]
-visible = false
 
 [node name="wall_02" parent="." instance=ExtResource("4_cankw")]
-visible = false
 
 [node name="window" parent="." instance=ExtResource("5_abfbq")]
-visible = false
 
 [node name="window_lcap" parent="." instance=ExtResource("6_5h8si")]
 
 [node name="window_rcap" parent="." instance=ExtResource("7_ujk1e")]
-visible = false
 
 [node name="corner_02" parent="." instance=ExtResource("8_2bshi")]
-visible = false
 
 [node name="twall_01" parent="." instance=ExtResource("9_yo50f")]
-visible = false

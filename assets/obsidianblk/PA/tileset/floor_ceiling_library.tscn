@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://chipyloxtbps0"]
+[gd_scene load_steps=9 format=3 uid="uid://chipyloxtbps0"]
 
 [ext_resource type="PackedScene" uid="uid://b31rk3ahywtom" path="res://assets/obsidianblk/PA/tileset/floors/floor_01.glb" id="1_2rbyl"]
 [ext_resource type="PackedScene" uid="uid://cpxf1mjn6skpa" path="res://assets/obsidianblk/PA/tileset/floors/floor_02.glb" id="2_ywfc4"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://b7uvl87661yx1" path="res://assets/obsidianblk/PA/tileset/ceilings/drop_ceiling_frame.glb" id="5_55l3p"]
 [ext_resource type="PackedScene" uid="uid://dkv1sbm2wnp16" path="res://assets/obsidianblk/PA/tileset/ceilings/drop_ceiling_frame_missing.glb" id="6_4u2wx"]
 [ext_resource type="PackedScene" uid="uid://euy764vv2sdq" path="res://assets/obsidianblk/PA/tileset/ceilings/drop_ceiling_popped.glb" id="7_hyj71"]
+[ext_resource type="PackedScene" uid="uid://b1xtu8557rxyg" path="res://assets/obsidianblk/PA/tileset/ceilings/ceiling_01.glb" id="8_4c4lm"]
 
 [node name="FloorCeiling_Library" type="Node3D"]
 
@@ -23,3 +24,5 @@
 [node name="drop_ceiling_frame_missing" parent="." instance=ExtResource("6_4u2wx")]
 
 [node name="drop_ceiling_popped" parent="." instance=ExtResource("7_hyj71")]
+
+[node name="ceiling_01" parent="." instance=ExtResource("8_4c4lm")]

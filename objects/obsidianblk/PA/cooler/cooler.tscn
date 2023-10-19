@@ -20,8 +20,8 @@ noise = SubResource("FastNoiseLite_cr7vq")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0f6dc"]
 render_priority = 0
 shader = ExtResource("3_reh0g")
-shader_parameter/distortion_size = 0.015
-shader_parameter/tint = Color(1, 1, 1, 1)
+shader_parameter/distortion_size = 0.005
+shader_parameter/tint = Color(0.85098, 0.988235, 1, 1)
 shader_parameter/glass = SubResource("NoiseTexture2D_1ugde")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_ni2kt"]

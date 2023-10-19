@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://bm2mi3b71xlrw"]
+
+[ext_resource type="PackedScene" uid="uid://yo5220n7bube" path="res://assets/obsidianblk/PA/objects/mop.glb" id="1_6vrme"]
+[ext_resource type="Script" path="res://objects/mop_bucket/mop_bucket.gd" id="1_tq50t"]
+[ext_resource type="Script" path="res://scripts/nodes/interactable.gd" id="3_bqwqp"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5o7ho"]
+size = Vector3(0.365, 1.495, 0.05)
+
+[node name="MopBucket" type="Node3D"]
+script = ExtResource("1_tq50t")
+
+[node name="mop" parent="." instance=ExtResource("1_6vrme")]
+
+[node name="Interactable" type="Area3D" parent="."]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("3_bqwqp")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactable"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.76, 0)
+shape = SubResource("BoxShape3D_5o7ho")
