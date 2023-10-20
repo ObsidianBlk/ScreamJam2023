@@ -1,6 +1,10 @@
 extends Node3D
 
-signal interacted()
 
-func interact() -> void:
-	pass
+func _PickedUp() -> void:
+	Relay.relay(&"mop_pickup")
+	queue_free()
+
+
+func _on_interactable_interacted(payload) -> void:
+	_PickedUp.call_deferred()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://cmk7e78enjrj7"]
+[gd_scene load_steps=21 format=3 uid="uid://cmk7e78enjrj7"]
 
 [ext_resource type="Script" path="res://scripts/nodes/level3d.gd" id="1_jtixp"]
 [ext_resource type="PackedScene" uid="uid://cvwph5rg4n3fy" path="res://objects/obsidianblk/PA/cooler/cooler.tscn" id="1_ttthf"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://defgr7i0mukls" path="res://objects/obsidianblk/PA/ceiling_light/ceiling_light.tscn" id="10_erxbx"]
 [ext_resource type="PackedScene" uid="uid://8mvywc0khqvv" path="res://objects/fpsc/fpsc.tscn" id="11_2ktqs"]
 [ext_resource type="Environment" uid="uid://313mxsafop62" path="res://scenes/world/market_env.tres" id="12_ye3mf"]
+[ext_resource type="PackedScene" uid="uid://8epqkd3sek7r" path="res://objects/shelves/shelves.tscn" id="12_yjc6y"]
 [ext_resource type="PackedScene" uid="uid://bm2mi3b71xlrw" path="res://objects/mop_bucket/mop_bucket.tscn" id="13_3vsb6"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_6jk4a"]
@@ -43,8 +44,8 @@ script = ExtResource("5_ncgvu")
 name = &"Mop"
 texture = ExtResource("6_up7n8")
 texture_rotation = 0.0
-texture_scale = Vector2(1, 1)
-modulate = Color(0, 0, 0, 1)
+texture_scale = Vector2(0.1, 0.1)
+modulate = Color(0, 0, 0, 0.0392157)
 
 [node name="Market" type="Node3D"]
 script = ExtResource("1_jtixp")
@@ -52,19 +53,21 @@ pause_action_name = &"ui_cancel"
 
 [node name="Floor1" type="Node3D" parent="."]
 
-[node name="Cooler" parent="Floor1" instance=ExtResource("1_ttthf")]
+[node name="Coolers" type="Node3D" parent="Floor1"]
+
+[node name="Cooler" parent="Floor1/Coolers" instance=ExtResource("1_ttthf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.9353, 0, 6.93587)
 
-[node name="Cooler2" parent="Floor1" instance=ExtResource("1_ttthf")]
+[node name="Cooler2" parent="Floor1/Coolers" instance=ExtResource("1_ttthf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.8827, 0, 6.93587)
 
-[node name="Cooler3" parent="Floor1" instance=ExtResource("1_ttthf")]
+[node name="Cooler3" parent="Floor1/Coolers" instance=ExtResource("1_ttthf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.8117, 0, 6.93587)
 
-[node name="Cooler4" parent="Floor1" instance=ExtResource("1_ttthf")]
+[node name="Cooler4" parent="Floor1/Coolers" instance=ExtResource("1_ttthf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.9623, 0, 6.93587)
 
-[node name="Cooler5" parent="Floor1" instance=ExtResource("1_ttthf")]
+[node name="Cooler5" parent="Floor1/Coolers" instance=ExtResource("1_ttthf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.9097, 0, 6.93587)
 
 [node name="Walls" type="GridMap" parent="Floor1"]
@@ -87,12 +90,12 @@ mesh = SubResource("PlaneMesh_ul0cf")
 
 [node name="SplatCanvas" type="SubViewport" parent="Floor1"]
 transparent_bg = true
-size = Vector2i(128, 128)
+size = Vector2i(512, 384)
 script = ExtResource("4_7vim5")
 clear_color = Color(1, 1, 1, 1)
 brushes = Array[ExtResource("5_ncgvu")]([SubResource("Resource_xl2f8")])
 
-[node name="DirtyFloor" type="GridMap" parent="Floor1"]
+[node name="DirtyFloor" type="GridMap" parent="Floor1" node_paths=PackedStringArray("splat_view")]
 mesh_library = ExtResource("7_b46pa")
 cell_size = Vector3(2, 1, 2)
 cell_center_y = false
@@ -101,8 +104,10 @@ data = {
 }
 script = ExtResource("8_6whn0")
 tile_name = "Floor_01"
+splat_view = NodePath("../SplatCanvas")
 
 [node name="Ceiling" type="GridMap" parent="Floor1"]
+visible = false
 mesh_library = ExtResource("9_3cktp")
 cell_size = Vector3(2, 1, 2)
 cell_center_y = false
@@ -133,6 +138,27 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -12.99
 
 [node name="CeilingLight7" parent="Floor1/CeilingLights" instance=ExtResource("10_erxbx")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.82451, 2.91762, 8.50572)
+
+[node name="Shelving" type="Node3D" parent="Floor1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 0)
+
+[node name="Shelves" parent="Floor1/Shelving" instance=ExtResource("12_yjc6y")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -24.5, 0, 12.5)
+
+[node name="Shelves2" parent="Floor1/Shelving" instance=ExtResource("12_yjc6y")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -20.5, 0, 12.5)
+
+[node name="Shelves3" parent="Floor1/Shelving" instance=ExtResource("12_yjc6y")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -16.5, 0, 12.5)
+
+[node name="Shelves4" parent="Floor1/Shelving" instance=ExtResource("12_yjc6y")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -24.5, 0, 15.7345)
+
+[node name="Shelves5" parent="Floor1/Shelving" instance=ExtResource("12_yjc6y")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -20.5, 0, 15.7345)
+
+[node name="Shelves6" parent="Floor1/Shelving" instance=ExtResource("12_yjc6y")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -16.5, 0, 15.7345)
 
 [node name="FPSC" parent="." instance=ExtResource("11_2ktqs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32.0664, 0, 9.08477)

@@ -2,6 +2,10 @@ extends CharacterBody3D
 
 
 # ------------------------------------------------------------------------------
+# Signals
+# ------------------------------------------------------------------------------
+
+# ------------------------------------------------------------------------------
 # Constants
 # ------------------------------------------------------------------------------
 const CAMERA_PITCH_ANGLE : float = deg_to_rad(70.0)
@@ -38,12 +42,13 @@ var _mopping : bool = false
 @onready var _camera: Camera3D = %Camera
 @onready var _atree: AnimationTree = %ATree
 @onready var _camera_ray: RayCast3D = %CameraRay
+@onready var _mop_ray: RayCast3D = %MopRay
 
 # ------------------------------------------------------------------------------
 # Override Methods
 # ------------------------------------------------------------------------------
 func _ready() -> void:
-	pass
+	Relay.relayed.connect(_on_relayed)
 	#Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -73,10 +78,15 @@ func _unhandled_input(event: InputEvent) -> void:
 						collision.interact()
 
 	elif event.is_action_pressed("interact"):
-		pass
+		if not _camera_ray.is_colliding(): return
+		var collision : Node3D = _camera_ray.get_collider()
+		if not collision is Interactable: return
+		if collision.hand_required and _hand != HAND.Empty: return
+		collision.interact()
 
 func _physics_process(delta: float) -> void:
 	_CheckInteractable()
+	_UpdateMopping(delta)
 	
 	velocity.y += -_gravity * delta
 	var move_dir : Vector3 = transform.basis * Vector3(_input.x, 0.0, _input.y)
@@ -104,3 +114,28 @@ func _CheckInteractable() -> void:
 			Relay.relay(&"message", {"show":true, "name": "InteractMessage"})
 	else:
 		Relay.relay(&"message", {"show": false})
+
+func _UpdateMopping(delta : float) -> void:
+	if _mopping:
+		var val : float = _atree.get("parameters/Activity/blend_amount")
+		if val < 1.0:
+			_atree.set("parameters/Activity/blend_amount", min(1.0, val + delta))
+		if _mop_ray.is_colliding():
+			Relay.relay(&"mopping", {
+				"collider": _mop_ray.get_collider(),
+				"point": _mop_ray.get_collision_point()
+			})
+	elif _atree.get("parameters/Actions/current_state") == ACTION_ACTIVITY:
+		var val : float = _atree.get("parameters/Activity/blend_amount")
+		if val > 0.0:
+			_atree.set("parameters/Activity/blend_amount", max(0.0, val - delta))
+
+# ------------------------------------------------------------------------------
+# Handler Methods
+# ------------------------------------------------------------------------------
+func _on_relayed(action : StringName, payload : Dictionary) -> void:
+	match action:
+		&"mop_pickup":
+			_hand = HAND.Mop
+			_atree.set("parameters/Actions/transition_request", ACTION_PICKUP)
+

@@ -6,70 +6,6 @@
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5s48r"]
 radius = 0.4
 
-[sub_resource type="Animation" id="Animation_v0gvm"]
-resource_name = "mop_idle"
-length = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Hand:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 1.025, -0.3)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Hand:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Hand/Mop:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Hand/Mop:rotation")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Hand/Mop:visible")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-
 [sub_resource type="Animation" id="Animation_p8qyu"]
 length = 0.001
 tracks/0/type = "value"
@@ -147,6 +83,70 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_v0gvm"]
+resource_name = "mop_idle"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hand:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 1.025, -0.3)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hand:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Hand/Mop:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Hand/Mop:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Hand/Mop:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_dlnav"]
@@ -335,21 +335,21 @@ node_connections = [&"output", 0, &"Blend2", &"Blend2", 0, &"Animation", &"Blend
 animation = &"mop_pickup"
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_x8a2h"]
-graph_offset = Vector2(-275.844, -145.026)
+graph_offset = Vector2(-206.375, -219.776)
 nodes/Actions/node = SubResource("AnimationNodeTransition_350bu")
 nodes/Actions/position = Vector2(740, -180)
 nodes/Activity/node = SubResource("AnimationNodeBlend2_60y22")
-nodes/Activity/position = Vector2(320, -120)
+nodes/Activity/position = Vector2(320, 20)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_a3fg7")
-nodes/Animation/position = Vector2(260, 120)
+nodes/Animation/position = Vector2(380, -280)
 nodes/Idle/node = SubResource("AnimationNodeAnimation_y02jj")
-nodes/Idle/position = Vector2(-40, -160)
+nodes/Idle/position = Vector2(-40, -20)
 nodes/Mopping/node = SubResource("AnimationNodeBlendTree_cqtjy")
-nodes/Mopping/position = Vector2(-40, -20)
+nodes/Mopping/position = Vector2(-40, 120)
 nodes/Pickup/node = SubResource("AnimationNodeAnimation_s8x30")
-nodes/Pickup/position = Vector2(160, -280)
+nodes/Pickup/position = Vector2(320, -120)
 nodes/output/position = Vector2(1020, -140)
-node_connections = [&"output", 0, &"Actions", &"Activity", 0, &"Idle", &"Activity", 1, &"Mopping", &"Actions", 0, &"Pickup", &"Actions", 1, &"Activity", &"Actions", 2, &"Animation"]
+node_connections = [&"output", 0, &"Actions", &"Actions", 0, &"Animation", &"Actions", 1, &"Pickup", &"Actions", 2, &"Activity", &"Activity", 0, &"Idle", &"Activity", 1, &"Mopping"]
 
 [node name="FPSC" type="CharacterBody3D"]
 script = ExtResource("1_8a3dd")
@@ -364,7 +364,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
 [node name="CameraRay" type="RayCast3D" parent="Camera"]
 unique_name_in_owner = true
-target_position = Vector3(0, 0, -5)
+target_position = Vector3(0, 0, -1)
 collision_mask = 2
 collide_with_areas = true
 collide_with_bodies = false
@@ -380,6 +380,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.025, -0.3)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.02493, 0)
 
 [node name="MopRay" type="RayCast3D" parent="Hand/Mop"]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.025, 0)
 
 [node name="AP" type="AnimationPlayer" parent="."]
@@ -392,9 +393,9 @@ unique_name_in_owner = true
 tree_root = SubResource("AnimationNodeBlendTree_x8a2h")
 anim_player = NodePath("../AP")
 active = true
-parameters/Actions/current_state = "Activity"
+parameters/Actions/current_state = "Hide"
 parameters/Actions/transition_request = ""
-parameters/Actions/current_index = 2
+parameters/Actions/current_index = 0
 parameters/Activity/blend_amount = 0.0
 parameters/Mopping/Blend2/blend_amount = 0.5
 

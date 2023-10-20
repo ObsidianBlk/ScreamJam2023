@@ -1,0 +1,68 @@
+[gd_scene load_steps=6 format=3 uid="uid://8epqkd3sek7r"]
+
+[ext_resource type="PackedScene" uid="uid://0lx3vrnj67xf" path="res://assets/obsidianblk/PA/objects/shelf_mid.glb" id="1_xtlc8"]
+[ext_resource type="PackedScene" uid="uid://cotsrj64byko3" path="res://assets/obsidianblk/PA/objects/shelf_end.glb" id="2_7okqc"]
+[ext_resource type="Script" path="res://scripts/nodes/interactable.gd" id="3_ogm26"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2ve7b"]
+size = Vector3(3, 0.5, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4u15i"]
+size = Vector3(3, 0.04, 0.9)
+
+[node name="Shelves" type="StaticBody3D"]
+
+[node name="shelf_mid2" parent="." instance=ExtResource("1_xtlc8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 0)
+
+[node name="shelf_mid" parent="." instance=ExtResource("1_xtlc8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0)
+
+[node name="shelf_end" parent="." instance=ExtResource("2_7okqc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+shape = SubResource("BoxShape3D_2ve7b")
+
+[node name="Interactable_shelf1" type="Area3D" parent="."]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("3_ogm26")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactable_shelf1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.498566, 0)
+shape = SubResource("BoxShape3D_4u15i")
+
+[node name="Interactable_shelf2" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.389746, 0)
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("3_ogm26")
+hand_required = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactable_shelf2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.498566, 0)
+shape = SubResource("BoxShape3D_4u15i")
+
+[node name="Interactable_shelf3" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.787869, 0)
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("3_ogm26")
+hand_required = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactable_shelf3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.498566, 0)
+shape = SubResource("BoxShape3D_4u15i")
+
+[node name="Interactable_shelf4" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.19469, 0)
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("3_ogm26")
+hand_required = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactable_shelf4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.498566, 0)
+shape = SubResource("BoxShape3D_4u15i")

@@ -16,7 +16,10 @@ script = ExtResource("1_tq50t")
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("3_bqwqp")
+hand_required = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Interactable"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.76, 0)
 shape = SubResource("BoxShape3D_5o7ho")
+
+[connection signal="interacted" from="Interactable" to="." method="_on_interactable_interacted"]
