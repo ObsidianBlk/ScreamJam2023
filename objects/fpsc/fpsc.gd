@@ -8,6 +8,9 @@ extends CharacterBody3D
 # ------------------------------------------------------------------------------
 # Constants
 # ------------------------------------------------------------------------------
+const SETTINGS_SECTION : String = "Graphics"
+const SETTINGS_KEY_FOV : String = "fov"
+
 const CAMERA_PITCH_ANGLE : float = deg_to_rad(70.0)
 
 const ACTION_HIDE : String = "Hide"
@@ -49,7 +52,9 @@ var _mopping : bool = false
 # ------------------------------------------------------------------------------
 func _ready() -> void:
 	Relay.relayed.connect(_on_relayed)
-	#Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	Settings.loaded.connect(_UpdateFromSettings)
+	Settings.value_changed.connect(_on_settings_value_changed)
+	_UpdateFromSettings()
 
 func _unhandled_input(event: InputEvent) -> void:
 	if Input.mouse_mode != Input.MOUSE_MODE_CAPTURED:
@@ -101,6 +106,11 @@ func _physics_process(delta: float) -> void:
 # ------------------------------------------------------------------------------
 # Private Methods
 # ------------------------------------------------------------------------------
+func _UpdateFromSettings() -> void:
+	var fov : float = Settings.get_value(SETTINGS_SECTION, SETTINGS_KEY_FOV, 0.0)
+	if fov >= 1.0:
+		_camera.fov = fov
+
 func _UpdateCamera(relative : Vector2) -> void:
 	if _camera == null: return
 	rotate_y(-relative.x)
@@ -135,7 +145,14 @@ func _UpdateMopping(delta : float) -> void:
 # ------------------------------------------------------------------------------
 func _on_relayed(action : StringName, payload : Dictionary) -> void:
 	match action:
+		&"unpaused":
+			_UpdateFromSettings()
 		&"mop_pickup":
 			_hand = HAND.Mop
 			_atree.set("parameters/Actions/transition_request", ACTION_PICKUP)
+
+func _on_settings_value_changed(section : String, key : String, value : Variant) -> void:
+	if section == SETTINGS_SECTION and key == SETTINGS_KEY_FOV:
+		if typeof(value) == TYPE_FLOAT:
+			_camera.fov = value
 

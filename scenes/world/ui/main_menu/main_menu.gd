@@ -11,15 +11,15 @@ const URI_OBSIDIAN_ITCHIO : String = "https://obsidianblk.itch.io/"
 # ------------------------------------------------------------------------------
 
 func _on_op_start_pressed():
-	_Request(&"start_game")
+	request(&"start_game")
 
 
 func _on_op_options_pressed():
-	_Request(&"show_ui", {"ui_name":&"OptionsMenu"})
+	request(&"show_ui", {"ui_name":&"OptionsMenu"})
 
 
 func _on_op_quit_pressed():
-	_Request(&"quit_application")
+	request(&"quit_application")
 
 
 func _on_btn_obs_pressed():

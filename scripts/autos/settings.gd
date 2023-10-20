@@ -5,6 +5,7 @@ extends Node
 # Signals
 # ------------------------------------------------------------------------------
 signal reset()
+signal loaded()
 signal saved()
 signal section_removed(section : String)
 signal value_removed(section : String, key : String)
@@ -28,6 +29,11 @@ var _dirty : bool = false
 func is_dirty() -> bool:
 	return _dirty
 
+func request_reset() -> void:
+	if _conf == null:
+		_conf = ConfigFile.new()
+	reset.emit()
+
 func load() -> int:
 	var c : ConfigFile = ConfigFile.new()
 	var res : int = c.load(CONFIG_FILE_PATH)
@@ -38,7 +44,7 @@ func load() -> int:
 		_conf.free()
 	_conf = c
 	_dirty = false
-	reset.emit()
+	loaded.emit()
 	return OK
 
 

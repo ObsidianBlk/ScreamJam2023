@@ -32,12 +32,17 @@ func _Pre_Visible_Change():
 # --------------------------------------------------------------------------------------------------
 # Private Methods
 # --------------------------------------------------------------------------------------------------
-func _Request(action : StringName, payload : Dictionary = {}):
-	requested.emit(action, payload)
+
+#func _Request(action : StringName, payload : Dictionary = {}):
+#	# DEPRECATED: Use request() instead
+#	requested.emit(action, payload)
 
 # --------------------------------------------------------------------------------------------------
 # Public Methods
 # --------------------------------------------------------------------------------------------------
+func request(action : StringName, payload : Dictionary = {}) -> void:
+	requested.emit(action, payload)
+
 func show_ui() -> void:
 	if not visible:
 		_Pre_Visible_Change()

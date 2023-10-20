@@ -47,9 +47,10 @@ texture_rotation = 0.0
 texture_scale = Vector2(0.1, 0.1)
 modulate = Color(0, 0, 0, 0.0392157)
 
-[node name="Market" type="Node3D"]
+[node name="Market" type="Node3D" node_paths=PackedStringArray("environment")]
 script = ExtResource("1_jtixp")
 pause_action_name = &"ui_cancel"
+environment = NodePath("WorldEnvironment")
 
 [node name="Floor1" type="Node3D" parent="."]
 

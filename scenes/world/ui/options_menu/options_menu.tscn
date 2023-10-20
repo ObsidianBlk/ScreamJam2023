@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://b8dl5bcuhbt0w"]
+[gd_scene load_steps=5 format=3 uid="uid://b8dl5bcuhbt0w"]
 
 [ext_resource type="Script" path="res://scenes/world/ui/options_menu/options_menu.gd" id="1_q3c7s"]
+[ext_resource type="PackedScene" uid="uid://bwowr8lt4dm37" path="res://scenes/world/ui/options_menu/subops/subop_graphics/subop_graphics.tscn" id="2_ftxg0"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rggud"]
 content_margin_left = 12.0
@@ -58,26 +59,33 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_3r7gp")
 layout_mode = 2
 
 [node name="BtnReset" type="Button" parent="PanelContainer/Layout/HBoxContainer/ButtonBox/Layout"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Reset"
 
 [node name="HSeparator" type="HSeparator" parent="PanelContainer/Layout/HBoxContainer/ButtonBox/Layout"]
 layout_mode = 2
 
-[node name="SubOptions" type="VBoxContainer" parent="PanelContainer/Layout/HBoxContainer/ButtonBox/Layout"]
+[node name="SubOpButtons" type="VBoxContainer" parent="PanelContainer/Layout/HBoxContainer/ButtonBox/Layout"]
+unique_name_in_owner = true
 layout_mode = 2
 
 [node name="HSeparator2" type="HSeparator" parent="PanelContainer/Layout/HBoxContainer/ButtonBox/Layout"]
 layout_mode = 2
 
 [node name="BtnBack" type="Button" parent="PanelContainer/Layout/HBoxContainer/ButtonBox/Layout"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Back"
 
-[node name="Controls" type="PanelContainer" parent="PanelContainer/Layout/HBoxContainer"]
+[node name="SubOpContainer" type="PanelContainer" parent="PanelContainer/Layout/HBoxContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(600, 0)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_3r7gp")
+
+[node name="SubOp_Graphics" parent="PanelContainer/Layout/HBoxContainer/SubOpContainer" instance=ExtResource("2_ftxg0")]
+layout_mode = 2
 
 [connection signal="pressed" from="PanelContainer/Layout/HBoxContainer/ButtonBox/Layout/BtnReset" to="." method="_on_btn_reset_pressed"]
 [connection signal="pressed" from="PanelContainer/Layout/HBoxContainer/ButtonBox/Layout/BtnBack" to="." method="_on_btn_back_pressed"]

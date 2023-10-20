@@ -1,0 +1,74 @@
+[gd_scene load_steps=2 format=3 uid="uid://bwowr8lt4dm37"]
+
+[ext_resource type="Script" path="res://scenes/world/ui/options_menu/subops/subop_graphics/subop_graphics.gd" id="1_bufgu"]
+
+[node name="SubOp_Graphics" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bufgu")
+
+[node name="Rows" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Col1" type="VBoxContainer" parent="Rows"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CheckFullscreen" type="CheckButton" parent="Rows/Col1"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Fullscreen:"
+
+[node name="FOV" type="HBoxContainer" parent="Rows/Col1"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Rows/Col1/FOV"]
+layout_mode = 2
+text = "  FOV:"
+
+[node name="SliderFOV" type="HSlider" parent="Rows/Col1/FOV"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+min_value = 60.0
+max_value = 179.0
+value = 75.0
+
+[node name="LblFOV" type="Label" parent="Rows/Col1/FOV"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+text = "[ 75 ]"
+horizontal_alignment = 1
+
+[node name="VSeparator" type="VSeparator" parent="Rows"]
+layout_mode = 2
+
+[node name="Col2" type="VBoxContainer" parent="Rows"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CheckSSAO" type="CheckButton" parent="Rows/Col2"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Screen-Space Ambient Occlusion:"
+
+[node name="CheckSSIL" type="CheckButton" parent="Rows/Col2"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Screen-Space Indirect Lighting:"
+
+[connection signal="toggled" from="Rows/Col1/CheckFullscreen" to="." method="_on_check_fullscreen_toggled"]
+[connection signal="value_changed" from="Rows/Col1/FOV/SliderFOV" to="." method="_on_slider_fov_value_changed"]
+[connection signal="toggled" from="Rows/Col2/CheckSSAO" to="." method="_on_check_ssao_toggled"]
+[connection signal="toggled" from="Rows/Col2/CheckSSIL" to="." method="_on_check_ssil_toggled"]
