@@ -16,6 +16,8 @@ const CAMERA_PITCH_ANGLE : float = deg_to_rad(70.0)
 const ACTION_HIDE : String = "Hide"
 const ACTION_PICKUP : String = "Pickup"
 const ACTION_ACTIVITY : String = "Activity"
+const ACTION_SHOW_FLASHLIGHT : String = "Show_Flashlight"
+const ACTION_HIDE_FLASHLIGHT : String = "Hide_Flashlight"
 
 enum HAND {Empty=0, Mop=1, Item=2}
 
@@ -39,6 +41,8 @@ var _jump : bool = false
 var _hand : HAND = HAND.Empty
 var _mopping : bool = false
 
+var _has_flashlight : bool = false
+
 # ------------------------------------------------------------------------------
 # Onready Variables
 # ------------------------------------------------------------------------------
@@ -46,6 +50,8 @@ var _mopping : bool = false
 @onready var _atree: AnimationTree = %ATree
 @onready var _camera_ray: RayCast3D = %CameraRay
 @onready var _mop_ray: RayCast3D = %MopRay
+@onready var _item_drop: Marker3D = %ItemDrop
+@onready var _flashlight: Node3D = $Hand/Flashlight
 
 # ------------------------------------------------------------------------------
 # Override Methods
@@ -62,8 +68,11 @@ func _unhandled_input(event: InputEvent) -> void:
 #			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 		return
 	
-#	if event.is_action_pressed("ui_cancel"):
-#		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	if event.is_action_pressed("dummy1"):
+		Relay.relay(&"lights_out")
+	elif event.is_action_pressed("dummy2"):
+		Relay.relay(&"lights_on")
+	
 	if event is InputEventMouseMotion:
 		_UpdateCamera(event.relative * _mouse_sensitivity)
 	elif event.is_action("look_down") or event.is_action("look_up") or event.is_action("turn_left") or event.is_action("turn_right"):
@@ -72,22 +81,40 @@ func _unhandled_input(event: InputEvent) -> void:
 	elif event.is_action("move_forward") or event.is_action("move_backward") or event.is_action("move_left") or event.is_action("move_right"):
 		_input = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
 	elif event.is_action("use"):
+		var strength : float = Input.get_action_strength("use")
 		match _hand:
 			HAND.Mop:
 				if _atree.get("parameters/Actions/current_state") == ACTION_ACTIVITY:
-					_mopping = Input.get_action_strength("use") > 0.5
+					_mopping = strength > 0.5
 			HAND.Item:
 				if _camera_ray.is_colliding():
 					var collision : Node3D = _camera_ray.get_collider()
 					if collision is Interactable:
 						collision.interact()
+			HAND.Empty:
+				if _has_flashlight:
+					var state : String = _atree.get("parameters/Actions/current_state")
+					if strength >= 0.5 and state != ACTION_SHOW_FLASHLIGHT and state != ACTION_HIDE_FLASHLIGHT:
+						_atree.set("parameters/Actions/transition_request", ACTION_SHOW_FLASHLIGHT)
+					elif strength < 0.5 and state == ACTION_SHOW_FLASHLIGHT:
+						_atree.set("parameters/Actions/transition_request", ACTION_HIDE_FLASHLIGHT)
 
 	elif event.is_action_pressed("interact"):
-		if not _camera_ray.is_colliding(): return
-		var collision : Node3D = _camera_ray.get_collider()
-		if not collision is Interactable: return
-		if collision.hand_required and _hand != HAND.Empty: return
-		collision.interact()
+		match _hand:
+			HAND.Empty:
+				if not _camera_ray.is_colliding(): return
+				var collision : Node3D = _camera_ray.get_collider()
+				if not collision is Interactable: return
+				if collision.hand_required and _hand != HAND.Empty: return
+				collision.interact()
+			HAND.Mop:
+				Relay.relay(&"spawn_mop", {"position": Vector3(
+					_item_drop.global_position.x,
+					global_position.y,
+					_item_drop.global_position.z
+				)})
+				_hand = HAND.Empty
+				_atree.set("parameters/Actions/transition_request", ACTION_HIDE)
 
 func _physics_process(delta: float) -> void:
 	_CheckInteractable()
@@ -140,6 +167,9 @@ func _UpdateMopping(delta : float) -> void:
 		if val > 0.0:
 			_atree.set("parameters/Activity/blend_amount", max(0.0, val - delta))
 
+func _ToggleFlashlight() -> void:
+	_flashlight.enabled = not _flashlight.enabled
+
 # ------------------------------------------------------------------------------
 # Handler Methods
 # ------------------------------------------------------------------------------
@@ -150,6 +180,8 @@ func _on_relayed(action : StringName, payload : Dictionary) -> void:
 		&"mop_pickup":
 			_hand = HAND.Mop
 			_atree.set("parameters/Actions/transition_request", ACTION_PICKUP)
+		&"flashlight_pickup":
+			_has_flashlight = true
 
 func _on_settings_value_changed(section : String, key : String, value : Variant) -> void:
 	if section == SETTINGS_SECTION and key == SETTINGS_KEY_FOV:

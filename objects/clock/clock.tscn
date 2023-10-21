@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://cuucxuh7ql6jy"]
+
+[ext_resource type="PackedScene" uid="uid://ds2tniiyxkoo6" path="res://assets/obsidianblk/PA/objects/clock_face.glb" id="1_p7dlc"]
+[ext_resource type="Script" path="res://objects/clock/clock.gd" id="1_tdf7p"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_y6541"]
+size = Vector2(0.03, 0.345)
+center_offset = Vector3(0, 0.11, 0)
+orientation = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4dkf2"]
+albedo_color = Color(0.266667, 0.141176, 0.203922, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_wdhyk"]
+size = Vector2(0.03, 0.435)
+center_offset = Vector3(0, 0.15, 0.01)
+orientation = 2
+
+[node name="Clock" type="Node3D"]
+script = ExtResource("1_tdf7p")
+
+[node name="clock_face" parent="." instance=ExtResource("1_p7dlc")]
+
+[node name="HourHand" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.00289877)
+mesh = SubResource("PlaneMesh_y6541")
+surface_material_override/0 = SubResource("StandardMaterial3D_4dkf2")
+
+[node name="MinuteHand" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.00289877)
+mesh = SubResource("PlaneMesh_wdhyk")
+surface_material_override/0 = SubResource("StandardMaterial3D_4dkf2")

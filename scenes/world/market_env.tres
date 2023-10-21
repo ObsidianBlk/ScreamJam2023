@@ -4,8 +4,11 @@
 background_mode = 1
 ambient_light_source = 2
 ambient_light_color = Color(0.623529, 0.384314, 0.407843, 1)
-ambient_light_energy = 0.01
+ambient_light_energy = 0.4
+tonemap_mode = 3
+tonemap_exposure = 0.21
 ssao_enabled = true
 ssil_enabled = true
-sdfgi_enabled = true
 glow_enabled = true
+volumetric_fog_enabled = true
+volumetric_fog_albedo = Color(1, 0.698039, 0.509804, 1)

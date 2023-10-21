@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://cmk7e78enjrj7"]
+[gd_scene load_steps=24 format=3 uid="uid://cmk7e78enjrj7"]
 
 [ext_resource type="Script" path="res://scripts/nodes/level3d.gd" id="1_jtixp"]
 [ext_resource type="PackedScene" uid="uid://cvwph5rg4n3fy" path="res://objects/obsidianblk/PA/cooler/cooler.tscn" id="1_ttthf"]
@@ -12,9 +12,11 @@
 [ext_resource type="MeshLibrary" uid="uid://dngcwibgip7qk" path="res://assets/obsidianblk/PA/PA_FloorCeiling.meshlib" id="9_3cktp"]
 [ext_resource type="PackedScene" uid="uid://defgr7i0mukls" path="res://objects/obsidianblk/PA/ceiling_light/ceiling_light.tscn" id="10_erxbx"]
 [ext_resource type="PackedScene" uid="uid://8mvywc0khqvv" path="res://objects/fpsc/fpsc.tscn" id="11_2ktqs"]
-[ext_resource type="Environment" uid="uid://313mxsafop62" path="res://scenes/world/market_env.tres" id="12_ye3mf"]
 [ext_resource type="PackedScene" uid="uid://8epqkd3sek7r" path="res://objects/shelves/shelves.tscn" id="12_yjc6y"]
 [ext_resource type="PackedScene" uid="uid://bm2mi3b71xlrw" path="res://objects/mop_bucket/mop_bucket.tscn" id="13_3vsb6"]
+[ext_resource type="PackedScene" uid="uid://cuucxuh7ql6jy" path="res://objects/clock/clock.tscn" id="13_ynav0"]
+[ext_resource type="PackedScene" uid="uid://d3wcflr3bak6e" path="res://objects/flashlight/flashlight.tscn" id="14_d5ofc"]
+[ext_resource type="Environment" uid="uid://313mxsafop62" path="res://scenes/world/market_env.tres" id="16_fslq4"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_6jk4a"]
 noise_type = 2
@@ -47,6 +49,11 @@ texture_rotation = 0.0
 texture_scale = Vector2(0.1, 0.1)
 modulate = Color(0, 0, 0, 0.0392157)
 
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_drl4h"]
+frequency = 0.027
+fractal_type = 3
+fractal_ping_pong_strength = 4.0
+
 [node name="Market" type="Node3D" node_paths=PackedStringArray("environment")]
 script = ExtResource("1_jtixp")
 pause_action_name = &"ui_cancel"
@@ -78,7 +85,7 @@ cell_center_x = false
 cell_center_y = false
 cell_center_z = false
 data = {
-"cells": PackedInt32Array(0, 0, 1048576, 65533, 0, 2, 65530, 3, 1048578, 0, 3, 1048578, 65530, 0, 655368, 65527, 0, 655362, 65524, 0, 655360, 65524, 3, 1048578, 65524, 6, 8, 65530, 6, 8, 0, 6, 1048584, 65533, 6, 1, 65527, 6, 1, 0, 9, 1441793, 0, 12, 0, 65530, 12, 655368, 65524, 12, 655360, 65527, 12, 655362, 65533, 12, 655362, 65525, 14, 655362, 65527, 14, 655362, 65529, 14, 655362, 65524, 15, 1048577, 65524, 17, 1048578, 65524, 20, 0, 65525, 16, 2, 65527, 16, 2, 65529, 16, 2, 65521, 6, 2, 65515, 6, 2, 65513, 6, 2, 65510, 6, 1441792, 65510, 3, 1441793, 65510, 1, 1441794, 65510, 65534, 655368, 65513, 65534, 655362, 65515, 65534, 655362, 65518, 65534, 1048576, 65518, 1, 1048578, 65518, 3, 1048578, 65518, 6, 8, 65507, 65534, 2, 65505, 65534, 2, 65502, 65534, 655360, 65502, 1, 1441797, 65502, 3, 1441798, 65502, 5, 1441797, 65502, 7, 1441798, 65502, 9, 1441793, 65502, 11, 1441797, 65502, 13, 1441798, 65502, 15, 1441797, 65502, 17, 1441798, 65502, 20, 1441792, 65521, 20, 655362, 65519, 20, 655362, 65517, 20, 655362, 65515, 20, 655362, 65513, 20, 655362, 65511, 20, 655362, 65509, 20, 655362, 65507, 20, 655362, 65505, 20, 655362)
+"cells": PackedInt32Array(0, 0, 1048576, 65533, 0, 2, 65530, 3, 1048578, 0, 3, 1048578, 65530, 0, 655368, 65527, 0, 655362, 65524, 0, 655360, 65524, 3, 1048578, 65524, 6, 8, 65530, 6, 8, 0, 6, 1048584, 65533, 6, 1, 65527, 6, 1, 0, 9, 1441793, 0, 12, 0, 65530, 12, 655368, 65524, 12, 655360, 65527, 12, 655362, 65533, 12, 655362, 65525, 14, 655362, 65527, 14, 655362, 65529, 14, 655362, 65524, 15, 1048577, 65524, 17, 1048578, 65524, 20, 0, 65525, 16, 2, 65527, 16, 2, 65529, 16, 2, 65521, 6, 2, 65515, 6, 2, 65513, 6, 2, 65510, 6, 1441792, 65510, 3, 1441793, 65510, 1, 1441794, 65510, 65534, 655368, 65513, 65534, 655362, 65515, 65534, 655362, 65518, 65534, 1048576, 65518, 1, 1048578, 65518, 3, 1048578, 65518, 6, 8, 65507, 65534, 2, 65505, 65534, 2, 65502, 65534, 655360, 65502, 1, 1441797, 65502, 3, 1441798, 65502, 5, 1441797, 65502, 7, 1441798, 65502, 9, 1441793, 65502, 11, 1441797, 65502, 13, 1441798, 65502, 15, 1441797, 65502, 17, 1441798, 65502, 20, 1441792, 65521, 20, 655362, 65519, 20, 655362, 65517, 20, 655362, 65515, 20, 655362, 65513, 20, 655362, 65511, 20, 655362, 65509, 20, 655362, 65507, 20, 655362, 65505, 20, 655362, 65530, 15, 1441794)
 }
 
 [node name="MI_Glass_01" type="MeshInstance3D" parent="Floor1/Walls"]
@@ -108,7 +115,6 @@ tile_name = "Floor_01"
 splat_view = NodePath("../SplatCanvas")
 
 [node name="Ceiling" type="GridMap" parent="Floor1"]
-visible = false
 mesh_library = ExtResource("9_3cktp")
 cell_size = Vector3(2, 1, 2)
 cell_center_y = false
@@ -121,24 +127,37 @@ metadata/_editor_floor_ = Vector3(0, 3, 0)
 
 [node name="CeilingLight" parent="Floor1/CeilingLights" instance=ExtResource("10_erxbx")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -29.0085, 2.91762, 0.522522)
+max_energy = 6.0
 
 [node name="CeilingLight2" parent="Floor1/CeilingLights" instance=ExtResource("10_erxbx")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -29.0085, 2.91762, 8.50572)
+max_energy = 6.0
 
 [node name="CeilingLight3" parent="Floor1/CeilingLights" instance=ExtResource("10_erxbx")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -29.0085, 2.91762, 16.4964)
+max_energy = 6.0
 
 [node name="CeilingLight4" parent="Floor1/CeilingLights" instance=ExtResource("10_erxbx")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -20.9891, 2.91762, 8.50572)
+max_energy = 6.0
 
 [node name="CeilingLight5" parent="Floor1/CeilingLights" instance=ExtResource("10_erxbx")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -20.9891, 2.91762, 16.4964)
+max_energy = 6.0
 
 [node name="CeilingLight6" parent="Floor1/CeilingLights" instance=ExtResource("10_erxbx")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -12.9904, 2.91762, 8.50572)
+min_energy = 0.1
+max_energy = 0.1
+flicker_in_editor = true
 
 [node name="CeilingLight7" parent="Floor1/CeilingLights" instance=ExtResource("10_erxbx")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.82451, 2.91762, 8.50572)
+min_energy = 0.5
+max_energy = 1.5
+chargeup_time = 2.0
+flicker_noise = SubResource("FastNoiseLite_drl4h")
+flicker_in_editor = true
 
 [node name="Shelving" type="Node3D" parent="Floor1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 0)
@@ -161,11 +180,47 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -20.5,
 [node name="Shelves6" parent="Floor1/Shelving" instance=ExtResource("12_yjc6y")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -16.5, 0, 15.7345)
 
+[node name="Clock" parent="Floor1" instance=ExtResource("13_ynav0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30.4582, 2.13147, -1.76562)
+enabled = true
+start_hour = 23
+sec_per_minute = 0.25
+
+[node name="Flashlight" parent="Floor1" instance=ExtResource("14_d5ofc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.2612, 1.39991, 12.3191)
+
+[node name="Floor2" type="Node3D" parent="."]
+
+[node name="Walls" type="GridMap" parent="Floor2"]
+mesh_library = ExtResource("2_j6fm3")
+cell_size = Vector3(1, 4, 1)
+cell_center_x = false
+cell_center_y = false
+cell_center_z = false
+data = {
+"cells": PackedInt32Array(-9, 14, 3, -11, 14, 3, -9, 16, 3, -11, 16, 3, -6, 16, 1048583, -6, 20, 7, -10, 20, 655367, -10, 24, 1441799, -65536, 24, 7, -65536, 14, 1048583, -65536, 17, 1048579, -65536, 19, 1048579, -65536, 21, 1048579, -3, 14, 3, -5, 14, 3, -7, 14, 3, -7, 24, 3, -5, 24, 3, -3, 24, 3)
+}
+metadata/_editor_floor_ = Vector3(0, -1, 0)
+
+[node name="Floor" type="GridMap" parent="Floor2"]
+mesh_library = ExtResource("9_3cktp")
+cell_size = Vector3(2, 1, 2)
+cell_center_y = false
+data = {
+"cells": PackedInt32Array(-196611, 7, 1048577, -196610, 7, 1048577, -196609, 7, 1048577, -196611, 8, 1048577, -196611, 9, 1048577, -196611, 10, 1048577, -196610, 10, 1048577, -196609, 10, 1048577, -196609, 9, 1048577, -196609, 8, 1048577, -196610, 8, 1048577, -196610, 9, 1048577, -196611, 11, 1048577, -196610, 11, 1048577, -196609, 11, 1048577, -196612, 10, 1048577, -196612, 11, 1048577, -196613, 11, 1048577, -196613, 10, 1048577, 65529, 7, 1048578, 65533, 7, 7, 65533, 8, 7, 65533, 9, 7, 65533, 10, 7, 65533, 11, 7, 65534, 7, 7, 65534, 8, 7, 65534, 9, 7, 65534, 10, 7, 65534, 11, 7, 65535, 11, 7, 65535, 10, 7, 65535, 9, 7, 65535, 8, 7, 65535, 7, 7, 65531, 10, 7, 65531, 11, 7, 65532, 11, 7, 65532, 10, 7)
+}
+metadata/_editor_floor_ = Vector3(0, 0, 0)
+
+[node name="CeilingLight" parent="Floor2" instance=ExtResource("10_erxbx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.2455, -0.0581512, 17.607)
+
 [node name="FPSC" parent="." instance=ExtResource("11_2ktqs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32.0664, 0, 9.08477)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = ExtResource("12_ye3mf")
+environment = ExtResource("16_fslq4")
 
 [node name="MopBucket" parent="." instance=ExtResource("13_3vsb6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.6607, 0, 10.7905)
+
+[connection signal="time_passed" from="Floor1/Clock" to="." method="_on_clock_time_passed"]

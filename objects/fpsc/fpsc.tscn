@@ -1,7 +1,8 @@
-[gd_scene load_steps=21 format=3 uid="uid://8mvywc0khqvv"]
+[gd_scene load_steps=26 format=3 uid="uid://8mvywc0khqvv"]
 
 [ext_resource type="Script" path="res://objects/fpsc/fpsc.gd" id="1_8a3dd"]
 [ext_resource type="PackedScene" uid="uid://yo5220n7bube" path="res://assets/obsidianblk/PA/objects/mop.glb" id="2_7a0sp"]
+[ext_resource type="PackedScene" uid="uid://d3wcflr3bak6e" path="res://objects/flashlight/flashlight.tscn" id="3_kinep"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5s48r"]
 radius = 0.4
@@ -67,6 +68,96 @@ tracks/4/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Hand/Flashlight:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1.5708, 0, 0)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Hand/Flashlight:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_tv405"]
+resource_name = "hide_flashlight"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hand/Flashlight:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hand/Mop:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Hand:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(-0.462611, 1.32272, -0.447768), Vector3(-0.462611, 1.32272, -0.592536), Vector3(0, 1.025, -0.3)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Hand/Flashlight:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(1.5708, 0, 0), Vector3(0, 0, 0)]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_ToggleFlashlight"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_711hk"]
@@ -213,6 +304,18 @@ tracks/4/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Hand/Flashlight:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_hima4"]
 resource_name = "mopping_forward"
@@ -284,14 +387,82 @@ tracks/1/keys = {
 "values": [Vector3(0.349066, 0, 0.610865), Vector3(0.349066, 0, -0.436332)]
 }
 
+[sub_resource type="Animation" id="Animation_ox07q"]
+resource_name = "show_flashlight"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hand/Flashlight:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hand/Mop:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Hand:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 1.025, -0.3), Vector3(-0.462611, 1.32272, -0.592536), Vector3(-0.462611, 1.32272, -0.447768)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Hand/Flashlight:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(1.5708, 0, 0)]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_ToggleFlashlight"
+}]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_2tqv2"]
 _data = {
 "RESET": SubResource("Animation_p8qyu"),
+"hide_flashlight": SubResource("Animation_tv405"),
 "mop_hidden": SubResource("Animation_711hk"),
 "mop_idle": SubResource("Animation_v0gvm"),
 "mop_pickup": SubResource("Animation_dlnav"),
 "mopping_forward": SubResource("Animation_hima4"),
-"mopping_sides": SubResource("Animation_asvgp")
+"mopping_sides": SubResource("Animation_asvgp"),
+"show_flashlight": SubResource("Animation_ox07q")
 }
 
 [sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_350bu"]
@@ -304,8 +475,20 @@ input_1/reset = true
 input_2/name = "Activity"
 input_2/auto_advance = false
 input_2/reset = true
+input_3/name = "Show_Flashlight"
+input_3/auto_advance = false
+input_3/reset = true
+input_4/name = "Hide_Flashlight"
+input_4/auto_advance = true
+input_4/reset = true
 
 [sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_60y22"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_qhos4"]
+animation = &"show_flashlight"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_q220l"]
+animation = &"hide_flashlight"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_a3fg7"]
 animation = &"mop_hidden"
@@ -335,21 +518,25 @@ node_connections = [&"output", 0, &"Blend2", &"Blend2", 0, &"Animation", &"Blend
 animation = &"mop_pickup"
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_x8a2h"]
-graph_offset = Vector2(-206.375, -219.776)
+graph_offset = Vector2(189.943, -123.825)
 nodes/Actions/node = SubResource("AnimationNodeTransition_350bu")
-nodes/Actions/position = Vector2(740, -180)
+nodes/Actions/position = Vector2(960, -180)
 nodes/Activity/node = SubResource("AnimationNodeBlend2_60y22")
 nodes/Activity/position = Vector2(320, 20)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_a3fg7")
 nodes/Animation/position = Vector2(380, -280)
+"nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_qhos4")
+"nodes/Animation 2/position" = Vector2(480, 80)
+"nodes/Animation 3/node" = SubResource("AnimationNodeAnimation_q220l")
+"nodes/Animation 3/position" = Vector2(620, 240)
 nodes/Idle/node = SubResource("AnimationNodeAnimation_y02jj")
 nodes/Idle/position = Vector2(-40, -20)
 nodes/Mopping/node = SubResource("AnimationNodeBlendTree_cqtjy")
 nodes/Mopping/position = Vector2(-40, 120)
 nodes/Pickup/node = SubResource("AnimationNodeAnimation_s8x30")
 nodes/Pickup/position = Vector2(320, -120)
-nodes/output/position = Vector2(1020, -140)
-node_connections = [&"output", 0, &"Actions", &"Actions", 0, &"Animation", &"Actions", 1, &"Pickup", &"Actions", 2, &"Activity", &"Activity", 0, &"Idle", &"Activity", 1, &"Mopping"]
+nodes/output/position = Vector2(1240, -140)
+node_connections = [&"output", 0, &"Actions", &"Actions", 0, &"Animation", &"Actions", 1, &"Pickup", &"Actions", 2, &"Activity", &"Actions", 3, &"Animation 2", &"Actions", 4, &"Animation 3", &"Activity", 0, &"Idle", &"Activity", 1, &"Mopping"]
 
 [node name="FPSC" type="CharacterBody3D"]
 script = ExtResource("1_8a3dd")
@@ -382,6 +569,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.02493, 0)
 [node name="MopRay" type="RayCast3D" parent="Hand/Mop"]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.025, 0)
+
+[node name="Flashlight" parent="Hand" instance=ExtResource("3_kinep")]
+transform = Transform3D(1, 0, 0, 0, -3.61999e-06, -1, 0, 1, -3.61999e-06, 0, 0, 0)
+visible = false
+
+[node name="ItemDrop" type="Marker3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.779631, -0.678558)
 
 [node name="AP" type="AnimationPlayer" parent="."]
 libraries = {

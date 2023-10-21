@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://d3wcflr3bak6e"]
+
+[ext_resource type="Script" path="res://objects/flashlight/flashlight.gd" id="1_2iwlf"]
+[ext_resource type="PackedScene" uid="uid://ducjk33jknyrr" path="res://assets/obsidianblk/PA/objects/flashlight.glb" id="1_nasyy"]
+[ext_resource type="Script" path="res://scripts/nodes/interactable.gd" id="2_shtqo"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ie8in"]
+size = Vector3(0.155, 0.2, 0.145)
+
+[node name="Flashlight" type="Node3D"]
+script = ExtResource("1_2iwlf")
+
+[node name="flashlight" parent="." instance=ExtResource("1_nasyy")]
+
+[node name="Interactable" type="Area3D" parent="."]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("2_shtqo")
+hand_required = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactable"]
+shape = SubResource("BoxShape3D_ie8in")
+
+[node name="Light" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -0.092397, 0)
+light_color = Color(1, 0.905882, 0.678431, 1)
+light_energy = 5.0
+shadow_enabled = true
+spot_range = 20.0
+
+[connection signal="interacted" from="Interactable" to="." method="_on_interactable_interacted"]

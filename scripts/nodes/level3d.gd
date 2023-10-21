@@ -9,6 +9,8 @@ signal requested(action : StringName, payload : Dictionary)
 # ------------------------------------------------------------------------------
 # Constants
 # ------------------------------------------------------------------------------
+const MOP : PackedScene = preload("res://objects/mop_bucket/mop_bucket.tscn")
+
 const SETTINGS_SECTION : String = "Graphics"
 const SETTINGS_KEY_SSAO : String = "ssao"
 const SETTINGS_KEY_SSIL : String = "ssil"
@@ -66,8 +68,13 @@ func request(action : StringName, payload : Dictionary) -> void:
 # Handler Methods
 # ------------------------------------------------------------------------------
 func _on_relayed(action : StringName, payload : Dictionary) -> void:
-	if action == &"unpaused":
-		_UpdateFromSettings()
+	match action:
+		&"unpaused":
+			_UpdateFromSettings()
+		&"spawn_mop":
+			var mop : Node3D = MOP.instantiate()
+			add_child(mop)
+			mop.global_position = payload.position
 
 func _on_settings_value_changed(section : String, key : String, value : Variant) -> void:
 	if environment == null or section != SETTINGS_SECTION: return
@@ -80,3 +87,7 @@ func _on_settings_value_changed(section : String, key : String, value : Variant)
 		SETTINGS_KEY_SSIL:
 			if typeof(value) == TYPE_BOOL:
 				env.ssil_enabled = value
+
+func _on_clock_time_passed(hour : int, minute : int) -> void:
+	if hour == 0 and minute == 15:
+		Relay.relay(&"lights_out")
