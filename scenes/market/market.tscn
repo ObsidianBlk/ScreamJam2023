@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://cmk7e78enjrj7"]
+[gd_scene load_steps=25 format=3 uid="uid://cmk7e78enjrj7"]
 
 [ext_resource type="Script" path="res://scripts/nodes/level3d.gd" id="1_jtixp"]
 [ext_resource type="PackedScene" uid="uid://cvwph5rg4n3fy" path="res://objects/obsidianblk/PA/cooler/cooler.tscn" id="1_ttthf"]
@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://bm2mi3b71xlrw" path="res://objects/mop_bucket/mop_bucket.tscn" id="13_3vsb6"]
 [ext_resource type="PackedScene" uid="uid://cuucxuh7ql6jy" path="res://objects/clock/clock.tscn" id="13_ynav0"]
 [ext_resource type="PackedScene" uid="uid://d3wcflr3bak6e" path="res://objects/flashlight/flashlight.tscn" id="14_d5ofc"]
+[ext_resource type="PackedScene" uid="uid://r5hw1tyqg4wq" path="res://objects/powerbox/powerbox.tscn" id="15_8ns6q"]
 [ext_resource type="Environment" uid="uid://313mxsafop62" path="res://scenes/world/market_env.tres" id="16_fslq4"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_6jk4a"]
@@ -213,6 +214,9 @@ metadata/_editor_floor_ = Vector3(0, 0, 0)
 
 [node name="CeilingLight" parent="Floor2" instance=ExtResource("10_erxbx")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.2455, -0.0581512, 17.607)
+
+[node name="Powerbox" parent="Floor2" instance=ExtResource("15_8ns6q")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.42455, -2.69989, 20.2979)
 
 [node name="FPSC" parent="." instance=ExtResource("11_2ktqs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32.0664, 0, 9.08477)

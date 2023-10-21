@@ -148,9 +148,14 @@ func _CheckInteractable() -> void:
 	if _camera_ray.is_colliding():
 		var collision : Node3D = _camera_ray.get_collider()
 		if collision is Interactable:
-			Relay.relay(&"message", {"show":true, "name": "InteractMessage"})
+			match collision.type:
+				&"Shelf":
+					if _hand != HAND.Item: return
+					collision.message()
+				_:
+					collision.message()
 	else:
-		Relay.relay(&"message", {"show": false})
+		Relay.relay(&"screen_message_hide")
 
 func _UpdateMopping(delta : float) -> void:
 	if _mopping:

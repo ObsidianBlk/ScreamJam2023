@@ -1,0 +1,38 @@
+[gd_scene load_steps=3 format=3 uid="uid://cniw2j6d2a0tr"]
+
+[ext_resource type="Script" path="res://scenes/world/screen_messages/ScreenMessages.gd" id="1_gj6uw"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7wb08"]
+content_margin_left = 12.0
+content_margin_top = 12.0
+content_margin_right = 12.0
+content_margin_bottom = 12.0
+bg_color = Color(0, 0, 0, 0.784314)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[node name="ScreenMessages" type="CanvasLayer"]
+script = ExtResource("1_gj6uw")
+
+[node name="InteractMessage" type="CenterContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="InteractMessage"]
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_7wb08")
+
+[node name="RLabel" type="RichTextLabel" parent="InteractMessage/PanelContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+bbcode_enabled = true
+text = "Some [b]Message[/b] Here"
+fit_content = true
+autowrap_mode = 0

@@ -1,22 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://db8w46fysc7cw"]
+[gd_scene load_steps=7 format=3 uid="uid://db8w46fysc7cw"]
 
 [ext_resource type="Script" path="res://scenes/world/world.gd" id="1_jc7w0"]
 [ext_resource type="PackedScene" uid="uid://cmk7e78enjrj7" path="res://scenes/market/market.tscn" id="1_yumia"]
-[ext_resource type="Script" path="res://scenes/world/ScreenMessages.gd" id="2_hwosn"]
 [ext_resource type="Script" path="res://scripts/ui/ui_root.gd" id="3_568vs"]
+[ext_resource type="PackedScene" uid="uid://cniw2j6d2a0tr" path="res://scenes/world/screen_messages/screen_messages.tscn" id="3_c6fde"]
 [ext_resource type="PackedScene" uid="uid://b33nbjfw0fuf1" path="res://scenes/world/ui/main_menu/main_menu.tscn" id="4_bvhdo"]
 [ext_resource type="PackedScene" uid="uid://b8dl5bcuhbt0w" path="res://scenes/world/ui/options_menu/options_menu.tscn" id="6_cunr6"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7wb08"]
-content_margin_left = 12.0
-content_margin_top = 12.0
-content_margin_right = 12.0
-content_margin_bottom = 12.0
-bg_color = Color(0, 0, 0, 0.784314)
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
 
 [node name="World" type="Node3D"]
 process_mode = 3
@@ -25,24 +14,7 @@ script = ExtResource("1_jc7w0")
 [node name="Market" parent="." instance=ExtResource("1_yumia")]
 process_mode = 1
 
-[node name="ScreenMessages" type="CanvasLayer" parent="Market"]
-script = ExtResource("2_hwosn")
-
-[node name="InteractMessage" type="CenterContainer" parent="Market/ScreenMessages"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="PanelContainer" type="PanelContainer" parent="Market/ScreenMessages/InteractMessage"]
-layout_mode = 2
-mouse_filter = 1
-theme_override_styles/panel = SubResource("StyleBoxFlat_7wb08")
-
-[node name="Label" type="Label" parent="Market/ScreenMessages/InteractMessage/PanelContainer"]
-layout_mode = 2
-text = "Press [E] to Interact"
+[node name="ScreenMessages" parent="Market" instance=ExtResource("3_c6fde")]
 
 [node name="UIRoot" type="CanvasLayer" parent="."]
 script = ExtResource("3_568vs")

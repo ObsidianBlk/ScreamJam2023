@@ -17,6 +17,8 @@ collision_layer = 2
 collision_mask = 0
 script = ExtResource("2_shtqo")
 hand_required = true
+type = &"Flashlight"
+interact_message = "Press [b][E][/b] to Pickup Flashlight"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Interactable"]
 shape = SubResource("BoxShape3D_ie8in")

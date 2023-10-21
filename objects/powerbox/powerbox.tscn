@@ -1,0 +1,37 @@
+[gd_scene load_steps=7 format=3 uid="uid://r5hw1tyqg4wq"]
+
+[ext_resource type="Script" path="res://objects/powerbox/powerbox.gd" id="1_m4p5x"]
+[ext_resource type="PackedScene" uid="uid://d14xhlj18v1xc" path="res://assets/obsidianblk/PA/objects/powerbox_body.glb" id="1_mdwl3"]
+[ext_resource type="PackedScene" uid="uid://d1d345fmjpihp" path="res://assets/obsidianblk/PA/objects/powerbox_door.glb" id="2_84cbj"]
+[ext_resource type="Script" path="res://scripts/nodes/interactable.gd" id="3_xjh87"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kd1eq"]
+size = Vector3(0.28, 0.4, 0.22)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wpe7w"]
+size = Vector3(0.245, 0.345, 0.225)
+
+[node name="Powerbox" type="StaticBody3D"]
+script = ExtResource("1_m4p5x")
+
+[node name="powerbox_body" parent="." instance=ExtResource("1_mdwl3")]
+
+[node name="powerbox_door" parent="." instance=ExtResource("2_84cbj")]
+transform = Transform3D(0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, 0.258819, -0.103951, 0, 0.231107)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.01)
+shape = SubResource("BoxShape3D_kd1eq")
+
+[node name="Interactable" type="Area3D" parent="."]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("3_xjh87")
+type = &"Fusebox"
+interact_message = "Press [b][E][/b] to activate Fusebox"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactable"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.055)
+shape = SubResource("BoxShape3D_wpe7w")
+
+[connection signal="interacted" from="Interactable" to="." method="_on_interactable_interacted"]

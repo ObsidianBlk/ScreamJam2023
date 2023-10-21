@@ -109,6 +109,8 @@ func _UpdateEnergy(amount : float) -> void:
 	if not enabled :
 		amount = 0.0
 	
+	if _audio_hum != null:
+		_audio_hum.volume_db = linear_to_db(amount)
 	if _light != null:
 		_light.light_energy = amount
 		_light.visible = amount > 0.0

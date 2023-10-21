@@ -17,6 +17,8 @@ collision_layer = 2
 collision_mask = 0
 script = ExtResource("3_bqwqp")
 hand_required = true
+type = &"Mop"
+interact_message = "Press [b][E][/b] to Pickup Mop"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Interactable"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.76, 0)

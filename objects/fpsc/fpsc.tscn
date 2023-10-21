@@ -573,6 +573,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.025, 0)
 [node name="Flashlight" parent="Hand" instance=ExtResource("3_kinep")]
 transform = Transform3D(1, 0, 0, 0, -3.61999e-06, -1, 0, 1, -3.61999e-06, 0, 0, 0)
 visible = false
+interactable = false
 
 [node name="ItemDrop" type="Marker3D" parent="."]
 unique_name_in_owner = true
