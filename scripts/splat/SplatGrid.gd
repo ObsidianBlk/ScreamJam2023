@@ -93,7 +93,13 @@ func update_splat(object : Node3D, point : Vector3) -> void:
 	if object != self: return
 	var uv : Vector2 = Vector2.ZERO
 	uv = (Vector2(point.x, point.z) - _rect.position) / _rect.size
-	splat_view.update_brush(&"Mop", uv, true)
+	splat_view.update_brush(&"Mop", uv, 0.0, true)
+
+func splat(brush : StringName, point : Vector3, rot : float = 0.0, stamp : bool = false) -> void:
+	if not _rect.has_area() or splat_view == null: return
+	var uv : Vector2 = Vector2.ZERO
+	uv = (Vector2(point.x, point.z) - _rect.position) / _rect.size
+	splat_view.update_brush(brush, uv, rot, stamp)
 
 
 # ------------------------------------------------------------------------------
@@ -101,6 +107,26 @@ func update_splat(object : Node3D, point : Vector3) -> void:
 # ------------------------------------------------------------------------------
 
 func _on_relayed(action_name : StringName, payload : Dictionary) -> void:
-	if action_name == &"mopping" and not payload.is_empty():
-		update_splat(payload.collider, payload.point)
+	match action_name:
+		&"mopping":
+			if not payload.is_empty():
+				update_splat(payload.collider, payload.point)
+		&"splat":
+			if not "brush" in payload or not "point" in payload:
+				return
+			var brush : StringName = &""
+			var rot : float = 0.0
+			var stamp : bool = true
+			var point : Vector3 = Vector3.ZERO
+			if typeof(payload["brush"]) != TYPE_STRING_NAME: return
+			brush = payload["brush"]
+			if typeof(payload["point"]) != TYPE_VECTOR3: return
+			point = payload["point"]
+			
+			if "rotation" in payload and typeof(payload["rotation"]) == TYPE_FLOAT:
+				rot = payload["rotation"]
+			if "stamp" in payload and typeof(payload["stamp"]) == TYPE_BOOL:
+				stamp = payload["stamp"]
+			
+			splat(brush, point, rot, stamp)
 

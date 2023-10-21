@@ -91,3 +91,7 @@ func _on_settings_value_changed(section : String, key : String, value : Variant)
 func _on_clock_time_passed(hour : int, minute : int) -> void:
 	if hour == 0 and minute == 15:
 		Relay.relay(&"lights_out")
+
+
+func _on_match_percentage_updated(percent) -> void:
+	print("Percentage: ", percent * 100)

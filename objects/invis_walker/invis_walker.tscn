@@ -1,0 +1,122 @@
+[gd_scene load_steps=15 format=3 uid="uid://prykewiwfg3x"]
+
+[ext_resource type="Texture2D" uid="uid://c2sq2l4hntg37" path="res://assets/Ghost.png" id="1_4xi3e"]
+[ext_resource type="Script" path="res://objects/invis_walker/invis_walker.gd" id="1_j3fo5"]
+[ext_resource type="AudioStream" uid="uid://b11btbtgf7oeo" path="res://assets/audio/sfx/bare_footstep.wav" id="3_c0ou0"]
+[ext_resource type="AudioStream" uid="uid://bcn2f4tgwo4l3" path="res://assets/audio/sfx/bare_footstep_02.wav" id="4_idg4c"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_18lwc"]
+atlas = ExtResource("1_4xi3e")
+region = Rect2(0, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mvmd7"]
+atlas = ExtResource("1_4xi3e")
+region = Rect2(32, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kghur"]
+atlas = ExtResource("1_4xi3e")
+region = Rect2(64, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jli6v"]
+atlas = ExtResource("1_4xi3e")
+region = Rect2(96, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nsjhv"]
+atlas = ExtResource("1_4xi3e")
+region = Rect2(128, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_icn2v"]
+atlas = ExtResource("1_4xi3e")
+region = Rect2(160, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tjxj3"]
+atlas = ExtResource("1_4xi3e")
+region = Rect2(192, 0, 32, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ugkkq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_18lwc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mvmd7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kghur")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jli6v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nsjhv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_icn2v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tjxj3")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
+
+[sub_resource type="Animation" id="Animation_2dtx5"]
+resource_name = "walk"
+length = 1.6
+loop_mode = 1
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.8, 1.6),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [true],
+"method": &"_TakeStep"
+}, {
+"args": [false],
+"method": &"_TakeStep"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jwxxo"]
+_data = {
+"walk": SubResource("Animation_2dtx5")
+}
+
+[node name="InvisWalker" type="Node3D"]
+script = ExtResource("1_j3fo5")
+
+[node name="Ghost" type="AnimatedSprite3D" parent="."]
+centered = false
+offset = Vector2(-16, 0)
+pixel_size = 0.035
+billboard = 2
+shaded = true
+texture_filter = 2
+sprite_frames = SubResource("SpriteFrames_ugkkq")
+autoplay = "default"
+frame_progress = 0.473208
+
+[node name="Agent" type="NavigationAgent3D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "walk"
+libraries = {
+"": SubResource("AnimationLibrary_jwxxo")
+}
+
+[node name="AudioStep1" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_c0ou0")
+bus = &"SFX"
+
+[node name="AudioStep2" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("4_idg4c")
+bus = &"SFX"
+
+[connection signal="target_reached" from="Agent" to="." method="_on_agent_target_reached"]

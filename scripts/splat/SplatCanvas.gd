@@ -135,15 +135,17 @@ func has_brush(brush_name : StringName) -> bool:
 func is_brush_active(brush_name : StringName) -> bool:
 	return brush_name in _active
 
-func update_brush(brush_name : StringName, uv : Vector2, stamp : bool = false) -> void:
+func update_brush(brush_name : StringName, uv : Vector2, rotation : float = 0.0, stamp : bool = false) -> void:
 	if not brush_name in _brushes: return
 	if not brush_name in _active:
 		_active[brush_name] = {
 			"remove": false,
+			"rotation": rotation,
 			"stamp": stamp
 		}
 	else:
 		_active[brush_name].remove = false
+		_active[brush_name].rotation = rotation
 		_active[brush_name].stamp = stamp
 	_brushes[brush_name].sprite.position = Vector2(size) * uv
 
@@ -200,6 +202,7 @@ func _on_frame_post_draw() -> void:
 			if not sprite.visible:
 				sprite.visible = true
 			sprite.modulate = brush.modulate
+			sprite.rotation = _active[brush_name].rotation
 			#print("Color: ", sprite.modulate)
 			if _active[brush_name].stamp:
 				_active[brush_name].remove = true

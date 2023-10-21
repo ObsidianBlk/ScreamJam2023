@@ -225,7 +225,7 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0, 0, 0)]
+"values": [Vector3(0, 0, 0.539726)]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
@@ -287,10 +287,10 @@ tracks/3/path = NodePath("Hand/Mop:rotation")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.45, 0.5),
+"times": PackedFloat32Array(0, 0.3, 0.5),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector3(0, 0, 0.875457), Vector3(0, 0, -0.261799), Vector3(0, 0, 0)]
+"values": [Vector3(0, 0, 0.875457), Vector3(0, 0, 0.261799), Vector3(0, 0, 0.523599)]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
@@ -518,7 +518,6 @@ node_connections = [&"output", 0, &"Blend2", &"Blend2", 0, &"Animation", &"Blend
 animation = &"mop_pickup"
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_x8a2h"]
-graph_offset = Vector2(189.943, -123.825)
 nodes/Actions/node = SubResource("AnimationNodeTransition_350bu")
 nodes/Actions/position = Vector2(960, -180)
 nodes/Activity/node = SubResource("AnimationNodeBlend2_60y22")
@@ -538,7 +537,8 @@ nodes/Pickup/position = Vector2(320, -120)
 nodes/output/position = Vector2(1240, -140)
 node_connections = [&"output", 0, &"Actions", &"Actions", 0, &"Animation", &"Actions", 1, &"Pickup", &"Actions", 2, &"Activity", &"Actions", 3, &"Animation 2", &"Actions", 4, &"Animation 3", &"Activity", 0, &"Idle", &"Activity", 1, &"Mopping"]
 
-[node name="FPSC" type="CharacterBody3D"]
+[node name="FPSC" type="CharacterBody3D" groups=["Player"]]
+collision_layer = 8
 script = ExtResource("1_8a3dd")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -560,6 +560,7 @@ collide_with_bodies = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.025, -0.3)
 
 [node name="Mop" type="Node3D" parent="Hand"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="mop_model" parent="Hand/Mop" instance=ExtResource("2_7a0sp")]
 
