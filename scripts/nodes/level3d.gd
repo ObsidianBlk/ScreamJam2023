@@ -15,12 +15,20 @@ const SETTINGS_SECTION : String = "Graphics"
 const SETTINGS_KEY_SSAO : String = "ssao"
 const SETTINGS_KEY_SSIL : String = "ssil"
 
+const GROUP_SHELVES : StringName = &"Shelves"
+const GROUP_ITEM : StringName = &"Item"
+
 # ------------------------------------------------------------------------------
 # Exports
 # ------------------------------------------------------------------------------
 @export_category("Level 3D")
 @export var pause_action_name : StringName = &""
 @export var environment : WorldEnvironment = null
+
+# ------------------------------------------------------------------------------
+# Variables
+# ------------------------------------------------------------------------------
+var _init : bool = false
 
 # ------------------------------------------------------------------------------
 # Setters
@@ -61,8 +69,30 @@ func _UpdateFromSettings() -> void:
 # ------------------------------------------------------------------------------
 # Public Methods
 # ------------------------------------------------------------------------------
+func initialize() -> void:
+	if _init: return
+	_init = true
+	randomize()
+	var shelves : Array = get_tree().get_nodes_in_group(GROUP_SHELVES)
+	for shelf in shelves:
+		if shelf is Shelves:
+			shelf.spawn_items(randi_range(4, 10))
+
 func request(action : StringName, payload : Dictionary) -> void:
 	requested.emit(action, payload)
+
+func get_percent_items_shelved() -> float:
+	var total_shelved : int = 0
+	var shelves : Array = get_tree().get_nodes_in_group(GROUP_SHELVES)
+	for shelf in shelves:
+		if shelf is Shelves:
+			total_shelved += shelf.get_total_items()
+	
+	var items : Array = get_tree().get_nodes_in_group(GROUP_ITEM)
+	
+	if items.size() > 0:
+		return float(total_shelved) / float(items.size())
+	return 0.0
 
 # ------------------------------------------------------------------------------
 # Handler Methods
@@ -71,10 +101,19 @@ func _on_relayed(action : StringName, payload : Dictionary) -> void:
 	match action:
 		&"unpaused":
 			_UpdateFromSettings()
+			if not _init:
+				initialize()
 		&"spawn_mop":
 			var mop : Node3D = MOP.instantiate()
 			add_child(mop)
 			mop.global_position = payload.position
+		&"drop_food":
+			if not "item" in payload: return
+			if not payload["item"] is Node3D: return
+			if not "position" in payload: return
+			if typeof(payload["position"]) != TYPE_VECTOR3: return
+			add_child(payload["item"])
+			payload["item"].global_position = payload["position"]
 
 func _on_settings_value_changed(section : String, key : String, value : Variant) -> void:
 	if environment == null or section != SETTINGS_SECTION: return
@@ -95,3 +134,7 @@ func _on_clock_time_passed(hour : int, minute : int) -> void:
 
 func _on_match_percentage_updated(percent) -> void:
 	print("Percentage: ", percent * 100)
+
+
+func _on_shelf_items_changed() -> void:
+	print("Shelved Items: ", get_percent_items_shelved())

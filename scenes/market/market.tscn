@@ -260,19 +260,25 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32.9125, 0, 16.114)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32.9125, 0, 11.5327)
 
 [node name="Marker3D3" type="Marker3D" parent="WalkerPos" groups=["Walker"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.9371, 0, 14.2158)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.9371, 0, 13.3057)
 
 [node name="Marker3D4" type="Marker3D" parent="WalkerPos" groups=["Walker"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.7371, 0, 14.2158)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.7371, 0, 15.2242)
 
 [node name="Marker3D5" type="Marker3D" parent="WalkerPos" groups=["Walker"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.9983, 0, 14.2158)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.9983, 0, 13.3628)
 
 [node name="Marker3D6" type="Marker3D" parent="WalkerPos" groups=["Walker"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.9427, 0, 14.2158)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.9427, 0, 15.2013)
 
 [node name="Marker3D7" type="Marker3D" parent="WalkerPos" groups=["Walker"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.51388, 0, 8.96457)
 
 [connection signal="match_percentage_updated" from="Floor1/SplatCanvas" to="." method="_on_match_percentage_updated"]
 [connection signal="time_passed" from="Floor1/Clock" to="." method="_on_clock_time_passed"]
+[connection signal="shelf_items_changed" from="Floor1/Shelving/Shelves" to="." method="_on_shelf_items_changed"]
+[connection signal="shelf_items_changed" from="Floor1/Shelving/Shelves2" to="." method="_on_shelf_items_changed"]
+[connection signal="shelf_items_changed" from="Floor1/Shelving/Shelves3" to="." method="_on_shelf_items_changed"]
+[connection signal="shelf_items_changed" from="Floor1/Shelving/Shelves4" to="." method="_on_shelf_items_changed"]
+[connection signal="shelf_items_changed" from="Floor1/Shelving/Shelves5" to="." method="_on_shelf_items_changed"]
+[connection signal="shelf_items_changed" from="Floor1/Shelving/Shelves6" to="." method="_on_shelf_items_changed"]

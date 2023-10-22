@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://mwixatyek13n"]
+
+[ext_resource type="Script" path="res://objects/food/food.gd" id="1_etsgi"]
+[ext_resource type="PackedScene" uid="uid://b8d1v0eelrb8t" path="res://objects/food/box_03_rig.tscn" id="2_3n87b"]
+[ext_resource type="Script" path="res://scripts/nodes/interactable.gd" id="4_gh23c"]
+[ext_resource type="PackedScene" uid="uid://cwbugr7885i8t" path="res://assets/obsidianblk/PA/objects/boxfood_03.glb" id="4_pa3dv"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fyniy"]
+size = Vector3(0.255, 0.31, 0.145)
+
+[node name="Box03" type="Node3D" groups=["Item"]]
+script = ExtResource("1_etsgi")
+rigid_version = ExtResource("2_3n87b")
+
+[node name="Interactable" type="Area3D" parent="."]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("4_gh23c")
+hand_required = true
+type = &"Item"
+interact_message = "[b][E][/b] to Pickup"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactable"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.151845, 0)
+shape = SubResource("BoxShape3D_fyniy")
+
+[node name="boxfood_03" parent="." instance=ExtResource("4_pa3dv")]
+
+[connection signal="interacted" from="Interactable" to="." method="_on_interacted"]

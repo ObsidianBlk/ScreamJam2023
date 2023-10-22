@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://dpsp18soo4epu"]
+
+[ext_resource type="Script" path="res://objects/food/food_rig.gd" id="1_7ev6d"]
+[ext_resource type="PackedScene" uid="uid://3p7ede86x0gu" path="res://assets/obsidianblk/PA/objects/boxfood_01.glb" id="2_58vwx"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_i7uuy"]
+size = Vector3(0.225, 0.285, 0.115)
+
+[node name="Box01Rig" type="RigidBody3D" groups=["Fling"]]
+collision_layer = 4
+mass = 0.01
+script = ExtResource("1_7ev6d")
+static_version_path = "res://objects/food/box_01.tscn"
+
+[node name="boxfood_01" parent="." instance=ExtResource("2_58vwx")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.152, 0)
+shape = SubResource("BoxShape3D_i7uuy")

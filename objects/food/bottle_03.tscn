@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://fuin27tlyblo"]
+
+[ext_resource type="Script" path="res://objects/food/food.gd" id="1_53rsh"]
+[ext_resource type="PackedScene" uid="uid://d262q8q455p8s" path="res://objects/food/bottle_03_rig.tscn" id="2_k7dej"]
+[ext_resource type="Script" path="res://scripts/nodes/interactable.gd" id="3_300rn"]
+[ext_resource type="PackedScene" uid="uid://dol2c1ms5clm2" path="res://assets/obsidianblk/PA/objects/Soda_03.glb" id="4_psujq"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_yb8mo"]
+height = 0.2
+radius = 0.09
+
+[node name="Bottle03" type="Node3D" groups=["Item"]]
+script = ExtResource("1_53rsh")
+rigid_version = ExtResource("2_k7dej")
+
+[node name="Interactable" type="Area3D" parent="."]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("3_300rn")
+hand_required = true
+type = &"Item"
+interact_message = "[b][E][/b] to Pickup"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactable"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+shape = SubResource("CylinderShape3D_yb8mo")
+
+[node name="Soda_03" parent="." instance=ExtResource("4_psujq")]
+
+[connection signal="interacted" from="Interactable" to="." method="_on_interacted"]

@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://d262q8q455p8s"]
+
+[ext_resource type="Script" path="res://objects/food/food_rig.gd" id="1_bc1j5"]
+[ext_resource type="PackedScene" uid="uid://dol2c1ms5clm2" path="res://assets/obsidianblk/PA/objects/Soda_03.glb" id="2_1uqnv"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ryh2y"]
+height = 0.2
+radius = 0.045
+
+[node name="Bottle01Rig" type="RigidBody3D" groups=["Fling"]]
+collision_layer = 4
+mass = 0.01
+script = ExtResource("1_bc1j5")
+static_version_path = "res://objects/food/bottle_03.tscn"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+shape = SubResource("CylinderShape3D_ryh2y")
+
+[node name="Soda_03" parent="." instance=ExtResource("2_1uqnv")]

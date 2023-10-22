@@ -19,6 +19,8 @@ const ACTION_ACTIVITY : String = "Activity"
 const ACTION_SHOW_FLASHLIGHT : String = "Show_Flashlight"
 const ACTION_HIDE_FLASHLIGHT : String = "Hide_Flashlight"
 
+const FLING_OBJECT_GROUP : StringName = &"Fling"
+
 enum HAND {Empty=0, Mop=1, Item=2}
 
 # ------------------------------------------------------------------------------
@@ -42,6 +44,7 @@ var _hand : HAND = HAND.Empty
 var _mopping : bool = false
 
 var _has_flashlight : bool = false
+var _item : Node3D = null
 
 # ------------------------------------------------------------------------------
 # Onready Variables
@@ -52,6 +55,7 @@ var _has_flashlight : bool = false
 @onready var _mop_ray: RayCast3D = %MopRay
 @onready var _item_drop: Marker3D = %ItemDrop
 @onready var _flashlight: Node3D = $Hand/Flashlight
+@onready var _hand_container: Node3D = $Hand
 
 # ------------------------------------------------------------------------------
 # Override Methods
@@ -90,7 +94,14 @@ func _unhandled_input(event: InputEvent) -> void:
 				if _camera_ray.is_colliding():
 					var collision : Node3D = _camera_ray.get_collider()
 					if collision is Interactable:
-						collision.interact()
+						if collision.type == &"Shelf":
+							_DropItem(_camera_ray.get_collision_point())
+				else:
+					_DropItem(Vector3(
+						_item_drop.global_position.x,
+						global_position.y,
+						_item_drop.global_position.z
+					))
 			HAND.Empty:
 				if _has_flashlight:
 					var state : String = _atree.get("parameters/Actions/current_state")
@@ -105,8 +116,8 @@ func _unhandled_input(event: InputEvent) -> void:
 				if not _camera_ray.is_colliding(): return
 				var collision : Node3D = _camera_ray.get_collider()
 				if not collision is Interactable: return
-				if collision.hand_required and _hand != HAND.Empty: return
-				collision.interact()
+				#if collision.hand_required and _hand != HAND.Empty: return
+				collision.interact({"player":self})
 			HAND.Mop:
 				Relay.relay(&"spawn_mop", {"position": Vector3(
 					_item_drop.global_position.x,
@@ -172,8 +183,35 @@ func _UpdateMopping(delta : float) -> void:
 		if val > 0.0:
 			_atree.set("parameters/Activity/blend_amount", max(0.0, val - delta))
 
+func _DropItem(pos : Vector3) -> void:
+	if _item == null: return
+	_hand_container.remove_child(_item)
+	var itm : Node3D = _item
+	_item = null
+	_hand = HAND.Empty
+	if itm is Food:
+		itm.in_hand = false
+	Relay.relay(&"drop_food", {
+		"item": itm,
+		"position": pos
+	})
+	
+
 func _ToggleFlashlight() -> void:
 	_flashlight.enabled = not _flashlight.enabled
+
+# ------------------------------------------------------------------------------
+# Public Methods
+# ------------------------------------------------------------------------------
+func give_item(item : Node3D) -> void:
+	if _hand != HAND.Empty: return
+	_item = item
+	_hand_container.add_child(_item)
+	_item.rotation = Vector3.ZERO
+	_item.position = Vector3.ZERO
+	if item is Food:
+		item.in_hand = true
+	_hand = HAND.Item
 
 # ------------------------------------------------------------------------------
 # Handler Methods
@@ -193,3 +231,6 @@ func _on_settings_value_changed(section : String, key : String, value : Variant)
 		if typeof(value) == TYPE_FLOAT:
 			_camera.fov = value
 
+func _on_hitbox_body_entered(body: Node3D) -> void:
+	if body.is_in_group(FLING_OBJECT_GROUP):
+		print("Ouch!")

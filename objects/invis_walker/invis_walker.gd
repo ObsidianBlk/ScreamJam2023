@@ -6,9 +6,16 @@ extends Node3D
 # ------------------------------------------------------------------------------
 const GROUP_PLAYER : StringName = &"Player"
 const MOVE_SPEED : float = 2.0
+
+const FLING_STRENGTH : float = 8.0
+
 const WAIT_CHANCE : float = 0.3
 const WAIT_TIME_MIN : float = 1.0
 const WAIT_TIME_MAX : float = 4.0
+
+const ATTACK_TIME_MIN : float = 0.8
+const ATTACK_TIME_MAX : float = 1.4
+
 
 # ------------------------------------------------------------------------------
 # Export Variables
@@ -27,13 +34,19 @@ var _next_pos : Vector3 = Vector3.ZERO
 var _need_dest : bool = true
 var _wait_time : float = 0.0
 
+var _items : Array = []
+
 # ------------------------------------------------------------------------------
 # Onready Variables
 # ------------------------------------------------------------------------------
 @onready var _ghost: AnimatedSprite3D = $Ghost
 @onready var _agent: NavigationAgent3D = $Agent
+@onready var _player_attack_timer: Timer = $PlayerAttackTimer
+@onready var _player_ray: RayCast3D = $PlayerRay
+
 @onready var _audio_step1: AudioStreamPlayer3D = $AudioStep1
 @onready var _audio_step2: AudioStreamPlayer3D = $AudioStep2
+
 
 # ------------------------------------------------------------------------------
 # Override Methods
@@ -62,6 +75,7 @@ func _UpdateGhostVis() -> void:
 			return
 		var alpha : float = _AlphaFromDistance(global_position, player.global_position)
 		_ghost.modulate = Color(1.0, 1.0, 1.0, alpha)
+		_player_ray.look_at(player.global_position)
 	else:
 		_ghost.modulate = Color(1.0, 1.0, 1.0, 0.0)
 
@@ -128,6 +142,11 @@ func _PlayStep() -> void:
 func _on_relayed(action : StringName, payload : Dictionary) -> void:
 	match action:
 		&"lights_out":
+			var dstlist : Array = get_tree().get_nodes_in_group(nav_group)
+			if dstlist.size() >= 1 :
+				_need_dest = true
+				var didx : int = randi_range(0, dstlist.size() - 1)
+				global_position = dstlist[didx].global_position
 			_lights_out = true
 		&"lights_on":
 			_lights_out = false
@@ -138,3 +157,25 @@ func _on_agent_target_reached() -> void:
 		_wait_time = randf_range(WAIT_TIME_MIN, WAIT_TIME_MAX)
 	else:
 		_FindNewDestination()
+
+func _on_player_attack_timer_timeout() -> void:
+	var delay : float = randf_range(ATTACK_TIME_MIN, ATTACK_TIME_MIN)
+	_player_attack_timer.start(delay)
+	var player : Node3D = _GetPlayer()
+	if player == null: return
+	if _player_ray.is_colliding():
+		if _items.size() <= 0: return
+		var idx : int = randi_range(0, _items.size() - 1)
+		var inter : Interactable = _items[idx]
+		_items.remove_at(idx)
+		inter.interact({"fling_strength": FLING_STRENGTH})
+
+
+func _on_food_area_entered(area: Area3D) -> void:
+	if area is Interactable:
+		if area.type != &"Item": return
+		_items.append(area)
+
+func _on_food_area_exited(area: Area3D) -> void:
+	if area is Interactable and area.type == &"Item":
+		_items = _items.filter(func(item): item != area)

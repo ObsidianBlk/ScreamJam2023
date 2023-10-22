@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://prykewiwfg3x"]
+[gd_scene load_steps=16 format=3 uid="uid://prykewiwfg3x"]
 
 [ext_resource type="Texture2D" uid="uid://c2sq2l4hntg37" path="res://assets/Ghost.png" id="1_4xi3e"]
 [ext_resource type="Script" path="res://objects/invis_walker/invis_walker.gd" id="1_j3fo5"]
@@ -89,6 +89,9 @@ _data = {
 "walk": SubResource("Animation_2dtx5")
 }
 
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_jq45d"]
+radius = 2.0
+
 [node name="InvisWalker" type="Node3D"]
 script = ExtResource("1_j3fo5")
 
@@ -101,7 +104,7 @@ shaded = true
 texture_filter = 2
 sprite_frames = SubResource("SpriteFrames_ugkkq")
 autoplay = "default"
-frame_progress = 0.473208
+frame_progress = 0.135139
 
 [node name="Agent" type="NavigationAgent3D" parent="."]
 
@@ -119,4 +122,24 @@ bus = &"SFX"
 stream = ExtResource("4_idg4c")
 bus = &"SFX"
 
+[node name="PlayerRay" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.13516, 0)
+target_position = Vector3(0, 0, -6)
+collision_mask = 8
+
+[node name="PlayerAttackTimer" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
+[node name="FoodArea" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FoodArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CylinderShape3D_jq45d")
+
 [connection signal="target_reached" from="Agent" to="." method="_on_agent_target_reached"]
+[connection signal="timeout" from="PlayerAttackTimer" to="." method="_on_player_attack_timer_timeout"]
+[connection signal="area_entered" from="FoodArea" to="." method="_on_food_area_entered"]
+[connection signal="area_exited" from="FoodArea" to="." method="_on_food_area_exited"]

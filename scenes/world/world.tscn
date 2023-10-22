@@ -15,6 +15,7 @@ script = ExtResource("1_jc7w0")
 process_mode = 1
 
 [node name="ScreenMessages" parent="Market" instance=ExtResource("3_c6fde")]
+layer = 0
 
 [node name="UIRoot" type="CanvasLayer" parent="."]
 script = ExtResource("3_568vs")

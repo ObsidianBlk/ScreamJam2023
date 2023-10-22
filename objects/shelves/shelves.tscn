@@ -1,5 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://8epqkd3sek7r"]
+[gd_scene load_steps=9 format=3 uid="uid://8epqkd3sek7r"]
 
+[ext_resource type="Script" path="res://objects/shelves/shelves.gd" id="1_7amv4"]
 [ext_resource type="PackedScene" uid="uid://0lx3vrnj67xf" path="res://assets/obsidianblk/PA/objects/shelf_mid.glb" id="1_xtlc8"]
 [ext_resource type="PackedScene" uid="uid://cotsrj64byko3" path="res://assets/obsidianblk/PA/objects/shelf_end.glb" id="2_7okqc"]
 [ext_resource type="Script" path="res://scripts/nodes/interactable.gd" id="3_ogm26"]
@@ -7,10 +8,235 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_2ve7b"]
 size = Vector3(3, 0.5, 1)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_kuc5k"]
+size = Vector3(3, 1.5, 0.1)
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_4u15i"]
 size = Vector3(3, 0.04, 0.9)
 
-[node name="Shelves" type="StaticBody3D"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_lbd5y"]
+size = Vector3(3, 2, 1)
+
+[node name="Shelves" type="StaticBody3D" groups=["Shelves"]]
+script = ExtResource("1_7amv4")
+
+[node name="ItemSpawnLoc" type="Node3D" parent="."]
+
+[node name="Marker3D" type="Marker3D" parent="ItemSpawnLoc"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.512139, -0.282333)
+
+[node name="Marker3D2" type="Marker3D" parent="ItemSpawnLoc"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.263384, 0.512139, -0.282333)
+
+[node name="Marker3D3" type="Marker3D" parent="ItemSpawnLoc"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.237267, 0.512139, -0.282333)
+
+[node name="Marker3D4" type="Marker3D" parent="ItemSpawnLoc"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.987587, 0.512139, -0.282333)
+
+[node name="Marker3D5" type="Marker3D" parent="ItemSpawnLoc"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.724203, 0.512139, -0.282333)
+
+[node name="Marker3D6" type="Marker3D" parent="ItemSpawnLoc"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.22485, 0.512139, -0.282333)
+
+[node name="Marker3D7" type="Marker3D" parent="ItemSpawnLoc"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.02521, 0.512139, -0.282333)
+
+[node name="Marker3D8" type="Marker3D" parent="ItemSpawnLoc"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.28859, 0.512139, -0.282333)
+
+[node name="Marker3D9" type="Marker3D" parent="ItemSpawnLoc"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.787941, 0.512139, -0.282333)
+
+[node name="Marker3D10" type="Marker3D" parent="ItemSpawnLoc"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.512139, 0.254669)
+
+[node name="Marker3D11" type="Marker3D" parent="ItemSpawnLoc"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.263384, 0.512139, 0.254669)
+
+[node name="Marker3D12" type="Marker3D" parent="ItemSpawnLoc"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.237267, 0.512139, 0.254669)
+
+[node name="Marker3D13" type="Marker3D" parent="ItemSpawnLoc"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.987587, 0.512139, 0.254669)
+
+[node name="Marker3D14" type="Marker3D" parent="ItemSpawnLoc"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.724203, 0.512139, 0.254669)
+
+[node name="Marker3D15" type="Marker3D" parent="ItemSpawnLoc"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.22485, 0.512139, 0.254669)
+
+[node name="Marker3D16" type="Marker3D" parent="ItemSpawnLoc"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.02521, 0.512139, 0.254669)
+
+[node name="Marker3D17" type="Marker3D" parent="ItemSpawnLoc"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.28859, 0.512139, 0.254669)
+
+[node name="Marker3D18" type="Marker3D" parent="ItemSpawnLoc"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.787941, 0.512139, 0.254669)
+
+[node name="Marker3D19" type="Marker3D" parent="ItemSpawnLoc"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.913962, -0.282333)
+
+[node name="Marker3D20" type="Marker3D" parent="ItemSpawnLoc"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.263384, 0.913962, -0.282333)
+
+[node name="Marker3D21" type="Marker3D" parent="ItemSpawnLoc"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.237267, 0.913962, -0.282333)
+
+[node name="Marker3D22" type="Marker3D" parent="ItemSpawnLoc"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.987587, 0.913962, -0.282333)
+
+[node name="Marker3D23" type="Marker3D" parent="ItemSpawnLoc"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.724203, 0.913962, -0.282333)
+
+[node name="Marker3D24" type="Marker3D" parent="ItemSpawnLoc"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.22485, 0.913962, -0.282333)
+
+[node name="Marker3D25" type="Marker3D" parent="ItemSpawnLoc"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.02521, 0.913962, -0.282333)
+
+[node name="Marker3D26" type="Marker3D" parent="ItemSpawnLoc"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.28859, 0.913962, -0.282333)
+
+[node name="Marker3D27" type="Marker3D" parent="ItemSpawnLoc"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.787941, 0.913962, -0.282333)
+
+[node name="Marker3D28" type="Marker3D" parent="ItemSpawnLoc"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.913962, 0.254669)
+
+[node name="Marker3D29" type="Marker3D" parent="ItemSpawnLoc"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.263384, 0.913962, 0.254669)
+
+[node name="Marker3D30" type="Marker3D" parent="ItemSpawnLoc"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.237267, 0.913962, 0.254669)
+
+[node name="Marker3D31" type="Marker3D" parent="ItemSpawnLoc"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.987587, 0.913962, 0.254669)
+
+[node name="Marker3D32" type="Marker3D" parent="ItemSpawnLoc"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.724203, 0.913962, 0.254669)
+
+[node name="Marker3D33" type="Marker3D" parent="ItemSpawnLoc"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.22485, 0.913962, 0.254669)
+
+[node name="Marker3D34" type="Marker3D" parent="ItemSpawnLoc"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.02521, 0.913962, 0.254669)
+
+[node name="Marker3D35" type="Marker3D" parent="ItemSpawnLoc"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.28859, 0.913962, 0.254669)
+
+[node name="Marker3D36" type="Marker3D" parent="ItemSpawnLoc"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.787941, 0.913962, 0.254669)
+
+[node name="Marker3D37" type="Marker3D" parent="ItemSpawnLoc"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.32645, -0.282333)
+
+[node name="Marker3D38" type="Marker3D" parent="ItemSpawnLoc"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.263384, 1.32645, -0.282333)
+
+[node name="Marker3D39" type="Marker3D" parent="ItemSpawnLoc"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.237267, 1.32645, -0.282333)
+
+[node name="Marker3D40" type="Marker3D" parent="ItemSpawnLoc"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.987587, 1.32645, -0.282333)
+
+[node name="Marker3D41" type="Marker3D" parent="ItemSpawnLoc"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.724203, 1.32645, -0.282333)
+
+[node name="Marker3D42" type="Marker3D" parent="ItemSpawnLoc"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.22485, 1.32645, -0.282333)
+
+[node name="Marker3D43" type="Marker3D" parent="ItemSpawnLoc"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.02521, 1.32645, -0.282333)
+
+[node name="Marker3D44" type="Marker3D" parent="ItemSpawnLoc"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.28859, 1.32645, -0.282333)
+
+[node name="Marker3D45" type="Marker3D" parent="ItemSpawnLoc"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.787941, 1.32645, -0.282333)
+
+[node name="Marker3D46" type="Marker3D" parent="ItemSpawnLoc"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.32645, 0.254669)
+
+[node name="Marker3D47" type="Marker3D" parent="ItemSpawnLoc"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.263384, 1.32645, 0.254669)
+
+[node name="Marker3D48" type="Marker3D" parent="ItemSpawnLoc"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.237267, 1.32645, 0.254669)
+
+[node name="Marker3D49" type="Marker3D" parent="ItemSpawnLoc"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.987587, 1.32645, 0.254669)
+
+[node name="Marker3D50" type="Marker3D" parent="ItemSpawnLoc"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.724203, 1.32645, 0.254669)
+
+[node name="Marker3D51" type="Marker3D" parent="ItemSpawnLoc"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.22485, 1.32645, 0.254669)
+
+[node name="Marker3D52" type="Marker3D" parent="ItemSpawnLoc"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.02521, 1.32645, 0.254669)
+
+[node name="Marker3D53" type="Marker3D" parent="ItemSpawnLoc"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.28859, 1.32645, 0.254669)
+
+[node name="Marker3D54" type="Marker3D" parent="ItemSpawnLoc"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.787941, 1.32645, 0.254669)
+
+[node name="Marker3D55" type="Marker3D" parent="ItemSpawnLoc"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.72116, -0.282333)
+
+[node name="Marker3D56" type="Marker3D" parent="ItemSpawnLoc"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.263384, 1.72116, -0.282333)
+
+[node name="Marker3D57" type="Marker3D" parent="ItemSpawnLoc"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.237267, 1.72116, -0.282333)
+
+[node name="Marker3D58" type="Marker3D" parent="ItemSpawnLoc"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.987587, 1.72116, -0.282333)
+
+[node name="Marker3D59" type="Marker3D" parent="ItemSpawnLoc"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.724203, 1.72116, -0.282333)
+
+[node name="Marker3D60" type="Marker3D" parent="ItemSpawnLoc"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.22485, 1.72116, -0.282333)
+
+[node name="Marker3D61" type="Marker3D" parent="ItemSpawnLoc"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.02521, 1.72116, -0.282333)
+
+[node name="Marker3D62" type="Marker3D" parent="ItemSpawnLoc"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.28859, 1.72116, -0.282333)
+
+[node name="Marker3D63" type="Marker3D" parent="ItemSpawnLoc"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.787941, 1.72116, -0.282333)
+
+[node name="Marker3D64" type="Marker3D" parent="ItemSpawnLoc"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.72116, 0.254669)
+
+[node name="Marker3D65" type="Marker3D" parent="ItemSpawnLoc"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.263384, 1.72116, 0.254669)
+
+[node name="Marker3D66" type="Marker3D" parent="ItemSpawnLoc"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.237267, 1.72116, 0.254669)
+
+[node name="Marker3D67" type="Marker3D" parent="ItemSpawnLoc"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.987587, 1.72116, 0.254669)
+
+[node name="Marker3D68" type="Marker3D" parent="ItemSpawnLoc"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.724203, 1.72116, 0.254669)
+
+[node name="Marker3D69" type="Marker3D" parent="ItemSpawnLoc"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.22485, 1.72116, 0.254669)
+
+[node name="Marker3D70" type="Marker3D" parent="ItemSpawnLoc"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.02521, 1.72116, 0.254669)
+
+[node name="Marker3D71" type="Marker3D" parent="ItemSpawnLoc"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.28859, 1.72116, 0.254669)
+
+[node name="Marker3D72" type="Marker3D" parent="ItemSpawnLoc"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.787941, 1.72116, 0.254669)
 
 [node name="shelf_mid2" parent="." instance=ExtResource("1_xtlc8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 0)
@@ -24,6 +250,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 0)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
 shape = SubResource("BoxShape3D_2ve7b")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.04579, 0)
+shape = SubResource("BoxShape3D_kuc5k")
 
 [node name="Interactable_shelf1" type="Area3D" parent="."]
 collision_layer = 2
@@ -76,3 +306,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.498566, 0)
 shape = SubResource("BoxShape3D_4u15i")
 
 [node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="."]
+
+[node name="ItemWatch" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ItemWatch"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("BoxShape3D_lbd5y")
+
+[connection signal="area_entered" from="ItemWatch" to="." method="_on_entered"]
+[connection signal="area_exited" from="ItemWatch" to="." method="_on_exited"]
