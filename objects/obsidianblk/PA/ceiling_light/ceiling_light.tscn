@@ -36,7 +36,6 @@ omni_shadow_mode = 0
 unique_name_in_owner = true
 stream = ExtResource("3_sbtcb")
 attenuation_model = 1
-volume_db = -16.0
 unit_size = 2.0
 autoplay = true
 bus = &"SFX"

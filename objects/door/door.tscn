@@ -1,0 +1,76 @@
+[gd_scene load_steps=13 format=3 uid="uid://bku287uwgmml3"]
+
+[ext_resource type="PackedScene" uid="uid://bqayf87fr55ne" path="res://assets/obsidianblk/PA/objects/doorframe_01.glb" id="1_7g3lh"]
+[ext_resource type="Script" path="res://objects/door/door.gd" id="1_61fpk"]
+[ext_resource type="PackedScene" uid="uid://fdt672rathhf" path="res://assets/obsidianblk/PA/objects/door_02.glb" id="2_olmd8"]
+[ext_resource type="PackedScene" uid="uid://cnlenf6ace1m0" path="res://assets/obsidianblk/PA/objects/door_01.glb" id="3_vrjl2"]
+[ext_resource type="Shader" path="res://objects/obsidianblk/PA/cooler/frosted_glass.gdshader" id="4_25oqh"]
+[ext_resource type="Script" path="res://scripts/nodes/interactable.gd" id="6_gkeu1"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_kkhm8"]
+seed = 7
+frequency = 0.0431
+fractal_type = 3
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_hskwh"]
+width = 128
+height = 128
+noise = SubResource("FastNoiseLite_kkhm8")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_04buj"]
+render_priority = 0
+shader = ExtResource("4_25oqh")
+shader_parameter/distortion_size = 0.7
+shader_parameter/tint = Color(0.211765, 1, 0.74902, 1)
+shader_parameter/glass = SubResource("NoiseTexture2D_hskwh")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_lj5g2"]
+material = SubResource("ShaderMaterial_04buj")
+size = Vector2(0.945, 0.985)
+orientation = 2
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vod2k"]
+size = Vector3(1.195, 2.25, 0.1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3s6qq"]
+size = Vector3(1.195, 2.25, 0.455)
+
+[node name="Door" type="Node3D"]
+script = ExtResource("1_61fpk")
+
+[node name="doorframe_01" parent="." instance=ExtResource("1_7g3lh")]
+
+[node name="Body" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.586, 0, 0.06)
+
+[node name="door_02" parent="Body" instance=ExtResource("2_olmd8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.586, 0, 0.06)
+visible = false
+
+[node name="door_01" parent="Body" instance=ExtResource("3_vrjl2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.586, 0, 0.06)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Body/door_01"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7226, 0)
+mesh = SubResource("PlaneMesh_lj5g2")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.12383, 0)
+shape = SubResource("BoxShape3D_vod2k")
+
+[node name="Audio" type="AudioStreamPlayer3D" parent="."]
+bus = &"SFX"
+
+[node name="Interactable" type="Area3D" parent="."]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("6_gkeu1")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Interactable"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.12383, 0)
+shape = SubResource("BoxShape3D_3s6qq")
+
+[connection signal="interacted" from="Interactable" to="." method="_on_interacted"]

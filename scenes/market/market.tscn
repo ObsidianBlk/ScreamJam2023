@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://cmk7e78enjrj7"]
+[gd_scene load_steps=37 format=3 uid="uid://cmk7e78enjrj7"]
 
 [ext_resource type="Script" path="res://scripts/nodes/level3d.gd" id="1_jtixp"]
 [ext_resource type="PackedScene" uid="uid://cvwph5rg4n3fy" path="res://objects/obsidianblk/PA/cooler/cooler.tscn" id="1_ttthf"]
@@ -20,7 +20,14 @@
 [ext_resource type="PackedScene" uid="uid://d3wcflr3bak6e" path="res://objects/flashlight/flashlight.tscn" id="14_d5ofc"]
 [ext_resource type="PackedScene" uid="uid://r5hw1tyqg4wq" path="res://objects/powerbox/powerbox.tscn" id="15_8ns6q"]
 [ext_resource type="Environment" uid="uid://313mxsafop62" path="res://scenes/world/market_env.tres" id="16_fslq4"]
+[ext_resource type="PackedScene" uid="uid://bo64elfilkv55" path="res://assets/obsidianblk/PA/objects/sink.glb" id="17_rb0g2"]
+[ext_resource type="PackedScene" uid="uid://kv11yjr0ie0o" path="res://assets/obsidianblk/PA/objects/toilet.glb" id="18_40nxi"]
+[ext_resource type="PackedScene" uid="uid://bku287uwgmml3" path="res://objects/door/door.tscn" id="19_iin3j"]
+[ext_resource type="AudioStream" uid="uid://cjg3gpmga2r0e" path="res://assets/audio/sfx/door_locked.wav" id="20_huvmp"]
 [ext_resource type="PackedScene" uid="uid://prykewiwfg3x" path="res://objects/invis_walker/invis_walker.tscn" id="21_53l3u"]
+[ext_resource type="AudioStream" uid="uid://fqkeyfktnvt8" path="res://assets/audio/sfx/door_opening.wav" id="21_bif6c"]
+[ext_resource type="AudioStream" uid="uid://b2pjxae8rxohk" path="res://assets/audio/sfx/door_closing.wav" id="22_y1sy8"]
+[ext_resource type="PackedScene" uid="uid://cniw2j6d2a0tr" path="res://scenes/world/screen_messages/screen_messages.tscn" id="28_6tup3"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_6jk4a"]
 noise_type = 2
@@ -180,11 +187,20 @@ chargeup_time = 2.0
 flicker_noise = SubResource("FastNoiseLite_drl4h")
 flicker_in_editor = true
 
+[node name="CeilingLight8" parent="Floor1/CeilingLights" instance=ExtResource("10_erxbx")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -20.9891, 2.91762, 2.09281)
+max_energy = 6.0
+
+[node name="CeilingLight9" parent="Floor1/CeilingLights" instance=ExtResource("10_erxbx")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -8.77643, 2.91762, 2.09281)
+max_energy = 6.0
+
+[node name="CeilingLight10" parent="Floor1/CeilingLights" instance=ExtResource("10_erxbx")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -3.32174, 2.91762, 2.09281)
+max_energy = 6.0
+
 [node name="Clock" parent="Floor1" instance=ExtResource("13_ynav0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30.4582, 2.13147, -1.76562)
-enabled = true
-start_hour = 23
-sec_per_minute = 0.25
 
 [node name="Shelving" type="Node3D" parent="Floor1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 0)
@@ -209,6 +225,50 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -16.5,
 
 [node name="Flashlight" parent="Floor1" instance=ExtResource("14_d5ofc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.2612, 1.39991, 12.3191)
+
+[node name="Misc" type="Node3D" parent="Floor1"]
+
+[node name="sink" parent="Floor1/Misc" instance=ExtResource("17_rb0g2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.00994, 0.803351, 0.572963)
+
+[node name="sink2" parent="Floor1/Misc" instance=ExtResource("17_rb0g2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.12122, 0.803351, 0.572963)
+
+[node name="toilet" parent="Floor1/Misc" instance=ExtResource("18_40nxi")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -5.13046, 0, 2.64621)
+
+[node name="toilet2" parent="Floor1/Misc" instance=ExtResource("18_40nxi")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -6.84019, 0, 2.64621)
+
+[node name="Doors" type="Node3D" parent="Floor1"]
+
+[node name="Front_Door" parent="Floor1/Doors" instance=ExtResource("19_iin3j")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -34, 0, 9)
+locked = true
+sound_locked = ExtResource("20_huvmp")
+
+[node name="Back_Door" parent="Floor1/Doors" instance=ExtResource("19_iin3j")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 9)
+locked = true
+sound_locked = ExtResource("20_huvmp")
+
+[node name="Office_Door" parent="Floor1/Doors" instance=ExtResource("19_iin3j")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -26, 0, 3)
+type = 1
+sound_opening = ExtResource("21_bif6c")
+sound_closing = ExtResource("22_y1sy8")
+
+[node name="Bathroom_Door1" parent="Floor1/Doors" instance=ExtResource("19_iin3j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 0, 6)
+type = 1
+sound_opening = ExtResource("21_bif6c")
+sound_closing = ExtResource("22_y1sy8")
+
+[node name="Bathroom_Door2" parent="Floor1/Doors" instance=ExtResource("19_iin3j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 6)
+type = 1
+sound_opening = ExtResource("21_bif6c")
+sound_closing = ExtResource("22_y1sy8")
 
 [node name="Floor2" type="Node3D" parent="."]
 
@@ -274,8 +334,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.9427, 0, 15.2013)
 [node name="Marker3D7" type="Marker3D" parent="WalkerPos" groups=["Walker"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.51388, 0, 8.96457)
 
+[node name="ScreenMessages" parent="." instance=ExtResource("28_6tup3")]
+layer = 0
+
 [connection signal="match_percentage_updated" from="Floor1/SplatCanvas" to="." method="_on_match_percentage_updated"]
-[connection signal="time_passed" from="Floor1/Clock" to="." method="_on_clock_time_passed"]
 [connection signal="shelf_items_changed" from="Floor1/Shelving/Shelves" to="." method="_on_shelf_items_changed"]
 [connection signal="shelf_items_changed" from="Floor1/Shelving/Shelves2" to="." method="_on_shelf_items_changed"]
 [connection signal="shelf_items_changed" from="Floor1/Shelving/Shelves3" to="." method="_on_shelf_items_changed"]

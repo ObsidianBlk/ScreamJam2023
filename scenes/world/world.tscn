@@ -3,9 +3,9 @@
 [ext_resource type="Script" path="res://scenes/world/world.gd" id="1_jc7w0"]
 [ext_resource type="PackedScene" uid="uid://cmk7e78enjrj7" path="res://scenes/market/market.tscn" id="1_yumia"]
 [ext_resource type="Script" path="res://scripts/ui/ui_root.gd" id="3_568vs"]
-[ext_resource type="PackedScene" uid="uid://cniw2j6d2a0tr" path="res://scenes/world/screen_messages/screen_messages.tscn" id="3_c6fde"]
 [ext_resource type="PackedScene" uid="uid://b33nbjfw0fuf1" path="res://scenes/world/ui/main_menu/main_menu.tscn" id="4_bvhdo"]
 [ext_resource type="PackedScene" uid="uid://b8dl5bcuhbt0w" path="res://scenes/world/ui/options_menu/options_menu.tscn" id="6_cunr6"]
+[ext_resource type="PackedScene" uid="uid://bsy3ey5t1f330" path="res://scenes/world/ui/game_over/game_over.tscn" id="7_4qm3w"]
 
 [node name="World" type="Node3D"]
 process_mode = 3
@@ -14,9 +14,6 @@ script = ExtResource("1_jc7w0")
 [node name="Market" parent="." instance=ExtResource("1_yumia")]
 process_mode = 1
 
-[node name="ScreenMessages" parent="Market" instance=ExtResource("3_c6fde")]
-layer = 0
-
 [node name="UIRoot" type="CanvasLayer" parent="."]
 script = ExtResource("3_568vs")
 initial_ui = &"MainMenu"
@@ -24,6 +21,8 @@ initial_ui = &"MainMenu"
 [node name="MainMenu" parent="UIRoot" instance=ExtResource("4_bvhdo")]
 
 [node name="OptionsMenu" parent="UIRoot" instance=ExtResource("6_cunr6")]
+
+[node name="GameOver" parent="UIRoot" instance=ExtResource("7_4qm3w")]
 
 [connection signal="requested" from="Market" to="." method="request"]
 [connection signal="requested" from="UIRoot" to="." method="request"]

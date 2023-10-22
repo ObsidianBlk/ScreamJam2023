@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 
 Relay="*res://scripts/autos/relay.gd"
 Settings="*res://scripts/autos/settings.gd"
+Clock24="*res://scripts/autos/clock24.gd"
 
 [display]
 

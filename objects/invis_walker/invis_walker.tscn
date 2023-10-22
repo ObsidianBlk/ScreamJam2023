@@ -104,7 +104,7 @@ shaded = true
 texture_filter = 2
 sprite_frames = SubResource("SpriteFrames_ugkkq")
 autoplay = "default"
-frame_progress = 0.135139
+frame_progress = 0.825714
 
 [node name="Agent" type="NavigationAgent3D" parent="."]
 

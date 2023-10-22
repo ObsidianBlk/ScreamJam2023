@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://objects/shelves/shelves.gd" id="1_7amv4"]
 [ext_resource type="PackedScene" uid="uid://0lx3vrnj67xf" path="res://assets/obsidianblk/PA/objects/shelf_mid.glb" id="1_xtlc8"]
-[ext_resource type="PackedScene" uid="uid://cotsrj64byko3" path="res://assets/obsidianblk/PA/objects/shelf_end.glb" id="2_7okqc"]
 [ext_resource type="Script" path="res://scripts/nodes/interactable.gd" id="3_ogm26"]
+[ext_resource type="PackedScene" uid="uid://cotsrj64byko3" path="res://assets/obsidianblk/PA/objects/shelf_end.glb" id="5_vyv3y"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2ve7b"]
 size = Vector3(3, 0.5, 1)
@@ -244,9 +244,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 0)
 [node name="shelf_mid" parent="." instance=ExtResource("1_xtlc8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0)
 
-[node name="shelf_end" parent="." instance=ExtResource("2_7okqc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 0)
-
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
 shape = SubResource("BoxShape3D_2ve7b")
@@ -314,6 +311,9 @@ collision_mask = 2
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ItemWatch"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("BoxShape3D_lbd5y")
+
+[node name="shelf_end" parent="." instance=ExtResource("5_vyv3y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 0)
 
 [connection signal="area_entered" from="ItemWatch" to="." method="_on_entered"]
 [connection signal="area_exited" from="ItemWatch" to="." method="_on_exited"]

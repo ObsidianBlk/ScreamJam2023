@@ -42,6 +42,7 @@ func set_environment(e : WorldEnvironment) -> void:
 # Override Methods
 # ------------------------------------------------------------------------------
 func _ready() -> void:
+	Clock24.clock_ticked.connect(_on_clock_time_passed)
 	Relay.relayed.connect(_on_relayed)
 	Settings.loaded.connect(_UpdateFromSettings)
 	Settings.value_changed.connect(_on_settings_value_changed)
@@ -72,6 +73,8 @@ func _UpdateFromSettings() -> void:
 func initialize() -> void:
 	if _init: return
 	_init = true
+	Clock24.reset(23, 0)
+	Clock24.set_seconds_per_minute(0.5)
 	randomize()
 	var shelves : Array = get_tree().get_nodes_in_group(GROUP_SHELVES)
 	for shelf in shelves:
@@ -101,6 +104,8 @@ func _on_relayed(action : StringName, payload : Dictionary) -> void:
 	match action:
 		&"unpaused":
 			_UpdateFromSettings()
+			if not Clock24.is_enabled():
+				Clock24.enable()
 			if not _init:
 				initialize()
 		&"spawn_mop":
@@ -131,10 +136,10 @@ func _on_clock_time_passed(hour : int, minute : int) -> void:
 	if hour == 0 and minute == 15:
 		Relay.relay(&"lights_out")
 
-
 func _on_match_percentage_updated(percent) -> void:
-	print("Percentage: ", percent * 100)
-
+	pass
+	#print("Percentage: ", percent * 100)
 
 func _on_shelf_items_changed() -> void:
-	print("Shelved Items: ", get_percent_items_shelved())
+	pass
+	#print("Shelved Items: ", get_percent_items_shelved())

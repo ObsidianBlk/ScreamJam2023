@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://dmewrmmemq5x5"]
+
+[ext_resource type="Script" path="res://scenes/world/ui/game_over/scenette/scenette.gd" id="1_kr85b"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_wls56"]
+
+[node name="Scenette" type="Node3D"]
+script = ExtResource("1_kr85b")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.931243, 0.717066, 1.88053)
+current = true
+
+[node name="SpinPlate" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SpinPlate"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("BoxMesh_wls56")

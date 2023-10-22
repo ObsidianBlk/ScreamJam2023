@@ -47,6 +47,7 @@ func request(action : StringName, payload : Dictionary = {}) -> void:
 				Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 		&"pause_game":
 			if not get_tree().paused:
+				Clock24.enable(false)
 				get_tree().paused = true
 				Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 				_ui.show_ui(&"MainMenu")

@@ -563,7 +563,6 @@ collide_with_bodies = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.025, -0.3)
 
 [node name="Mop" type="Node3D" parent="Hand"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="mop_model" parent="Hand/Mop" instance=ExtResource("2_7a0sp")]
 
