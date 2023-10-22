@@ -30,6 +30,21 @@ const GROUP_ITEM : StringName = &"Item"
 # ------------------------------------------------------------------------------
 var _init : bool = false
 
+var _floor_percent : float = 0.0
+
+var _event_active : bool = false
+var _event_end_timestamp : int = 0
+var _event_delay : int = 60
+
+var _last_event : StringName = &""
+var _door_exit_type : String = ""
+
+# ------------------------------------------------------------------------------
+# Onready Variables
+# ------------------------------------------------------------------------------
+@onready var _door_exit_timer: Timer = $DoorExitTimer
+@onready var _music: AudioStreamPlayer = $Music
+
 # ------------------------------------------------------------------------------
 # Setters
 # ------------------------------------------------------------------------------
@@ -67,6 +82,19 @@ func _UpdateFromSettings() -> void:
 	if typeof(val) == TYPE_BOOL:
 		env.ssil_enabled = val
 
+func _EventOver() -> void:
+	_event_active = false
+	_event_delay = randi_range(15, 45)
+	_event_end_timestamp = Clock24.get_minutes_elapsed()
+
+func _GameOverSurvived() -> void:
+	var shelves_percent : float = get_percent_items_shelved()
+	var total_percent = (shelves_percent + _floor_percent) * 0.5
+	if total_percent < 0.6:
+		game_over_ending("AnyWork")
+	elif total_percent < 0.8:
+		game_over_ending("GoodWork")
+
 # ------------------------------------------------------------------------------
 # Public Methods
 # ------------------------------------------------------------------------------
@@ -97,6 +125,13 @@ func get_percent_items_shelved() -> float:
 		return float(total_shelved) / float(items.size())
 	return 0.0
 
+func game_over_ending(ending_name : String) -> void:
+	if _door_exit_timer == null: return
+	if not _door_exit_timer.is_stopped(): return
+	if ending_name.is_empty(): return
+	_door_exit_type = ending_name
+	_door_exit_timer.start()
+
 # ------------------------------------------------------------------------------
 # Handler Methods
 # ------------------------------------------------------------------------------
@@ -119,6 +154,8 @@ func _on_relayed(action : StringName, payload : Dictionary) -> void:
 			if typeof(payload["position"]) != TYPE_VECTOR3: return
 			add_child(payload["item"])
 			payload["item"].global_position = payload["position"]
+		&"lights_on":
+			_EventOver()
 
 func _on_settings_value_changed(section : String, key : String, value : Variant) -> void:
 	if environment == null or section != SETTINGS_SECTION: return
@@ -133,13 +170,46 @@ func _on_settings_value_changed(section : String, key : String, value : Variant)
 				env.ssil_enabled = value
 
 func _on_clock_time_passed(hour : int, minute : int) -> void:
-	if hour == 0 and minute == 15:
+	if hour == 6:
+		# If we got to 6am, we survived! Time to tally success!
+		_GameOverSurvived()
+		return
+	
+	# If we're already in an event, can't start another.
+	if _event_active == true : return
+	
+	# Don't bother if there's less than "15 minutes" left.
+	if Clock24.get_minutes_until(6, 0) < 30: return
+	
+	if _event_delay > 0:
+		_event_delay -= 1
+		return
+	
+	randomize()
+	var prob : float = randf()
+	if prob < 0.1:
+		if _last_event == &"music": return
+		_last_event = &"music"
+		_event_active = true
+		Relay.relay(&"music_attack_start")
+		_music.play()
+	else: # Lights Out is allowed even if it was the last event.
+		_last_event = &"" # Which is why we don't record it.
+		_event_active = true
 		Relay.relay(&"lights_out")
 
-func _on_match_percentage_updated(percent) -> void:
-	pass
-	#print("Percentage: ", percent * 100)
+
+func _on_match_percentage_updated(percent : float) -> void:
+	_floor_percent = percent
 
 func _on_shelf_items_changed() -> void:
 	pass
 	#print("Shelved Items: ", get_percent_items_shelved())
+
+func _on_door_exit_timer_timeout() -> void:
+	if _door_exit_type == "": return
+	request(&"game_over", {"ending": _door_exit_type})
+
+func _on_music_finished() -> void:
+	Relay.relay(&"music_attack_end")
+	_EventOver()

@@ -4,7 +4,8 @@ extends Node3D
 # ------------------------------------------------------------------------------
 # Signals
 # ------------------------------------------------------------------------------
-signal interacted(payload : Dictionary)
+signal opened()
+signal closed()
 
 # ------------------------------------------------------------------------------
 # Constants
@@ -77,16 +78,19 @@ func _SetState(s : STATE) -> void:
 			_state = s
 			_body.rotation.y = ANGLE_OPENED
 			_static.collision_layer = 0
+			opened.emit()
 		STATE.Closed:
 			_state = s
 			_body.rotation.y = ANGLE_CLOSED
 			_static.collision_layer = _static_layer
+			closed.emit()
 
 func _Anim_Open() -> void:
 	if _state != STATE.Closed: return
 	_state = STATE.Opening
 	var tween : Tween = create_tween()
 	tween.tween_property(_body, "rotation:y", ANGLE_OPENED, TRANSITION_DURATION)
+	opened.emit()
 	_static.collision_layer = 0
 	_PlaySound(sound_opening)
 	await tween.finished
@@ -97,6 +101,7 @@ func _Anim_Close() -> void:
 	_state = STATE.Closing
 	var tween : Tween = create_tween()
 	tween.tween_property(_body, "rotation:y", ANGLE_CLOSED, TRANSITION_DURATION)
+	closed.emit()
 	_static.collision_layer = _static_layer
 	_PlaySound(sound_closing)
 	await tween.finished
@@ -114,10 +119,10 @@ func _on_interacted(payload : Dictionary = {}) -> void:
 	if _state == STATE.Closed or _state == STATE.Opened:
 		if locked:
 			_PlaySound(sound_locked)
+			opened.emit() # This is a technicality
 			return
 		match _state:
 			STATE.Opened:
 				_Anim_Close()
 			STATE.Closed:
 				_Anim_Open()
-	interacted.emit(payload)

@@ -8,7 +8,7 @@
 script = ExtResource("1_kr85b")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.931243, 0.717066, 1.88053)
+transform = Transform3D(1, 0, 0, 0, 0.915529, 0.402251, 0, -0.402251, 0.915529, 3.29792, 3.98075, 5.38357)
 current = true
 
 [node name="SpinPlate" type="Node3D" parent="."]

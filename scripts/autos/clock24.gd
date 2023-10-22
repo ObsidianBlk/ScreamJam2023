@@ -6,6 +6,12 @@ extends Node
 signal clock_ticked(hour : int, minute : int)
 
 # ------------------------------------------------------------------------------
+# Constants
+# ------------------------------------------------------------------------------
+const MINS_PER_HOUR : int = 60
+const MINS_PER_DAY : int = 1440
+
+# ------------------------------------------------------------------------------
 # Variables
 # ------------------------------------------------------------------------------
 var _enabled : bool = false
@@ -13,6 +19,8 @@ var _spm : float = 60.0
 var _dtime : float = 0.0
 var _hour : int = 0
 var _minute : int = 0
+
+var _minutes_elapsed : int = 0
 
 
 # ------------------------------------------------------------------------------
@@ -24,6 +32,7 @@ func _process(delta: float) -> void:
 	if _dtime >= _spm:
 		_dtime -= _spm
 		_minute += 1
+		_minutes_elapsed += 1
 		if _minute > 59:
 			_minute = 0
 			_hour = wrapi(_hour + 1, -1, 23)
@@ -35,6 +44,7 @@ func _process(delta: float) -> void:
 func reset(hour : int = 0, minute : int = 0) -> void:
 	_hour = wrapi(hour, 0, 24)
 	_minute = wrapi(minute, 0, 60)
+	_minutes_elapsed = 0
 	_dtime = 0.0
 	clock_ticked.emit(_hour, _minute)
 
@@ -66,6 +76,19 @@ func get_time(h24 : bool = true) -> Dictionary:
 		"hour": _hour if h24 else (_hour % 12),
 		"minute": _minute
 	}
+
+func get_minutes_elapsed() -> int:
+	return _minutes_elapsed
+
+func get_minutes_until(hour : int, minute : int) -> int:
+	var start = _hour * MINS_PER_HOUR + _minute
+	var end = hour * MINS_PER_HOUR + minute
+	var dur : int = end - start
+	return dur if dur >= 0 else dur + MINS_PER_DAY
+
+func get_convert_clock_minutes(minutes : int) -> float:
+	if minutes < 0: return 0.0
+	return _spm * minutes
 
 func is_morning() -> bool:
 	return _hour < 12

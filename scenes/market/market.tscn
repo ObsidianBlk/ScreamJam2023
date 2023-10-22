@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://cmk7e78enjrj7"]
+[gd_scene load_steps=38 format=3 uid="uid://cmk7e78enjrj7"]
 
 [ext_resource type="Script" path="res://scripts/nodes/level3d.gd" id="1_jtixp"]
 [ext_resource type="PackedScene" uid="uid://cvwph5rg4n3fy" path="res://objects/obsidianblk/PA/cooler/cooler.tscn" id="1_ttthf"]
@@ -28,6 +28,7 @@
 [ext_resource type="AudioStream" uid="uid://fqkeyfktnvt8" path="res://assets/audio/sfx/door_opening.wav" id="21_bif6c"]
 [ext_resource type="AudioStream" uid="uid://b2pjxae8rxohk" path="res://assets/audio/sfx/door_closing.wav" id="22_y1sy8"]
 [ext_resource type="PackedScene" uid="uid://cniw2j6d2a0tr" path="res://scenes/world/screen_messages/screen_messages.tscn" id="28_6tup3"]
+[ext_resource type="AudioStream" uid="uid://bn2fn77k3r0xl" path="res://assets/audio/music/Next to You.ogg" id="29_02m57"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_6jk4a"]
 noise_type = 2
@@ -337,6 +338,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.51388, 0, 8.96457)
 [node name="ScreenMessages" parent="." instance=ExtResource("28_6tup3")]
 layer = 0
 
+[node name="DoorExitTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("29_02m57")
+volume_db = -10.0
+bus = &"Music"
+
 [connection signal="match_percentage_updated" from="Floor1/SplatCanvas" to="." method="_on_match_percentage_updated"]
 [connection signal="shelf_items_changed" from="Floor1/Shelving/Shelves" to="." method="_on_shelf_items_changed"]
 [connection signal="shelf_items_changed" from="Floor1/Shelving/Shelves2" to="." method="_on_shelf_items_changed"]
@@ -344,3 +354,8 @@ layer = 0
 [connection signal="shelf_items_changed" from="Floor1/Shelving/Shelves4" to="." method="_on_shelf_items_changed"]
 [connection signal="shelf_items_changed" from="Floor1/Shelving/Shelves5" to="." method="_on_shelf_items_changed"]
 [connection signal="shelf_items_changed" from="Floor1/Shelving/Shelves6" to="." method="_on_shelf_items_changed"]
+[connection signal="opened" from="Floor1/Doors/Front_Door" to="." method="game_over_ending" binds= ["FrontDoor"]]
+[connection signal="opened" from="Floor1/Doors/Back_Door" to="." method="game_over_ending" binds= ["BackDoor"]]
+[connection signal="death" from="FPSC" to="." method="game_over_ending"]
+[connection signal="timeout" from="DoorExitTimer" to="." method="_on_door_exit_timer_timeout"]
+[connection signal="finished" from="Music" to="." method="_on_music_finished"]

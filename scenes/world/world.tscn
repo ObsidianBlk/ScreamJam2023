@@ -1,9 +1,9 @@
 [gd_scene load_steps=7 format=3 uid="uid://db8w46fysc7cw"]
 
 [ext_resource type="Script" path="res://scenes/world/world.gd" id="1_jc7w0"]
-[ext_resource type="PackedScene" uid="uid://cmk7e78enjrj7" path="res://scenes/market/market.tscn" id="1_yumia"]
 [ext_resource type="Script" path="res://scripts/ui/ui_root.gd" id="3_568vs"]
 [ext_resource type="PackedScene" uid="uid://b33nbjfw0fuf1" path="res://scenes/world/ui/main_menu/main_menu.tscn" id="4_bvhdo"]
+[ext_resource type="PackedScene" uid="uid://qi8xavj8fstv" path="res://scenes/world/ui/pause_menu/pause_menu.tscn" id="4_ufkie"]
 [ext_resource type="PackedScene" uid="uid://b8dl5bcuhbt0w" path="res://scenes/world/ui/options_menu/options_menu.tscn" id="6_cunr6"]
 [ext_resource type="PackedScene" uid="uid://bsy3ey5t1f330" path="res://scenes/world/ui/game_over/game_over.tscn" id="7_4qm3w"]
 
@@ -11,8 +11,7 @@
 process_mode = 3
 script = ExtResource("1_jc7w0")
 
-[node name="Market" parent="." instance=ExtResource("1_yumia")]
-process_mode = 1
+[node name="Container" type="Node3D" parent="."]
 
 [node name="UIRoot" type="CanvasLayer" parent="."]
 script = ExtResource("3_568vs")
@@ -20,9 +19,10 @@ initial_ui = &"MainMenu"
 
 [node name="MainMenu" parent="UIRoot" instance=ExtResource("4_bvhdo")]
 
+[node name="PauseMenu" parent="UIRoot" instance=ExtResource("4_ufkie")]
+
 [node name="OptionsMenu" parent="UIRoot" instance=ExtResource("6_cunr6")]
 
 [node name="GameOver" parent="UIRoot" instance=ExtResource("7_4qm3w")]
 
-[connection signal="requested" from="Market" to="." method="request"]
 [connection signal="requested" from="UIRoot" to="." method="request"]

@@ -1,0 +1,72 @@
+[gd_scene load_steps=11 format=3 uid="uid://n8c0uioyawkr"]
+
+[ext_resource type="Environment" uid="uid://313mxsafop62" path="res://scenes/world/market_env.tres" id="1_a5xum"]
+[ext_resource type="MeshLibrary" uid="uid://dngcwibgip7qk" path="res://assets/obsidianblk/PA/PA_FloorCeiling.meshlib" id="2_gj516"]
+[ext_resource type="MeshLibrary" uid="uid://blmh7t6epmapp" path="res://assets/obsidianblk/PA/PA_Walls.meshlib" id="3_k2r38"]
+[ext_resource type="PackedScene" uid="uid://bqayf87fr55ne" path="res://assets/obsidianblk/PA/objects/doorframe_01.glb" id="4_g3car"]
+[ext_resource type="PackedScene" uid="uid://cnlenf6ace1m0" path="res://assets/obsidianblk/PA/objects/door_01.glb" id="5_1a6kx"]
+[ext_resource type="PackedScene" uid="uid://3p7ede86x0gu" path="res://assets/obsidianblk/PA/objects/boxfood_01.glb" id="6_0tqrr"]
+[ext_resource type="PackedScene" uid="uid://dmkmd2o3mgskk" path="res://assets/obsidianblk/PA/objects/boxfood_02.glb" id="7_ymbrg"]
+[ext_resource type="PackedScene" uid="uid://ducjk33jknyrr" path="res://assets/obsidianblk/PA/objects/flashlight.glb" id="8_cq2bd"]
+[ext_resource type="PackedScene" uid="uid://dol2c1ms5clm2" path="res://assets/obsidianblk/PA/objects/Soda_01.glb" id="9_0exlg"]
+[ext_resource type="PackedScene" uid="uid://dol2c1ms5clm2" path="res://assets/obsidianblk/PA/objects/Soda_03.glb" id="10_x2c80"]
+
+[node name="OutTheFrontDoor" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("1_a5xum")
+
+[node name="Floor" type="GridMap" parent="."]
+mesh_library = ExtResource("2_gj516")
+cell_size = Vector3(2, 1, 2)
+cell_center_x = false
+cell_center_y = false
+cell_center_z = false
+data = {
+"cells": PackedInt32Array(0, 0, 0, 1, 0, 0, 65535, 0, 0, 0, 1, 0, 1, 1, 0, 65535, 1, 0, 65535, 65535, 1, 0, 65535, 1, 1, 65535, 1)
+}
+
+[node name="Walls" type="GridMap" parent="."]
+mesh_library = ExtResource("3_k2r38")
+cell_size = Vector3(1, 4, 1)
+cell_center_x = false
+cell_center_y = false
+cell_center_z = false
+data = {
+"cells": PackedInt32Array(65534, 65535, 6, 0, 65535, 1, 2, 65535, 5)
+}
+
+[node name="doorframe_01" parent="." instance=ExtResource("4_g3car")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+
+[node name="door_01" parent="." instance=ExtResource("5_1a6kx")]
+transform = Transform3D(0.427926, 0, 0.903814, 0, 1, 0, -0.903814, 0, 0.427926, -0.331629, 0, -1.75885)
+
+[node name="boxfood_01" parent="." instance=ExtResource("6_0tqrr")]
+transform = Transform3D(0.804407, -0.59236, -0.0451636, 0, 0.076023, -0.997106, 0.594079, 0.802079, 0.0611534, 0, 0.0212057, 1.38432)
+
+[node name="boxfood_02" parent="." instance=ExtResource("7_ymbrg")]
+transform = Transform3D(0.730675, -0.682035, 0.0307086, 0, 0.0449794, 0.998988, -0.682726, -0.729935, 0.0328653, -1.18475, 0, 0.866078)
+
+[node name="flashlight" parent="." instance=ExtResource("8_cq2bd")]
+transform = Transform3D(-0.108889, 0.835433, -0.538697, -0.991613, -0.129246, 0, -0.0696243, 0.534179, 0.842499, 1.22408, 0.0848635, 2.28709)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(0.633624, 0, 0.773641, 0, 1, 0, -0.773641, 0, 0.633624, 1.13915, 0.0883574, 2.24388)
+light_color = Color(1, 0.803922, 0.458824, 1)
+light_energy = 10.0
+spot_range = 9.342
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1199, 0.0709122, 2.22854)
+light_color = Color(1, 0.802, 0.46, 1)
+omni_range = 1.0
+
+[node name="Soda_01" parent="." instance=ExtResource("9_0exlg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.751739, 0, -1.38161)
+
+[node name="Soda_03" parent="." instance=ExtResource("10_x2c80")]
+transform = Transform3D(-0.246153, -0.967509, -0.0577517, 0, -0.0595851, 0.998223, -0.969231, 0.245716, 0.0146671, 1.30103, 0, -2.36064)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, -2.26267e-08, 0.965926, 0.258819, 8.44439e-08, 0.258819, -0.965926, 0, 3, 0)

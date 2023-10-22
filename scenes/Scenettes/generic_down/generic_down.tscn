@@ -1,0 +1,128 @@
+[gd_scene load_steps=17 format=3 uid="uid://b5url5ejdengy"]
+
+[ext_resource type="Environment" uid="uid://313mxsafop62" path="res://scenes/world/market_env.tres" id="1_d8kpb"]
+[ext_resource type="MeshLibrary" uid="uid://dngcwibgip7qk" path="res://assets/obsidianblk/PA/PA_FloorCeiling.meshlib" id="2_uhvj6"]
+[ext_resource type="MeshLibrary" uid="uid://blmh7t6epmapp" path="res://assets/obsidianblk/PA/PA_Walls.meshlib" id="3_rawqg"]
+[ext_resource type="PackedScene" uid="uid://cotsrj64byko3" path="res://assets/obsidianblk/PA/objects/shelf_end.glb" id="4_a4f6j"]
+[ext_resource type="PackedScene" uid="uid://0lx3vrnj67xf" path="res://assets/obsidianblk/PA/objects/shelf_mid.glb" id="5_o6nlx"]
+[ext_resource type="PackedScene" uid="uid://3p7ede86x0gu" path="res://assets/obsidianblk/PA/objects/boxfood_01.glb" id="6_ch4a8"]
+[ext_resource type="PackedScene" uid="uid://cwbugr7885i8t" path="res://assets/obsidianblk/PA/objects/boxfood_03.glb" id="7_s82gv"]
+[ext_resource type="PackedScene" uid="uid://dmkmd2o3mgskk" path="res://assets/obsidianblk/PA/objects/boxfood_02.glb" id="8_i5hqg"]
+[ext_resource type="PackedScene" uid="uid://bqayf87fr55ne" path="res://assets/obsidianblk/PA/objects/doorframe_01.glb" id="9_l0hvf"]
+[ext_resource type="PackedScene" uid="uid://fdt672rathhf" path="res://assets/obsidianblk/PA/objects/door_02.glb" id="10_oi1jk"]
+[ext_resource type="PackedScene" uid="uid://ducjk33jknyrr" path="res://assets/obsidianblk/PA/objects/flashlight.glb" id="11_545ts"]
+[ext_resource type="PackedScene" uid="uid://yo5220n7bube" path="res://assets/obsidianblk/PA/objects/mop.glb" id="12_8fsvf"]
+[ext_resource type="PackedScene" uid="uid://defgr7i0mukls" path="res://objects/obsidianblk/PA/ceiling_light/ceiling_light.tscn" id="13_5ypt4"]
+[ext_resource type="PackedScene" uid="uid://jidhq2tj324l" path="res://assets/obsidianblk/PA/cooler/Cooler.glb" id="14_vw5qn"]
+[ext_resource type="PackedScene" uid="uid://brdflkohtoac8" path="res://assets/obsidianblk/PA/cooler/Cooler_Door.glb" id="15_sf28a"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_tb1k3"]
+seed = 7
+fractal_type = 3
+
+[node name="GenericDown" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("1_d8kpb")
+
+[node name="Floors" type="GridMap" parent="."]
+mesh_library = ExtResource("2_uhvj6")
+cell_size = Vector3(2, 1, 2)
+cell_center_x = false
+cell_center_y = false
+cell_center_z = false
+data = {
+"cells": PackedInt32Array(65535, 0, 1048576, 0, 0, 1048576, 1, 0, 1048577, 1, 65535, 1048577, 0, 65535, 1048576, 65535, 65535, 1048577, 65535, 1, 1048576, 1, 1, 1048576, 0, 1, 1048577)
+}
+
+[node name="Walls" type="GridMap" parent="."]
+mesh_library = ExtResource("3_rawqg")
+cell_size = Vector3(1, 4, 1)
+cell_center_x = false
+cell_center_y = false
+cell_center_z = false
+data = {
+"cells": PackedInt32Array(3, 65534, 1048578, 3, 2, 1048578, 3, 0, 1048577)
+}
+
+[node name="shelf_end" parent="." instance=ExtResource("4_a4f6j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.66461, 0, -2.8384)
+
+[node name="shelf_mid" parent="shelf_end" instance=ExtResource("5_o6nlx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.01461, 0, 0)
+
+[node name="shelf_mid2" parent="shelf_end" instance=ExtResource("5_o6nlx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.01059, 0, 0)
+
+[node name="boxfood_01" parent="shelf_end" instance=ExtResource("6_ch4a8")]
+transform = Transform3D(0.837251, 0, -0.546818, 0, 1, 0, 0.546818, 0, 0.837251, -2.5668, 0.503813, 0.230848)
+
+[node name="boxfood_03" parent="shelf_end" instance=ExtResource("7_s82gv")]
+transform = Transform3D(0.910756, 0, 0.412945, 0, 1, 0, -0.412945, 0, 0.910756, -1.44797, 0.888416, 0.30525)
+
+[node name="boxfood_02" parent="shelf_end" instance=ExtResource("8_i5hqg")]
+transform = Transform3D(0.934267, 0, 0.356575, 0, 1, 0, -0.356575, 0, 0.934267, -1.4975, 0.913827, -0.289312)
+
+[node name="shelf_end2" parent="." instance=ExtResource("4_a4f6j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.66461, 0, 2.77061)
+
+[node name="shelf_mid" parent="shelf_end2" instance=ExtResource("5_o6nlx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.01461, 0, 0)
+
+[node name="shelf_mid2" parent="shelf_end2" instance=ExtResource("5_o6nlx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.01059, 0, 0)
+
+[node name="boxfood_01" parent="shelf_end2" instance=ExtResource("6_ch4a8")]
+transform = Transform3D(0.837251, 0, -0.546818, 0, 1, 0, 0.546818, 0, 0.837251, -2.5668, 0.503813, 0.230848)
+
+[node name="boxfood_03" parent="shelf_end2" instance=ExtResource("7_s82gv")]
+transform = Transform3D(0.910756, 0, 0.412945, 0, 1, 0, -0.412945, 0, 0.910756, -1.44797, 0.888416, 0.30525)
+
+[node name="boxfood_02" parent="shelf_end2" instance=ExtResource("8_i5hqg")]
+transform = Transform3D(0.934267, 0, 0.356575, 0, 1, 0, -0.356575, 0, 0.934267, -1.4975, 0.913827, -0.289312)
+
+[node name="doorframe_01" parent="." instance=ExtResource("9_l0hvf")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3, 0, 0)
+
+[node name="door_02" parent="doorframe_01" instance=ExtResource("10_oi1jk")]
+transform = Transform3D(-0.724425, 0, -0.689354, 0, 1, 0, 0.689354, 0, -0.724425, 0.98384, 0, -0.721537)
+
+[node name="boxfood_03" parent="." instance=ExtResource("7_s82gv")]
+transform = Transform3D(0.891379, 0.453177, -0.00866976, 2.77556e-17, 0.0191276, 0.999817, 0.453259, -0.891216, 0.0170499, -0.21515, 0.0353959, -0.396483)
+
+[node name="flashlight" parent="boxfood_03" instance=ExtResource("11_545ts")]
+transform = Transform3D(-0.00832495, -0.789753, -0.613368, 0.999783, -0.0183068, 0.0100011, -0.0191269, -0.613152, 0.789734, -0.19515, 0.211745, 0.0556357)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="boxfood_03/flashlight"]
+transform = Transform3D(0.999999, 0, 4.76837e-07, 0, -0.14667, 0.989186, 0, -0.989185, -0.14667, -1.04308e-07, -0.124294, -2.98023e-08)
+light_color = Color(1, 0.802, 0.46, 1)
+light_energy = 10.0
+shadow_enabled = true
+spot_range = 10.0
+
+[node name="OmniLight3D" type="OmniLight3D" parent="boxfood_03/flashlight"]
+transform = Transform3D(1, 5.06639e-07, -5.96046e-08, -2.98023e-08, 1, 4.61936e-07, 0, -4.47035e-08, 1, -5.96046e-08, -0.150528, 0)
+light_color = Color(1, 0.802, 0.46, 1)
+shadow_enabled = true
+omni_range = 1.0
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.0649328, -0.284668, 0.956424, 0, 0.958447, 0.28527, -0.99789, -0.0185234, 0.0622347, 0, 3.01506, 0)
+
+[node name="mop" parent="." instance=ExtResource("12_8fsvf")]
+transform = Transform3D(0.780943, -0.622068, 0.0562076, -0.0514723, -0.153778, -0.986764, 0.622478, 0.767713, -0.152111, 1.59689, 0.23693, -2.42624)
+
+[node name="CeilingLight" parent="." instance=ExtResource("13_5ypt4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.79734, 0)
+min_energy = 0.5
+flicker_noise = SubResource("FastNoiseLite_tb1k3")
+flicker_in_editor = true
+
+[node name="Cooler" parent="." instance=ExtResource("14_vw5qn")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.85398, 0, 1.24751e-07)
+
+[node name="Cooler_Door" parent="Cooler" instance=ExtResource("15_sf28a")]
+transform = Transform3D(0.904329, 0, -0.426837, 0, 1, 0, 0.426837, 0, 0.904329, -0.533153, 1.25398, 0.826942)
+
+[node name="Cooler_Door2" parent="Cooler" instance=ExtResource("15_sf28a")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.473151, 1.25398, 0.62632)

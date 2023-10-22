@@ -4,6 +4,7 @@ extends CharacterBody3D
 # ------------------------------------------------------------------------------
 # Signals
 # ------------------------------------------------------------------------------
+signal death(reason : String)
 
 # ------------------------------------------------------------------------------
 # Constants
@@ -19,7 +20,10 @@ const ACTION_ACTIVITY : String = "Activity"
 const ACTION_SHOW_FLASHLIGHT : String = "Show_Flashlight"
 const ACTION_HIDE_FLASHLIGHT : String = "Hide_Flashlight"
 
-const FLING_OBJECT_GROUP : StringName = &"Fling"
+const FLING_OBJECT_GROUP : String = "Fling"
+const MUSIC_DEATH_TIME : float = 60.0
+
+const DEATH_REASON_MUSIC : String = "Musical"
 
 enum HAND {Empty=0, Mop=1, Item=2}
 
@@ -45,6 +49,10 @@ var _mopping : bool = false
 
 var _has_flashlight : bool = false
 var _item : Node3D = null
+
+var _music_death_active : bool = false
+var _music_death : float = 0.0
+var _times_hit : int = 0
 
 # ------------------------------------------------------------------------------
 # Onready Variables
@@ -128,6 +136,12 @@ func _unhandled_input(event: InputEvent) -> void:
 				_atree.set("parameters/Actions/transition_request", ACTION_HIDE)
 
 func _physics_process(delta: float) -> void:
+	if _music_death_active:
+		if _music_death < MUSIC_DEATH_TIME:
+			_music_death += delta
+			if _music_death >= MUSIC_DEATH_TIME:
+				death.emit(DEATH_REASON_MUSIC)
+	
 	_CheckInteractable()
 	_UpdateMopping(delta)
 	
@@ -225,6 +239,10 @@ func _on_relayed(action : StringName, payload : Dictionary) -> void:
 			_atree.set("parameters/Actions/transition_request", ACTION_PICKUP)
 		&"flashlight_pickup":
 			_has_flashlight = true
+		&"music_attack_start":
+			_music_death_active = true
+		&"music_attack_end":
+			_music_death_active = false
 
 func _on_settings_value_changed(section : String, key : String, value : Variant) -> void:
 	if section == SETTINGS_SECTION and key == SETTINGS_KEY_FOV:
@@ -233,4 +251,4 @@ func _on_settings_value_changed(section : String, key : String, value : Variant)
 
 func _on_hitbox_body_entered(body: Node3D) -> void:
 	if body.is_in_group(FLING_OBJECT_GROUP):
-		print("Ouch!")
+		_times_hit += 1

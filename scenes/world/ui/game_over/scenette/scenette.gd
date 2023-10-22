@@ -39,7 +39,8 @@ func plate_scene(scene_path : String) -> int:
 	
 	var scene : Node = packed_scene.instantiate()
 	if scene is Node3D:
-		_spin_plate.add_node(scene)
+		_ClearPlate()
+		_spin_plate.add_child(scene)
 	else:
 		scene.queue_free()
 		return ERR_INVALID_DECLARATION

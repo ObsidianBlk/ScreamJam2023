@@ -1,0 +1,93 @@
+[gd_scene load_steps=16 format=3 uid="uid://un0cljtujlja"]
+
+[ext_resource type="Environment" uid="uid://313mxsafop62" path="res://scenes/world/market_env.tres" id="1_ml4yn"]
+[ext_resource type="MeshLibrary" uid="uid://dngcwibgip7qk" path="res://assets/obsidianblk/PA/PA_FloorCeiling.meshlib" id="2_13ufa"]
+[ext_resource type="MeshLibrary" uid="uid://blmh7t6epmapp" path="res://assets/obsidianblk/PA/PA_Walls.meshlib" id="3_i7r2q"]
+[ext_resource type="PackedScene" uid="uid://bqayf87fr55ne" path="res://assets/obsidianblk/PA/objects/doorframe_01.glb" id="4_celtr"]
+[ext_resource type="PackedScene" uid="uid://jidhq2tj324l" path="res://assets/obsidianblk/PA/cooler/Cooler.glb" id="5_rsa0w"]
+[ext_resource type="PackedScene" uid="uid://brdflkohtoac8" path="res://assets/obsidianblk/PA/cooler/Cooler_Door.glb" id="6_ixy7s"]
+[ext_resource type="PackedScene" uid="uid://d14xhlj18v1xc" path="res://assets/obsidianblk/PA/objects/powerbox_body.glb" id="7_uwwgr"]
+[ext_resource type="PackedScene" uid="uid://d1d345fmjpihp" path="res://assets/obsidianblk/PA/objects/powerbox_door.glb" id="8_atgmc"]
+[ext_resource type="PackedScene" uid="uid://cotsrj64byko3" path="res://assets/obsidianblk/PA/objects/shelf_end.glb" id="9_e34j6"]
+[ext_resource type="PackedScene" uid="uid://cnlenf6ace1m0" path="res://assets/obsidianblk/PA/objects/door_01.glb" id="10_jfyg0"]
+[ext_resource type="PackedScene" uid="uid://bnaom7fidx6vi" path="res://assets/obsidianblk/PA/objects/can_01.glb" id="11_ua1mw"]
+[ext_resource type="PackedScene" uid="uid://bni5joqpnpgm0" path="res://assets/obsidianblk/PA/objects/can_02.glb" id="12_wcfok"]
+[ext_resource type="PackedScene" uid="uid://c4u8tetwomhvi" path="res://assets/obsidianblk/PA/objects/can_03.glb" id="13_3e0s4"]
+[ext_resource type="PackedScene" uid="uid://defgr7i0mukls" path="res://objects/obsidianblk/PA/ceiling_light/ceiling_light.tscn" id="14_babhx"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ldwsx"]
+frequency = 0.0214
+fractal_type = 3
+
+[node name="BackDoorBailout" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.506485, 0.862249, 0, -0.862249, -0.506485, 0, 3.92409, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("1_ml4yn")
+
+[node name="Floor" type="GridMap" parent="."]
+mesh_library = ExtResource("2_13ufa")
+cell_size = Vector3(2, 1, 2)
+cell_center_x = false
+cell_center_y = false
+cell_center_z = false
+data = {
+"cells": PackedInt32Array(65535, 1, 0, 0, 1, 0, 1, 1, 0, 65535, 0, 1, 0, 0, 1, 1, 0, 1, 65535, 65535, 1, 0, 65535, 1, 1, 65535, 1)
+}
+
+[node name="Walls" type="GridMap" parent="."]
+mesh_library = ExtResource("3_i7r2q")
+cell_size = Vector3(1, 4, 1)
+cell_center_x = false
+cell_center_y = false
+cell_center_z = false
+data = {
+"cells": PackedInt32Array(0, 1, 1, 65533, 1, 655360, 3, 1, 1048576)
+}
+
+[node name="doorframe_01" parent="." instance=ExtResource("4_celtr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+
+[node name="Cooler" parent="." instance=ExtResource("5_rsa0w")]
+transform = Transform3D(-0.223338, -0.338234, 0.914176, 0.503729, 0.762873, 0.405317, -0.834492, 0.55102, -3.64768e-08, -1.84877, 0.572615, -1.49457)
+
+[node name="Cooler_Door" parent="Cooler" instance=ExtResource("6_ixy7s")]
+transform = Transform3D(-0.397388, 2.98023e-08, -0.917651, 5.96046e-08, 1, 3.27826e-07, 0.917651, 1.33807e-08, -0.397388, -1.13618, 1.29147, 1.03409)
+
+[node name="Cooler_Door2" parent="Cooler" instance=ExtResource("6_ixy7s")]
+transform = Transform3D(-1, 2.98023e-08, -1.03152e-08, 2.68221e-07, 1, -4.29541e-08, 1.98337e-08, 1.33807e-08, -1, 0.387811, 1.26134, 0.633607)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Cooler"]
+transform = Transform3D(1, 1.49012e-07, -2.39498e-08, -1.78814e-07, 1, -1.37038e-08, 9.96865e-09, 1.33807e-08, 1, -2.38419e-07, 0.716556, 0)
+light_color = Color(0.682353, 0.8, 0.254902, 1)
+light_energy = 1.766
+shadow_enabled = true
+
+[node name="powerbox_body" parent="." instance=ExtResource("7_uwwgr")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 1.37747, 1.56263, 0.705772)
+
+[node name="powerbox_door" parent="powerbox_body" instance=ExtResource("8_atgmc")]
+transform = Transform3D(0.924905, 0, -0.380199, 0, 1, 0, 0.380199, 0, 0.924905, -0.00748372, 0, 0.144572)
+
+[node name="shelf_end" parent="." instance=ExtResource("9_e34j6")]
+transform = Transform3D(-0.0357628, -0.922537, -0.384247, -0.999249, 0.0387366, 0, 0.0148844, 0.383959, -0.92323, 3.01218, 0.0315871, -2.80561)
+
+[node name="door_01" parent="." instance=ExtResource("10_jfyg0")]
+transform = Transform3D(0.607473, 0, 0.79434, 0, 1, 0, -0.79434, 0, 0.607473, -0.26977, 0, 0.278778)
+
+[node name="can_01" parent="." instance=ExtResource("11_ua1mw")]
+transform = Transform3D(-0.0557025, -0.882662, 0.466695, 0.998015, -0.0629821, 0, 0.0293935, 0.465769, 0.884418, -0.421468, 0.0436837, -0.783026)
+
+[node name="can_02" parent="." instance=ExtResource("12_wcfok")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.35383, 1.76742, 0.615473)
+
+[node name="can_03" parent="." instance=ExtResource("13_3e0s4")]
+transform = Transform3D(-0.0637064, 0.834604, -0.547154, -0.997099, -0.0761099, 0, -0.0416439, 0.545567, 0.837032, 0.965362, 0.0510647, -0.463815)
+
+[node name="CeilingLight" parent="." instance=ExtResource("14_babhx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.74735, 3.15797)
+max_energy = 2.0
+flicker_noise = SubResource("FastNoiseLite_ldwsx")
+flicker_in_editor = true

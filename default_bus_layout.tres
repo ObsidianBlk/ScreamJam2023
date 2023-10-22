@@ -1,4 +1,28 @@
-[gd_resource type="AudioBusLayout" format=3 uid="uid://6toatwpqwga6"]
+[gd_resource type="AudioBusLayout" load_steps=4 format=3 uid="uid://6toatwpqwga6"]
+
+[sub_resource type="AudioEffectEQ" id="AudioEffectEQ_byiih"]
+resource_name = "EQ"
+band_db/32_hz = -40.3
+band_db/100_hz = -11.7
+band_db/320_hz = 4.4
+band_db/1000_hz = -14.6
+band_db/3200_hz = -33.0
+band_db/10000_hz = -3.4
+
+[sub_resource type="AudioEffectReverb" id="AudioEffectReverb_bschl"]
+resource_name = "Reverb"
+room_size = 0.6
+damping = 0.29
+spread = 0.58
+hipass = 0.18
+dry = 0.15
+wet = 0.48
+
+[sub_resource type="AudioEffectDistortion" id="AudioEffectDistortion_0egq1"]
+resource_name = "Distortion"
+keep_hf_hz = 2979.0
+drive = 0.3
+post_gain = -7.56
 
 [resource]
 bus/1/name = &"SFX"
@@ -7,3 +31,15 @@ bus/1/mute = false
 bus/1/bypass_fx = false
 bus/1/volume_db = 0.0
 bus/1/send = &"Master"
+bus/2/name = &"Music"
+bus/2/solo = false
+bus/2/mute = false
+bus/2/bypass_fx = false
+bus/2/volume_db = 0.0
+bus/2/send = &"Master"
+bus/2/effect/0/effect = SubResource("AudioEffectEQ_byiih")
+bus/2/effect/0/enabled = true
+bus/2/effect/1/effect = SubResource("AudioEffectReverb_bschl")
+bus/2/effect/1/enabled = true
+bus/2/effect/2/effect = SubResource("AudioEffectDistortion_0egq1")
+bus/2/effect/2/enabled = true
