@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://b33nbjfw0fuf1"]
+[gd_scene load_steps=8 format=3 uid="uid://b33nbjfw0fuf1"]
 
 [ext_resource type="Script" path="res://scenes/world/ui/main_menu/main_menu.gd" id="1_jc670"]
+[ext_resource type="Theme" uid="uid://l11sr7bcm8y6" path="res://scenes/world/Game.theme" id="1_piole"]
 [ext_resource type="Texture2D" uid="uid://c762ps22qjxt3" path="res://assets/logos/screamjam2023.png" id="1_sgh5i"]
 [ext_resource type="Texture2D" uid="uid://sgv2oggjjq3y" path="res://assets/logos/obs/ObsidianLogo_Small.png" id="2_itpb1"]
 [ext_resource type="Texture2D" uid="uid://cvqlxifdax13t" path="res://assets/logos/obs/Logo_Open_Small.png" id="3_80nya"]
@@ -14,6 +15,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_piole")
 script = ExtResource("1_jc670")
 
 [node name="MenuContainer" type="CenterContainer" parent="."]
@@ -26,27 +28,40 @@ grow_vertical = 2
 
 [node name="Layout" type="VBoxContainer" parent="MenuContainer"]
 layout_mode = 2
+theme_override_constants/separation = -14
 
-[node name="Label" type="Label" parent="MenuContainer/Layout"]
+[node name="Titlebar" type="PanelContainer" parent="MenuContainer/Layout"]
+layout_mode = 2
+theme_type_variation = &"MenuTitleBar"
+
+[node name="Label" type="Label" parent="MenuContainer/Layout/Titlebar"]
 layout_mode = 2
 text = "Main Menu"
 
-[node name="HSeparator" type="HSeparator" parent="MenuContainer/Layout"]
+[node name="Options" type="PanelContainer" parent="MenuContainer/Layout"]
+show_behind_parent = true
+layout_mode = 2
+theme_type_variation = &"MenuButtonPanel"
+
+[node name="Buttons" type="VBoxContainer" parent="MenuContainer/Layout/Options"]
 layout_mode = 2
 
-[node name="OpStart" type="Button" parent="MenuContainer/Layout"]
+[node name="OpStart" type="Button" parent="MenuContainer/Layout/Options/Buttons"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_type_variation = &"MenuOptionButton"
 text = "Start"
 
-[node name="OpOptions" type="Button" parent="MenuContainer/Layout"]
+[node name="OpOptions" type="Button" parent="MenuContainer/Layout/Options/Buttons"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_type_variation = &"MenuOptionButton"
 text = "Options"
 
-[node name="OpQuit" type="Button" parent="MenuContainer/Layout"]
+[node name="OpQuit" type="Button" parent="MenuContainer/Layout/Options/Buttons"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_type_variation = &"MenuOptionButton"
 text = "Quit"
 
 [node name="Logos" type="MarginContainer" parent="."]
@@ -81,7 +96,7 @@ texture_pressed = ExtResource("3_80nya")
 texture_hover = ExtResource("4_j151m")
 texture_focused = ExtResource("5_62j0o")
 
-[connection signal="pressed" from="MenuContainer/Layout/OpStart" to="." method="_on_op_start_pressed"]
-[connection signal="pressed" from="MenuContainer/Layout/OpOptions" to="." method="_on_op_options_pressed"]
-[connection signal="pressed" from="MenuContainer/Layout/OpQuit" to="." method="_on_op_quit_pressed"]
+[connection signal="pressed" from="MenuContainer/Layout/Options/Buttons/OpStart" to="." method="_on_op_start_pressed"]
+[connection signal="pressed" from="MenuContainer/Layout/Options/Buttons/OpOptions" to="." method="_on_op_options_pressed"]
+[connection signal="pressed" from="MenuContainer/Layout/Options/Buttons/OpQuit" to="." method="_on_op_quit_pressed"]
 [connection signal="pressed" from="Logos/Layout/BtnObs" to="." method="_on_btn_obs_pressed"]
