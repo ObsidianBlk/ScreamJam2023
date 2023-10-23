@@ -187,7 +187,7 @@ func _on_clock_time_passed(hour : int, minute : int) -> void:
 	
 	randomize()
 	var prob : float = randf()
-	if prob < 0.1:
+	if prob < 0.5:
 		if _last_event == &"music": return
 		_last_event = &"music"
 		_event_active = true
@@ -213,3 +213,13 @@ func _on_door_exit_timer_timeout() -> void:
 func _on_music_finished() -> void:
 	Relay.relay(&"music_attack_end")
 	_EventOver()
+
+
+func _on_music_protection_zone_body_entered(body: Node3D) -> void:
+	if body.has_method("protection_from_music"):
+		body.protection_from_music(true)
+
+
+func _on_music_protection_zone_body_exited(body: Node3D) -> void:
+	if body.has_method("protection_from_music"):
+		body.protection_from_music(false)

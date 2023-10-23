@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://db8w46fysc7cw"]
+[gd_scene load_steps=10 format=3 uid="uid://db8w46fysc7cw"]
 
 [ext_resource type="Script" path="res://scenes/world/world.gd" id="1_jc7w0"]
 [ext_resource type="Script" path="res://scripts/ui/ui_root.gd" id="3_568vs"]
@@ -6,6 +6,11 @@
 [ext_resource type="PackedScene" uid="uid://qi8xavj8fstv" path="res://scenes/world/ui/pause_menu/pause_menu.tscn" id="4_ufkie"]
 [ext_resource type="PackedScene" uid="uid://b8dl5bcuhbt0w" path="res://scenes/world/ui/options_menu/options_menu.tscn" id="6_cunr6"]
 [ext_resource type="PackedScene" uid="uid://bsy3ey5t1f330" path="res://scenes/world/ui/game_over/game_over.tscn" id="7_4qm3w"]
+[ext_resource type="Environment" uid="uid://313mxsafop62" path="res://scenes/world/market_env.tres" id="7_wiyu6"]
+[ext_resource type="PackedScene" uid="uid://b8qdbg13em18b" path="res://scenes/menu_backdrop/menu_backdrop.tscn" id="8_uniqr"]
+
+[sub_resource type="World3D" id="World3D_lvbp4"]
+environment = ExtResource("7_wiyu6")
 
 [node name="World" type="Node3D"]
 process_mode = 3
@@ -14,6 +19,7 @@ script = ExtResource("1_jc7w0")
 [node name="Container" type="Node3D" parent="."]
 
 [node name="UIRoot" type="CanvasLayer" parent="."]
+layer = 10
 script = ExtResource("3_568vs")
 initial_ui = &"MainMenu"
 
@@ -24,5 +30,23 @@ initial_ui = &"MainMenu"
 [node name="OptionsMenu" parent="UIRoot" instance=ExtResource("6_cunr6")]
 
 [node name="GameOver" parent="UIRoot" instance=ExtResource("7_4qm3w")]
+
+[node name="Backdrop" type="CanvasLayer" parent="."]
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Backdrop"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="Backdrop/SubViewportContainer"]
+world_3d = SubResource("World3D_lvbp4")
+handle_input_locally = false
+size = Vector2i(1920, 1080)
+render_target_update_mode = 4
+
+[node name="MenuBackdrop" parent="Backdrop/SubViewportContainer/SubViewport" instance=ExtResource("8_uniqr")]
 
 [connection signal="requested" from="UIRoot" to="." method="request"]

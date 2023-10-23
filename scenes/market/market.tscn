@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://cmk7e78enjrj7"]
+[gd_scene load_steps=39 format=3 uid="uid://cmk7e78enjrj7"]
 
 [ext_resource type="Script" path="res://scripts/nodes/level3d.gd" id="1_jtixp"]
 [ext_resource type="PackedScene" uid="uid://cvwph5rg4n3fy" path="res://objects/obsidianblk/PA/cooler/cooler.tscn" id="1_ttthf"]
@@ -81,6 +81,9 @@ modulate = Color(1, 1, 1, 1)
 frequency = 0.027
 fractal_type = 3
 fractal_ping_pong_strength = 4.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_uv1f8"]
+size = Vector3(7.67, 5, 7.79)
 
 [node name="Market" type="Node3D" node_paths=PackedStringArray("environment")]
 script = ExtResource("1_jtixp")
@@ -271,6 +274,14 @@ type = 1
 sound_opening = ExtResource("21_bif6c")
 sound_closing = ExtResource("22_y1sy8")
 
+[node name="MusicProtectionZone" type="Area3D" parent="Floor1"]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor1/MusicProtectionZone"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.0236, 0, 2.02209)
+shape = SubResource("BoxShape3D_uv1f8")
+
 [node name="Floor2" type="Node3D" parent="."]
 
 [node name="Walls" type="GridMap" parent="Floor2"]
@@ -356,6 +367,8 @@ bus = &"Music"
 [connection signal="shelf_items_changed" from="Floor1/Shelving/Shelves6" to="." method="_on_shelf_items_changed"]
 [connection signal="opened" from="Floor1/Doors/Front_Door" to="." method="game_over_ending" binds= ["FrontDoor"]]
 [connection signal="opened" from="Floor1/Doors/Back_Door" to="." method="game_over_ending" binds= ["BackDoor"]]
+[connection signal="body_entered" from="Floor1/MusicProtectionZone" to="." method="_on_music_protection_zone_body_entered"]
+[connection signal="body_exited" from="Floor1/MusicProtectionZone" to="." method="_on_music_protection_zone_body_exited"]
 [connection signal="death" from="FPSC" to="." method="game_over_ending"]
 [connection signal="timeout" from="DoorExitTimer" to="." method="_on_door_exit_timer_timeout"]
 [connection signal="finished" from="Music" to="." method="_on_music_finished"]

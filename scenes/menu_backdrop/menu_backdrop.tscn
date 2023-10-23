@@ -1,0 +1,179 @@
+[gd_scene load_steps=23 format=3 uid="uid://b8qdbg13em18b"]
+
+[ext_resource type="Environment" uid="uid://313mxsafop62" path="res://scenes/world/market_env.tres" id="1_mwysa"]
+[ext_resource type="MeshLibrary" uid="uid://dngcwibgip7qk" path="res://assets/obsidianblk/PA/PA_FloorCeiling.meshlib" id="2_1qkf4"]
+[ext_resource type="MeshLibrary" uid="uid://blmh7t6epmapp" path="res://assets/obsidianblk/PA/PA_Walls.meshlib" id="3_yd6rq"]
+[ext_resource type="Shader" path="res://objects/obsidianblk/PA/cooler/frosted_glass.gdshader" id="4_mypke"]
+[ext_resource type="PackedScene" uid="uid://bqayf87fr55ne" path="res://assets/obsidianblk/PA/objects/doorframe_01.glb" id="5_h6fsb"]
+[ext_resource type="PackedScene" uid="uid://cnlenf6ace1m0" path="res://assets/obsidianblk/PA/objects/door_01.glb" id="6_pvus8"]
+[ext_resource type="PackedScene" uid="uid://cvwph5rg4n3fy" path="res://objects/obsidianblk/PA/cooler/cooler.tscn" id="7_fdale"]
+[ext_resource type="Texture2D" uid="uid://c2sq2l4hntg37" path="res://assets/Ghost.png" id="8_dmsv5"]
+[ext_resource type="PackedScene" uid="uid://defgr7i0mukls" path="res://objects/obsidianblk/PA/ceiling_light/ceiling_light.tscn" id="9_hql7s"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_76r73"]
+noise_type = 2
+seed = 16
+frequency = 0.0265
+fractal_type = 3
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_wty3r"]
+width = 128
+height = 128
+noise = SubResource("FastNoiseLite_76r73")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qkkx5"]
+render_priority = 0
+shader = ExtResource("4_mypke")
+shader_parameter/distortion_size = 0.77
+shader_parameter/tint = Color(0.852667, 1, 0.32, 1)
+shader_parameter/glass = SubResource("NoiseTexture2D_wty3r")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_oda5o"]
+material = SubResource("ShaderMaterial_qkkx5")
+size = Vector2(10.165, 2)
+orientation = 2
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kb8at"]
+atlas = ExtResource("8_dmsv5")
+region = Rect2(0, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u772j"]
+atlas = ExtResource("8_dmsv5")
+region = Rect2(32, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_66xug"]
+atlas = ExtResource("8_dmsv5")
+region = Rect2(64, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_23wnd"]
+atlas = ExtResource("8_dmsv5")
+region = Rect2(96, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ot3b8"]
+atlas = ExtResource("8_dmsv5")
+region = Rect2(128, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x17lt"]
+atlas = ExtResource("8_dmsv5")
+region = Rect2(160, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2djl0"]
+atlas = ExtResource("8_dmsv5")
+region = Rect2(192, 0, 32, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1kmio"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kb8at")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u772j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_66xug")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_23wnd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ot3b8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x17lt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2djl0")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_r4ehg"]
+seed = -10
+frequency = 0.0218
+fractal_type = 3
+
+[node name="MenuBackdrop" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("1_mwysa")
+
+[node name="Floor" type="GridMap" parent="."]
+mesh_library = ExtResource("2_1qkf4")
+cell_size = Vector3(2, 1, 2)
+cell_center_x = false
+cell_center_y = false
+cell_center_z = false
+data = {
+"cells": PackedInt32Array(0, 0, 1048576, 65535, 0, 1048576, 65534, 0, 1048576, 1, 0, 1048576, 2, 0, 1048576, 3, 0, 1048576, 4, 0, 1048576, 65533, 0, 1048576, 65532, 0, 1048576, 4, 1, 1, 3, 1, 1048577, 2, 1, 1048577, 1, 1, 1048577, 0, 1, 1048577, 65535, 1, 1048577, 65534, 1, 1048577, 65533, 1, 1048577, 65532, 1, 1048577, 4, 2, 1, 3, 2, 1048577, 1, 2, 1048577, 2, 2, 1048577, 0, 2, 1048577, 65535, 2, 1048577, 65534, 2, 1048577, 65533, 2, 1048577, 65532, 2, 1048577, 5, 0, 0, 5, 1, 1, 5, 2, 1)
+}
+
+[node name="Walls" type="GridMap" parent="."]
+mesh_library = ExtResource("3_yd6rq")
+cell_size = Vector3(1, 4, 1)
+cell_center_x = false
+cell_center_y = false
+cell_center_z = false
+data = {
+"cells": PackedInt32Array(0, 65535, 1, 65534, 65535, 6, 2, 65535, 5, 65532, 65535, 5, 4, 65535, 6, 6, 65535, 2, 65530, 65535, 2, 65528, 65535, 2, 9, 65535, 8, 65536, 65535, 2, 65538, 65535, 2, 65540, 65535, 2, 65542, 65535, 2, 65545, 65535, 8, 131070, 65535, 2, 131068, 65535, 2, 131066, 65535, 2, 131064, 65535, 2)
+}
+metadata/_editor_floor_ = Vector3(0, 1, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.73935, -1.00938)
+cast_shadow = 0
+mesh = SubResource("PlaneMesh_oda5o")
+skeleton = NodePath("../../Floor")
+
+[node name="doorframe_01" parent="." instance=ExtResource("5_h6fsb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+
+[node name="door_01" parent="doorframe_01" instance=ExtResource("6_pvus8")]
+
+[node name="Cooler" parent="." instance=ExtResource("7_fdale")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.7804, 0, 0)
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.27815, 0, -1.98543)
+transparency = 0.25
+centered = false
+pixel_size = 0.035
+texture_filter = 2
+sprite_frames = SubResource("SpriteFrames_1kmio")
+autoplay = "default"
+frame_progress = 0.363449
+
+[node name="CeilingLight" parent="." instance=ExtResource("9_hql7s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.9718, 2.71656, -3.35673)
+max_energy = 3.0
+flicker_noise = SubResource("FastNoiseLite_r4ehg")
+flicker_in_editor = true
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.896942, 3.34137e-09, -0.442148, -0.033975, 0.997043, -0.0689218, 0.440841, 0.0768408, 0.89429, -2.95744, 1.22429, 1.46864)
+current = true
+fov = 90.0
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 3.13188, 7.47814, 0)
+light_color = Color(1, 0.74902, 0.588235, 1)
+light_energy = 10.0
+spot_range = 11.093
+spot_attenuation = 0.594604
+spot_angle = 29.91
+spot_angle_attenuation = 1.56917
+
+[node name="SpotLight3D2" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -2.05903, 7.47814, 0)
+light_color = Color(1, 0.74902, 0.588235, 1)
+light_energy = 10.0
+spot_range = 11.093
+spot_attenuation = 0.594604
+spot_angle = 29.91
+spot_angle_attenuation = 1.56917
+
+[node name="CeilingLight2" parent="." instance=ExtResource("9_hql7s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.93451, 2.80108, -3.04756)
+max_energy = 3.0

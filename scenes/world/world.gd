@@ -19,6 +19,7 @@ var _game_scene : Node3D = null
 # ------------------------------------------------------------------------------
 @onready var _ui = $UIRoot
 @onready var _container: Node3D = $Container
+@onready var _backdrop: CanvasLayer = $Backdrop
 
 # ------------------------------------------------------------------------------
 # Override Methods
@@ -51,6 +52,7 @@ func _UpdateFromSettings() -> void:
 
 func _StartGame() -> void:
 	if _container == null or _game_scene != null: return
+	_backdrop.visible = false
 	_game_scene = MARKET.instantiate()
 	_game_scene.requested.connect(request)
 	_container.add_child(_game_scene)
@@ -76,6 +78,7 @@ func request(action : StringName, payload : Dictionary = {}) -> void:
 				get_tree().paused = true
 				Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 				_UnsetGame()
+				_backdrop.visible = true
 				_ui.show_ui(&"GameOver")
 				Relay.relay(&"gameover_ending", payload)
 		&"unpause_game":
@@ -94,6 +97,7 @@ func request(action : StringName, payload : Dictionary = {}) -> void:
 			get_tree().paused = true
 			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 			_UnsetGame()
+			_backdrop.visible = true
 			_ui.show_ui(&"MainMenu")
 		&"quit_application":
 			get_tree().quit()

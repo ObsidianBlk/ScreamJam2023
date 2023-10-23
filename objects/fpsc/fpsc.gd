@@ -20,6 +20,12 @@ const ACTION_ACTIVITY : String = "Activity"
 const ACTION_SHOW_FLASHLIGHT : String = "Show_Flashlight"
 const ACTION_HIDE_FLASHLIGHT : String = "Hide_Flashlight"
 
+const STEP_TIME_MIN : float = 0.4
+const STEP_TIME_MAX : float = 0.6
+
+const STEP_PITCH_MIN : float = 0.8
+const STEP_PITCH_MAX : float = 1.2
+
 const FLING_OBJECT_GROUP : String = "Fling"
 const MUSIC_DEATH_TIME : float = 60.0
 
@@ -51,6 +57,7 @@ var _has_flashlight : bool = false
 var _item : Node3D = null
 
 var _music_death_active : bool = false
+var _music_protection : bool = false
 var _music_death : float = 0.0
 var _times_hit : int = 0
 
@@ -64,6 +71,9 @@ var _times_hit : int = 0
 @onready var _item_drop: Marker3D = %ItemDrop
 @onready var _flashlight: Node3D = $Hand/Flashlight
 @onready var _hand_container: Node3D = $Hand
+
+@onready var _audio_foot: AudioStreamPlayer = $AudioFoot
+@onready var _step_timer: Timer = $StepTimer
 
 # ------------------------------------------------------------------------------
 # Override Methods
@@ -136,12 +146,7 @@ func _unhandled_input(event: InputEvent) -> void:
 				_atree.set("parameters/Actions/transition_request", ACTION_HIDE)
 
 func _physics_process(delta: float) -> void:
-	if _music_death_active:
-		if _music_death < MUSIC_DEATH_TIME:
-			_music_death += delta
-			if _music_death >= MUSIC_DEATH_TIME:
-				death.emit(DEATH_REASON_MUSIC)
-	
+	_UpdateMusicDeathState(delta)
 	_CheckInteractable()
 	_UpdateMopping(delta)
 	
@@ -181,6 +186,16 @@ func _CheckInteractable() -> void:
 					collision.message()
 	else:
 		Relay.relay(&"screen_message_hide")
+
+func _UpdateMusicDeathState(delta : float) -> void:
+	if not _music_death_active: return
+	if _music_death < MUSIC_DEATH_TIME:
+		if _music_protection:
+			_music_death = max(0.0, _music_death - delta * 2.0)
+		else:
+			_music_death += delta
+		if _music_death >= MUSIC_DEATH_TIME:
+			death.emit(DEATH_REASON_MUSIC)
 
 func _UpdateMopping(delta : float) -> void:
 	if _mopping:
@@ -227,6 +242,9 @@ func give_item(item : Node3D) -> void:
 		item.in_hand = true
 	_hand = HAND.Item
 
+func protection_from_music(enable : bool) -> void:
+	_music_protection = enable
+
 # ------------------------------------------------------------------------------
 # Handler Methods
 # ------------------------------------------------------------------------------
@@ -243,6 +261,7 @@ func _on_relayed(action : StringName, payload : Dictionary) -> void:
 			_music_death_active = true
 		&"music_attack_end":
 			_music_death_active = false
+			_music_death = 0.0
 
 func _on_settings_value_changed(section : String, key : String, value : Variant) -> void:
 	if section == SETTINGS_SECTION and key == SETTINGS_KEY_FOV:
@@ -252,3 +271,10 @@ func _on_settings_value_changed(section : String, key : String, value : Variant)
 func _on_hitbox_body_entered(body: Node3D) -> void:
 	if body.is_in_group(FLING_OBJECT_GROUP):
 		_times_hit += 1
+
+
+func _on_step_timer_timeout() -> void:
+	if velocity.length() > 0.05:
+		_audio_foot.pitch_scale = randf_range(STEP_PITCH_MIN, STEP_PITCH_MAX)
+		_audio_foot.play()
+	_step_timer.start(randf_range(STEP_TIME_MIN, STEP_TIME_MAX))
