@@ -1,5 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://bsy3ey5t1f330"]
+[gd_scene load_steps=5 format=3 uid="uid://bsy3ey5t1f330"]
 
+[ext_resource type="Theme" uid="uid://l11sr7bcm8y6" path="res://scenes/world/Game.theme" id="1_db3pp"]
 [ext_resource type="PackedScene" uid="uid://dmewrmmemq5x5" path="res://scenes/world/ui/game_over/scenette/scenette.tscn" id="1_leb8v"]
 [ext_resource type="Script" path="res://scenes/world/ui/game_over/game_over.gd" id="1_uknrb"]
 
@@ -12,6 +13,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_db3pp")
 script = ExtResource("1_uknrb")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
@@ -44,28 +46,39 @@ grow_vertical = 2
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="PanelContainer" type="PanelContainer" parent="HLayout"]
+[node name="Layout" type="VBoxContainer" parent="HLayout"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Layout" type="VBoxContainer" parent="HLayout/PanelContainer"]
+[node name="FauxWindow" type="VBoxContainer" parent="HLayout/Layout"]
 layout_mode = 2
+size_flags_vertical = 3
 
-[node name="LblTitle" type="Label" parent="HLayout/PanelContainer/Layout"]
+[node name="TitlebarPanel" type="PanelContainer" parent="HLayout/Layout/FauxWindow"]
+layout_mode = 2
+theme_type_variation = &"GameOverTitlePanel"
+
+[node name="LblTitle" type="Label" parent="HLayout/Layout/FauxWindow/TitlebarPanel"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_colors/font_color = Color(0.729412, 0.435294, 0.0941176, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 5
 theme_override_font_sizes/font_size = 48
 text = "Some Title
 "
 
-[node name="PanelContainer" type="PanelContainer" parent="HLayout/PanelContainer/Layout"]
+[node name="BodyPanel" type="PanelContainer" parent="HLayout/Layout/FauxWindow"]
+show_behind_parent = true
 layout_mode = 2
 size_flags_vertical = 3
+theme_type_variation = &"GameOverBodyPanel"
 
-[node name="RLblBody" type="RichTextLabel" parent="HLayout/PanelContainer/Layout/PanelContainer"]
+[node name="RLblBody" type="RichTextLabel" parent="HLayout/Layout/FauxWindow/BodyPanel"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_colors/default_color = Color(0.87451, 0.87451, 0.87451, 1)
 theme_override_font_sizes/normal_font_size = 24
 theme_override_font_sizes/bold_font_size = 24
 theme_override_font_sizes/italics_font_size = 24
@@ -74,20 +87,25 @@ theme_override_font_sizes/mono_font_size = 24
 bbcode_enabled = true
 text = "Some [b]really[/b] spiffy text!!"
 
-[node name="Buttons" type="HBoxContainer" parent="HLayout/PanelContainer/Layout"]
+[node name="Buttons" type="HBoxContainer" parent="HLayout/Layout"]
 layout_mode = 2
 
-[node name="Spacer1" type="Control" parent="HLayout/PanelContainer/Layout/Buttons"]
+[node name="Spacer1" type="Control" parent="HLayout/Layout/Buttons"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="BtnClose" type="Button" parent="HLayout/PanelContainer/Layout/Buttons"]
+[node name="BtnClose" type="Button" parent="HLayout/Layout/Buttons"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_type_variation = &"MenuOptionButton"
 text = "Close"
 
-[node name="Spacer2" type="Control" parent="HLayout/PanelContainer/Layout/Buttons"]
+[node name="Spacer2" type="Control" parent="HLayout/Layout/Buttons"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[connection signal="pressed" from="HLayout/PanelContainer/Layout/Buttons/BtnClose" to="." method="_on_btn_close_pressed"]
+[node name="BackSpacer" type="Control" parent="HLayout"]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+
+[connection signal="pressed" from="HLayout/Layout/Buttons/BtnClose" to="." method="_on_btn_close_pressed"]

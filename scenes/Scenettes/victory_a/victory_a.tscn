@@ -1,0 +1,143 @@
+[gd_scene load_steps=20 format=3 uid="uid://bqb5vh1sqkdyu"]
+
+[ext_resource type="MeshLibrary" uid="uid://dngcwibgip7qk" path="res://assets/obsidianblk/PA/PA_FloorCeiling.meshlib" id="1_cwgqi"]
+[ext_resource type="MeshLibrary" uid="uid://blmh7t6epmapp" path="res://assets/obsidianblk/PA/PA_Walls.meshlib" id="2_ykp2o"]
+[ext_resource type="PackedScene" uid="uid://bqayf87fr55ne" path="res://assets/obsidianblk/PA/objects/doorframe_01.glb" id="3_nhftk"]
+[ext_resource type="PackedScene" uid="uid://cnlenf6ace1m0" path="res://assets/obsidianblk/PA/objects/door_01.glb" id="4_ef5v8"]
+[ext_resource type="PackedScene" uid="uid://yo5220n7bube" path="res://assets/obsidianblk/PA/objects/mop.glb" id="5_nfcr4"]
+[ext_resource type="PackedScene" uid="uid://ducjk33jknyrr" path="res://assets/obsidianblk/PA/objects/flashlight.glb" id="6_rwms5"]
+[ext_resource type="PackedScene" uid="uid://cotsrj64byko3" path="res://assets/obsidianblk/PA/objects/shelf_end.glb" id="7_0hicx"]
+[ext_resource type="PackedScene" uid="uid://0lx3vrnj67xf" path="res://assets/obsidianblk/PA/objects/shelf_mid.glb" id="8_jexc0"]
+[ext_resource type="PackedScene" uid="uid://cvwph5rg4n3fy" path="res://objects/obsidianblk/PA/cooler/cooler.tscn" id="9_3tskw"]
+[ext_resource type="Texture2D" uid="uid://c2sq2l4hntg37" path="res://assets/Ghost.png" id="10_6vhje"]
+[ext_resource type="Environment" uid="uid://313mxsafop62" path="res://scenes/world/market_env.tres" id="11_gallq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p3ulr"]
+atlas = ExtResource("10_6vhje")
+region = Rect2(0, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qndvr"]
+atlas = ExtResource("10_6vhje")
+region = Rect2(32, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dvf2e"]
+atlas = ExtResource("10_6vhje")
+region = Rect2(64, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pbsdq"]
+atlas = ExtResource("10_6vhje")
+region = Rect2(96, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6m1qb"]
+atlas = ExtResource("10_6vhje")
+region = Rect2(128, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_15krp"]
+atlas = ExtResource("10_6vhje")
+region = Rect2(160, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m5hyi"]
+atlas = ExtResource("10_6vhje")
+region = Rect2(192, 0, 32, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ipw0x"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p3ulr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qndvr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dvf2e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pbsdq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6m1qb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_15krp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m5hyi")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
+
+[node name="VictoryA" type="Node3D"]
+
+[node name="Floors" type="GridMap" parent="."]
+mesh_library = ExtResource("1_cwgqi")
+cell_size = Vector3(2, 1, 2)
+cell_center_x = false
+cell_center_y = false
+cell_center_z = false
+data = {
+"cells": PackedInt32Array(0, 0, 655360, 65535, 0, 655360, 1, 0, 655360, 1, 65535, 655360, 65535, 65535, 655360, 0, 65535, 655360, 1, 1, 655361, 0, 1, 655361, 65535, 1, 655361)
+}
+
+[node name="Walls" type="GridMap" parent="."]
+mesh_library = ExtResource("2_ykp2o")
+cell_size = Vector3(1, 4, 1)
+cell_center_x = false
+cell_center_y = false
+cell_center_z = false
+data = {
+"cells": PackedInt32Array(0, 0, 655361, 65534, 0, 655364, 2, 0, 655364)
+}
+
+[node name="doorframe_01" parent="Walls" instance=ExtResource("3_nhftk")]
+
+[node name="door_01" parent="Walls/doorframe_01" instance=ExtResource("4_ef5v8")]
+transform = Transform3D(0.842706, 0, 0.538374, 0, 1, 0, -0.538374, 0, 0.842706, -0.0758464, 0, -0.354187)
+
+[node name="mop" parent="." instance=ExtResource("5_nfcr4")]
+transform = Transform3D(1, 0, 0, 0, 0.963191, 0.268819, 0, -0.268819, 0.963191, 0.897042, 0, 0.593968)
+
+[node name="flashlight" parent="." instance=ExtResource("6_rwms5")]
+transform = Transform3D(-0.0984696, 0.441541, -0.891821, -0.976023, -0.217666, -1.12326e-08, -0.194119, 0.870438, 0.452388, 0.690854, 0.0431732, 0.840921)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="flashlight"]
+transform = Transform3D(0.999997, 0.000914097, 0.00210203, -0.00206248, -0.0412796, 0.999146, 0.00100007, -0.999147, -0.0412775, -2.98023e-08, -0.126478, 0)
+light_color = Color(1, 0.788235, 0.65098, 1)
+light_energy = 5.0
+shadow_enabled = true
+spot_range = 10.0
+
+[node name="OmniLight3D" type="OmniLight3D" parent="flashlight"]
+transform = Transform3D(1, 0, -2.23517e-08, 1.49012e-08, 1, 2.98023e-08, 1.49012e-08, 0, 1, -2.98023e-08, -0.148081, 2.98023e-08)
+light_color = Color(1, 0.788235, 0.65098, 1)
+omni_range = 1.0
+
+[node name="shelf_end" parent="." instance=ExtResource("7_0hicx")]
+transform = Transform3D(0.915971, 0, -0.401244, 0, 1, 0, 0.401244, 0, 0.915971, 3.40253, 0, -2.28463)
+
+[node name="shelf_mid" parent="shelf_end" instance=ExtResource("8_jexc0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.99832, 0, 0)
+
+[node name="Cooler" parent="." instance=ExtResource("9_3tskw")]
+transform = Transform3D(0.523971, 0, 0.851736, 0, 1, 0, -0.851736, 0, 0.523971, -2.81418, 0, -2.94949)
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.02543, 0, -0.635673)
+transparency = 0.31
+centered = false
+offset = Vector2(-16, 0)
+pixel_size = 0.035
+billboard = 2
+double_sided = false
+texture_filter = 2
+sprite_frames = SubResource("SpriteFrames_ipw0x")
+autoplay = "default"
+frame_progress = 0.0819772
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("11_gallq")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.598227, 0.801327, 0, -0.801327, 0.598227, 0, 2.91308, 0)

@@ -1,9 +1,12 @@
-[gd_scene load_steps=28 format=3 uid="uid://8mvywc0khqvv"]
+[gd_scene load_steps=32 format=3 uid="uid://8mvywc0khqvv"]
 
 [ext_resource type="Script" path="res://objects/fpsc/fpsc.gd" id="1_8a3dd"]
 [ext_resource type="PackedScene" uid="uid://yo5220n7bube" path="res://assets/obsidianblk/PA/objects/mop.glb" id="2_7a0sp"]
 [ext_resource type="PackedScene" uid="uid://d3wcflr3bak6e" path="res://objects/flashlight/flashlight.tscn" id="3_kinep"]
 [ext_resource type="AudioStream" uid="uid://blsnmlhgw1ed0" path="res://assets/audio/sfx/indoor-footstep.wav" id="4_3qdjy"]
+[ext_resource type="Shader" path="res://shaders/transistor.gdshader" id="5_dca75"]
+[ext_resource type="Texture2D" uid="uid://bx3633ys31qfr" path="res://assets/Transitions/Encroachment.png" id="6_66brj"]
+[ext_resource type="Texture2D" uid="uid://drq2obgv00sxc" path="res://assets/BloodyMess.png" id="7_ms3wq"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5s48r"]
 radius = 0.4
@@ -541,6 +544,12 @@ nodes/Pickup/position = Vector2(320, -120)
 nodes/output/position = Vector2(1240, -140)
 node_connections = [&"output", 0, &"Actions", &"Actions", 0, &"Animation", &"Actions", 1, &"Pickup", &"Actions", 2, &"Activity", &"Actions", 3, &"Animation 2", &"Actions", 4, &"Animation 3", &"Activity", 0, &"Idle", &"Activity", 1, &"Mopping"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kw28x"]
+shader = ExtResource("5_dca75")
+shader_parameter/progress = 0.0
+shader_parameter/smoothness = 0.2
+shader_parameter/mask = ExtResource("6_66brj")
+
 [node name="FPSC" type="CharacterBody3D" groups=["Player"]]
 collision_layer = 8
 script = ExtResource("1_8a3dd")
@@ -614,6 +623,19 @@ stream = ExtResource("4_3qdjy")
 wait_time = 0.4
 one_shot = true
 autostart = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Stress" type="TextureRect" parent="CanvasLayer"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_kw28x")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_ms3wq")
+expand_mode = 1
 
 [connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
 [connection signal="timeout" from="StepTimer" to="." method="_on_step_timer_timeout"]

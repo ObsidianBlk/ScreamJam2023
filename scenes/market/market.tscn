@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://cmk7e78enjrj7"]
+[gd_scene load_steps=43 format=3 uid="uid://cmk7e78enjrj7"]
 
 [ext_resource type="Script" path="res://scripts/nodes/level3d.gd" id="1_jtixp"]
 [ext_resource type="PackedScene" uid="uid://cvwph5rg4n3fy" path="res://objects/obsidianblk/PA/cooler/cooler.tscn" id="1_ttthf"]
@@ -27,8 +27,11 @@
 [ext_resource type="PackedScene" uid="uid://prykewiwfg3x" path="res://objects/invis_walker/invis_walker.tscn" id="21_53l3u"]
 [ext_resource type="AudioStream" uid="uid://fqkeyfktnvt8" path="res://assets/audio/sfx/door_opening.wav" id="21_bif6c"]
 [ext_resource type="AudioStream" uid="uid://b2pjxae8rxohk" path="res://assets/audio/sfx/door_closing.wav" id="22_y1sy8"]
+[ext_resource type="PackedScene" uid="uid://bo8qqf0w8f77k" path="res://assets/obsidianblk/PA/objects/counter.glb" id="23_e4n5q"]
+[ext_resource type="PackedScene" uid="uid://bqayf87fr55ne" path="res://assets/obsidianblk/PA/objects/doorframe_01.glb" id="24_fpgow"]
 [ext_resource type="PackedScene" uid="uid://cniw2j6d2a0tr" path="res://scenes/world/screen_messages/screen_messages.tscn" id="28_6tup3"]
 [ext_resource type="AudioStream" uid="uid://bn2fn77k3r0xl" path="res://assets/audio/music/Next to You.ogg" id="29_02m57"]
+[ext_resource type="PackedScene" uid="uid://bxoqxsyr518ii" path="res://objects/note/note.tscn" id="31_wlt0m"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_6jk4a"]
 noise_type = 2
@@ -85,6 +88,12 @@ fractal_ping_pong_strength = 4.0
 [sub_resource type="BoxShape3D" id="BoxShape3D_uv1f8"]
 size = Vector3(7.67, 5, 7.79)
 
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_itvly"]
+noise_type = 4
+seed = 1701
+frequency = 0.0277
+fractal_type = 3
+
 [node name="Market" type="Node3D" node_paths=PackedStringArray("environment")]
 script = ExtResource("1_jtixp")
 pause_action_name = &"ui_cancel"
@@ -140,7 +149,7 @@ cell_size = Vector3(2, 1, 2)
 cell_center_y = false
 bake_navigation = true
 data = {
-"cells": PackedInt32Array(65519, 9, 655360, 65519, 8, 655360, 65519, 7, 655360, 65519, 6, 655360, 65519, 5, 655360, 65519, 4, 655360, 65519, 3, 655360, 65519, 2, 655360, 65519, 1, 655360, 65519, 0, 655360, 65519, 65535, 655360, 65520, 65535, 655360, 65521, 65535, 655360, 65522, 65535, 655360, 65522, 0, 655360, 65521, 0, 655360, 65520, 0, 655360, 65520, 1, 655360, 65520, 2, 655360, 65520, 3, 655360, 65520, 4, 655360, 65520, 5, 655360, 65520, 6, 655360, 65520, 7, 655360, 65520, 8, 655360, 65520, 9, 655360, 65521, 9, 655360, 65521, 8, 655360, 65521, 7, 655360, 65521, 6, 655360, 65521, 5, 655360, 65521, 4, 655360, 65521, 3, 655360, 65521, 2, 655360, 65521, 1, 655360, 65522, 1, 655360, 65522, 2, 655360, 65522, 3, 655360, 65522, 4, 655360, 65522, 5, 655360, 65522, 6, 655360, 65522, 7, 655360, 65522, 9, 655360, 65523, 9, 655360, 65523, 4, 655360, 65523, 2, 655360, 65523, 1, 655360, 65523, 0, 655360, 65523, 65535, 655360, 65524, 65535, 655360, 65524, 0, 655360, 65524, 1, 655360, 65524, 2, 655360, 65524, 4, 655360, 65524, 7, 655360, 65524, 8, 655360, 65524, 9, 655360, 65525, 9, 655360, 65525, 4, 655360, 65525, 2, 655360, 65525, 1, 655360, 65525, 0, 655360, 65525, 65535, 655360, 65526, 65535, 655360, 65526, 0, 655360, 65526, 1, 655360, 65526, 2, 655360, 65526, 4, 655360, 65526, 5, 655360, 65526, 6, 655360, 65526, 7, 655360, 65526, 8, 655360, 65526, 9, 655360, 65527, 9, 655360, 65527, 4, 655360, 65528, 4, 655360, 65528, 5, 655360, 65528, 6, 655360, 65528, 7, 655360, 65528, 8, 655360, 65528, 9, 655360, 65529, 9, 655360, 65529, 8, 655360, 65529, 7, 655360, 65529, 6, 655360, 65529, 5, 655360, 65529, 4, 655360, 65533, 3, 655360, 65534, 3, 655360, 65534, 5, 655360, 65533, 5, 655360, 65531, 5, 655360, 65530, 5, 655360, 65530, 4, 655360, 65531, 4, 655360, 65535, 2, 655360, 65534, 2, 655360, 65533, 2, 655360, 65532, 2, 655360, 65531, 2, 655360, 65530, 2, 655360, 65530, 1, 655360, 65531, 1, 655360, 65532, 1, 655360, 65533, 1, 655360, 65534, 1, 655360, 65535, 1, 655360, 65535, 0, 655360, 65534, 0, 655360, 65533, 0, 655360, 65532, 0, 655360, 65531, 0, 655360, 65530, 0, 655360, 65522, 8, 655360, 65523, 8, 1, 65523, 7, 1, 65523, 6, 1, 65523, 5, 1, 65525, 8, 1, 65525, 7, 1, 65525, 6, 1, 65525, 5, 1, 65527, 8, 1, 65527, 7, 1, 65527, 6, 1, 65527, 5, 1, 65526, 3, 1, 65525, 3, 1, 65524, 3, 1, 65523, 3, 1, 65529, 3, 1, 65528, 3, 1, 65527, 3, 1, 65532, 5, 0, 65530, 3, 1, 65531, 3, 1, 65524, 6, 1048576, 65524, 5, 655360, 65532, 3, 655360, 65532, 4, 1048576, 65533, 4, 1048576, 65535, 5, 0, 65535, 3, 655360, 65535, 4, 655360, 65534, 4, 1441792)
+"cells": PackedInt32Array(65519, 9, 655360, 65519, 8, 655360, 65519, 7, 655360, 65519, 6, 655360, 65519, 5, 655360, 65519, 3, 0, 65519, 2, 0, 65519, 65535, 655360, 65520, 65535, 655360, 65522, 65535, 655360, 65522, 0, 655360, 65520, 2, 655360, 65520, 4, 655360, 65520, 5, 655360, 65520, 6, 655360, 65520, 7, 655360, 65520, 8, 655360, 65520, 9, 655360, 65521, 9, 655360, 65521, 8, 655360, 65521, 7, 655360, 65521, 6, 655360, 65521, 5, 655360, 65522, 1, 655360, 65522, 2, 655360, 65522, 4, 655360, 65522, 5, 655360, 65522, 6, 655360, 65522, 7, 655360, 65522, 9, 655360, 65523, 9, 655360, 65523, 4, 655360, 65523, 2, 655360, 65523, 1, 655360, 65523, 0, 655360, 65523, 65535, 655360, 65524, 65535, 655360, 65524, 0, 655360, 65524, 1, 655360, 65524, 2, 655360, 65524, 4, 655360, 65524, 7, 655360, 65524, 8, 655360, 65524, 9, 655360, 65525, 9, 655360, 65525, 4, 655360, 65525, 2, 655360, 65525, 1, 655360, 65525, 0, 655360, 65525, 65535, 655360, 65526, 65535, 655360, 65526, 0, 655360, 65526, 1, 655360, 65526, 2, 655360, 65526, 4, 655360, 65526, 5, 655360, 65526, 6, 655360, 65526, 7, 655360, 65526, 8, 655360, 65526, 9, 655360, 65527, 9, 655360, 65527, 4, 655360, 65528, 4, 655360, 65528, 5, 655360, 65528, 6, 655360, 65528, 7, 655360, 65528, 8, 655360, 65528, 9, 655360, 65529, 9, 655360, 65529, 8, 655360, 65529, 7, 655360, 65529, 6, 655360, 65529, 5, 655360, 65529, 4, 655360, 65533, 3, 655360, 65534, 3, 655360, 65534, 5, 655360, 65533, 5, 655360, 65531, 5, 655360, 65530, 5, 655360, 65530, 4, 655360, 65531, 4, 655360, 65535, 2, 655360, 65534, 2, 655360, 65533, 2, 655360, 65532, 2, 655360, 65531, 2, 655360, 65530, 2, 655360, 65530, 1, 655360, 65531, 1, 655360, 65532, 1, 655360, 65533, 1, 655360, 65534, 1, 655360, 65535, 1, 655360, 65535, 0, 655360, 65534, 0, 655360, 65533, 0, 655360, 65532, 0, 655360, 65531, 0, 655360, 65530, 0, 655360, 65522, 8, 655360, 65523, 8, 1, 65523, 7, 1, 65523, 6, 1, 65523, 5, 1, 65525, 8, 1, 65525, 7, 1, 65525, 6, 1, 65525, 5, 1, 65527, 8, 1, 65527, 7, 1, 65527, 6, 1, 65527, 5, 1, 65526, 3, 1, 65525, 3, 1, 65524, 3, 1, 65529, 3, 1, 65528, 3, 1, 65527, 3, 1, 65532, 5, 0, 65530, 3, 1, 65531, 3, 1, 65524, 6, 1048576, 65524, 5, 655360, 65532, 3, 655360, 65532, 4, 1048576, 65533, 4, 1048576, 65535, 5, 0, 65535, 3, 655360, 65535, 4, 655360, 65534, 4, 1441792, 65520, 0, 0, 65520, 1, 0, 65519, 0, 0, 65519, 1, 0, 65519, 4, 0, 65521, 1, 0, 65521, 2, 0, 65521, 4, 655360, 65520, 3, 655361, 65521, 3, 655361, 65522, 3, 655361, 65523, 3, 655361, 65521, 65535, 655361, 65521, 0, 655361)
 }
 script = ExtResource("8_6whn0")
 tile_name = "Floor_01"
@@ -227,8 +236,11 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -20.5,
 [node name="Shelves6" parent="Floor1/Shelving" instance=ExtResource("12_yjc6y")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -16.5, 0, 15.7345)
 
+[node name="Shelves7" parent="Floor1/Shelving" instance=ExtResource("12_yjc6y")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -28.3622, 0, 0.0192957)
+
 [node name="Flashlight" parent="Floor1" instance=ExtResource("14_d5ofc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.2612, 1.39991, 12.3191)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.0658, 1.29849, 7.47537)
 
 [node name="Misc" type="Node3D" parent="Floor1"]
 
@@ -263,13 +275,13 @@ sound_opening = ExtResource("21_bif6c")
 sound_closing = ExtResource("22_y1sy8")
 
 [node name="Bathroom_Door1" parent="Floor1/Doors" instance=ExtResource("19_iin3j")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 0, 6)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -9, 0, 6)
 type = 1
 sound_opening = ExtResource("21_bif6c")
 sound_closing = ExtResource("22_y1sy8")
 
 [node name="Bathroom_Door2" parent="Floor1/Doors" instance=ExtResource("19_iin3j")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 6)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -3, 0, 6)
 type = 1
 sound_opening = ExtResource("21_bif6c")
 sound_closing = ExtResource("22_y1sy8")
@@ -281,6 +293,12 @@ collision_mask = 8
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor1/MusicProtectionZone"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.0236, 0, 2.02209)
 shape = SubResource("BoxShape3D_uv1f8")
+
+[node name="counter" parent="Floor1" instance=ExtResource("23_e4n5q")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.2883, 0, 7.04705)
+
+[node name="doorframe_01" parent="Floor1" instance=ExtResource("24_fpgow")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -12, 0, 15)
 
 [node name="Floor2" type="Node3D" parent="."]
 
@@ -305,7 +323,10 @@ data = {
 metadata/_editor_floor_ = Vector3(0, 0, 0)
 
 [node name="CeilingLight" parent="Floor2" instance=ExtResource("10_erxbx")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.2455, -0.0581512, 17.607)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.2455, -0.0581512, 18.2119)
+max_energy = 5.0
+flicker_noise = SubResource("FastNoiseLite_itvly")
+flicker_in_editor = true
 
 [node name="Powerbox" parent="Floor2" instance=ExtResource("15_8ns6q")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.42455, -2.69989, 20.2979)
@@ -317,7 +338,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32.0664, 0, 9.08477)
 environment = ExtResource("16_fslq4")
 
 [node name="MopBucket" parent="." instance=ExtResource("13_3vsb6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.6607, 0, 10.7905)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30.7787, 0, 7.7459)
 
 [node name="InvisWalker" parent="." instance=ExtResource("21_53l3u")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32, 0, 14)
@@ -346,6 +367,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.9427, 0, 15.2013)
 [node name="Marker3D7" type="Marker3D" parent="WalkerPos" groups=["Walker"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.51388, 0, 8.96457)
 
+[node name="Marker3D8" type="Marker3D" parent="WalkerPos" groups=["Walker"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30.6582, 0, -0.253885)
+
+[node name="Marker3D9" type="Marker3D" parent="WalkerPos" groups=["Walker"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.2681, 0, -0.253885)
+
+[node name="Marker3D10" type="Marker3D" parent="WalkerPos" groups=["Walker"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.90273, 0, 1.34277)
+
 [node name="ScreenMessages" parent="." instance=ExtResource("28_6tup3")]
 layer = 0
 
@@ -358,6 +388,9 @@ stream = ExtResource("29_02m57")
 volume_db = -10.0
 bus = &"Music"
 
+[node name="Note" parent="." instance=ExtResource("31_wlt0m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30.3867, 1.21119, 7.50917)
+
 [connection signal="match_percentage_updated" from="Floor1/SplatCanvas" to="." method="_on_match_percentage_updated"]
 [connection signal="shelf_items_changed" from="Floor1/Shelving/Shelves" to="." method="_on_shelf_items_changed"]
 [connection signal="shelf_items_changed" from="Floor1/Shelving/Shelves2" to="." method="_on_shelf_items_changed"]
@@ -365,6 +398,7 @@ bus = &"Music"
 [connection signal="shelf_items_changed" from="Floor1/Shelving/Shelves4" to="." method="_on_shelf_items_changed"]
 [connection signal="shelf_items_changed" from="Floor1/Shelving/Shelves5" to="." method="_on_shelf_items_changed"]
 [connection signal="shelf_items_changed" from="Floor1/Shelving/Shelves6" to="." method="_on_shelf_items_changed"]
+[connection signal="shelf_items_changed" from="Floor1/Shelving/Shelves7" to="." method="_on_shelf_items_changed"]
 [connection signal="opened" from="Floor1/Doors/Front_Door" to="." method="game_over_ending" binds= ["FrontDoor"]]
 [connection signal="opened" from="Floor1/Doors/Back_Door" to="." method="game_over_ending" binds= ["BackDoor"]]
 [connection signal="body_entered" from="Floor1/MusicProtectionZone" to="." method="_on_music_protection_zone_body_entered"]

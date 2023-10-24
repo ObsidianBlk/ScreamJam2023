@@ -131,7 +131,7 @@ func _TakeStep(right : bool) -> void:
 	})
 
 func _PlayStep() -> void:
-	var pitch = randf_range(.8, 1.0)
+	var pitch = randf_range(.6, 1.4)
 	var audio : AudioStreamPlayer3D = _audio_step1 if randf() < 0.5 else _audio_step2
 	audio.pitch_scale = pitch
 	audio.play()

@@ -1,0 +1,97 @@
+[gd_scene load_steps=6 format=3 uid="uid://bxoqxsyr518ii"]
+
+[ext_resource type="PackedScene" uid="uid://d3k8y4k63iofr" path="res://assets/obsidianblk/PA/objects/paper.glb" id="1_o4t1n"]
+[ext_resource type="Script" path="res://scripts/nodes/interactable.gd" id="2_lpumh"]
+[ext_resource type="Theme" uid="uid://l11sr7bcm8y6" path="res://scenes/world/Game.theme" id="3_5p7yp"]
+[ext_resource type="Script" path="res://objects/note/NoteUI.gd" id="3_mwym1"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tyn5t"]
+size = Vector3(0.25, 0.1, 0.25)
+
+[node name="Note" type="Node3D"]
+
+[node name="paper" parent="." instance=ExtResource("1_o4t1n")]
+
+[node name="Interactable" type="Area3D" parent="."]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("2_lpumh")
+interact_message = "Press [b][E][/b] to Read Note"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactable"]
+shape = SubResource("BoxShape3D_tyn5t")
+
+[node name="NoteUI" type="CanvasLayer" parent="."]
+process_mode = 3
+layer = 2
+script = ExtResource("3_mwym1")
+
+[node name="CenterContainer" type="CenterContainer" parent="NoteUI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_5p7yp")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="NoteUI/CenterContainer"]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="NoteUI/CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(640, 800)
+layout_mode = 2
+theme_type_variation = &"NotePaperPanel"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="NoteUI/CenterContainer/VBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_colors/default_color = Color(0.231373, 0.2, 0.188235, 1)
+theme_override_font_sizes/normal_font_size = 14
+theme_override_font_sizes/bold_font_size = 14
+theme_override_font_sizes/italics_font_size = 14
+theme_override_font_sizes/bold_italics_font_size = 14
+theme_override_font_sizes/mono_font_size = 14
+bbcode_enabled = true
+text = "[i]
+Hello!
+I wanted to be here to welcome you to the first night on the job, but, unfortunately an emergency came up and I needed to leave. Don't worry, the job is pretty simple.
+
+As you can see, the floors in this place are in an abismal state! This place has been abandoned for quite some time and I haven't had the chance to tackle the floors. That's where you come in! I left you a mop which should be able to clean the floors this evening. I need the main floor as well as the bathroooms and my office behind the counter cleaned. You don't need to worry about the basement.
+
+That said, there are a couple rules to be aware of...
+
+1) Please make every effort to mop the whole floor. Two bathrooms, the back hallway, the main floor, and my office behind the counter.
+
+2) As you can imagine, the electrical wiring is not the best in this building. The fuse for the lights tends to pop occasionally. The fusebox is in the basement. If the lights go out, just head for the basement and flip the fuse and the lights should come right back.
+
+3) I did put some product out on these old shelves. While it's not a lot, I wouldn't want to have to pick it all up in the morning just before I open. Please be careful to pick up anything that might fall from these shelves.
+
+4) I mentioned the electrical right? Well, sometimes an old announcement system pops on. It's nothing to worry about, but I strongly suggest you wait in my office while the system is playing. You can use the time to clean the room if you want something to do.
+
+I think that just about does it! Again, I'm sorry I cannot be there with you on your first night. I hope to catch you at 6am just before you leave.
+
+Until then, happy cleaning!
+J. Doe 
+[/i]"
+fit_content = true
+scroll_active = false
+shortcut_keys_enabled = false
+
+[node name="ButtonBox" type="HBoxContainer" parent="NoteUI/CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Spacer" type="Control" parent="NoteUI/CenterContainer/VBoxContainer/ButtonBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="BtnClose" type="Button" parent="NoteUI/CenterContainer/VBoxContainer/ButtonBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"MenuOptionButton"
+text = "Put Note Down"
+
+[node name="Spacer2" type="Control" parent="NoteUI/CenterContainer/VBoxContainer/ButtonBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[connection signal="interacted" from="Interactable" to="NoteUI" method="_on_interactable_interacted"]
+[connection signal="pressed" from="NoteUI/CenterContainer/VBoxContainer/ButtonBox/BtnClose" to="NoteUI" method="_on_btn_close_pressed"]

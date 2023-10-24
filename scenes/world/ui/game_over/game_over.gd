@@ -4,13 +4,13 @@ const ENDINGS : Dictionary = {
 	"AnyWork": { # Survived the night, but shit ain't clean enough
 		"title": "You Showed Up... At Least",
 		"text": "Your boss walks in and doesn't look at all pleased with the state of their store.\n\n[b]Boss:[/b] This isn't the job I was expecting when I said I'd pay you. Sure, you didn't leave, but, you could have put some effort in at least!",
-		"scene": ""
+		"scene": "res://scenes/Scenettes/victory_a/victory_a.tscn"
 	},
 	
 	"GoodWork":{ # Survived the night and shit is looking good!
 		"title": "This is AMAZING!",
 		"text": "Your boss walks in and upon seeing the state of their store, a wide smile spreads across their face.\n\n [b]Boss:[/b] This is mighty fine work! I'd love to keep you on as the night crew! You up for it? ... Wait... where are you...\n\n You hear his words trail off as you get as far from that store as possible!",
-		"scene": ""
+		"scene": "res://scenes/Scenettes/victory_a/victory_a.tscn"
 	},
 	
 	"FrontDoor": { # Ran out the front door.

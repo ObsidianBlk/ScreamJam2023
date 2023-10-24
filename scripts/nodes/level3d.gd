@@ -18,6 +18,14 @@ const SETTINGS_KEY_SSIL : String = "ssil"
 const GROUP_SHELVES : StringName = &"Shelves"
 const GROUP_ITEM : StringName = &"Item"
 
+const CLOCK_SEC_PER_MINUTE : float = 2.0
+const CLOCK_START_HOUR : int = 23
+const CLOCK_START_MINUTE : int = 0
+const CLOCK_END_HOUR : int = 6
+
+const MINUTES_BETWEEN_EVENTS_MIN : int = 15
+const MINUTES_BETWEEN_EVENTS_MAX : int = 45
+
 # ------------------------------------------------------------------------------
 # Exports
 # ------------------------------------------------------------------------------
@@ -84,7 +92,7 @@ func _UpdateFromSettings() -> void:
 
 func _EventOver() -> void:
 	_event_active = false
-	_event_delay = randi_range(15, 45)
+	_event_delay = randi_range(MINUTES_BETWEEN_EVENTS_MIN, MINUTES_BETWEEN_EVENTS_MAX)
 	_event_end_timestamp = Clock24.get_minutes_elapsed()
 
 func _GameOverSurvived() -> void:
@@ -101,8 +109,8 @@ func _GameOverSurvived() -> void:
 func initialize() -> void:
 	if _init: return
 	_init = true
-	Clock24.reset(23, 0)
-	Clock24.set_seconds_per_minute(0.5)
+	Clock24.reset(CLOCK_START_HOUR, CLOCK_START_MINUTE)
+	Clock24.set_seconds_per_minute(CLOCK_SEC_PER_MINUTE)
 	randomize()
 	var shelves : Array = get_tree().get_nodes_in_group(GROUP_SHELVES)
 	for shelf in shelves:
@@ -170,7 +178,7 @@ func _on_settings_value_changed(section : String, key : String, value : Variant)
 				env.ssil_enabled = value
 
 func _on_clock_time_passed(hour : int, minute : int) -> void:
-	if hour == 6:
+	if hour == CLOCK_END_HOUR:
 		# If we got to 6am, we survived! Time to tally success!
 		_GameOverSurvived()
 		return
@@ -179,7 +187,7 @@ func _on_clock_time_passed(hour : int, minute : int) -> void:
 	if _event_active == true : return
 	
 	# Don't bother if there's less than "15 minutes" left.
-	if Clock24.get_minutes_until(6, 0) < 30: return
+	if Clock24.get_minutes_until(CLOCK_END_HOUR, 0) < 30: return
 	
 	if _event_delay > 0:
 		_event_delay -= 1
@@ -187,7 +195,7 @@ func _on_clock_time_passed(hour : int, minute : int) -> void:
 	
 	randomize()
 	var prob : float = randf()
-	if prob < 0.5:
+	if prob < 0.1:
 		if _last_event == &"music": return
 		_last_event = &"music"
 		_event_active = true

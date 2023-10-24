@@ -85,7 +85,7 @@ transform = Transform3D(0.934267, 0, 0.356575, 0, 1, 0, -0.356575, 0, 0.934267, 
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3, 0, 0)
 
 [node name="door_02" parent="doorframe_01" instance=ExtResource("10_oi1jk")]
-transform = Transform3D(-0.724425, 0, -0.689354, 0, 1, 0, 0.689354, 0, -0.724425, 0.98384, 0, -0.721537)
+transform = Transform3D(0.724425, 0, 0.689354, 0, 1, 0, -0.689354, 0, 0.724425, 0.985396, 0, -0.62516)
 
 [node name="boxfood_03" parent="." instance=ExtResource("7_s82gv")]
 transform = Transform3D(0.891379, 0.453177, -0.00866976, 2.77556e-17, 0.0191276, 0.999817, 0.453259, -0.891216, 0.0170499, -0.21515, 0.0353959, -0.396483)

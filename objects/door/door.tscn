@@ -68,6 +68,8 @@ bus = &"SFX"
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("6_gkeu1")
+type = &"Door"
+interact_message = "[b][E][/b] to Interact "
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="Interactable"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.12383, 0)

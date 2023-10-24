@@ -72,6 +72,9 @@ var _times_hit : int = 0
 @onready var _flashlight: Node3D = $Hand/Flashlight
 @onready var _hand_container: Node3D = $Hand
 
+@onready var _stress: TextureRect = %Stress
+
+
 @onready var _audio_foot: AudioStreamPlayer = $AudioFoot
 @onready var _step_timer: Timer = $StepTimer
 
@@ -108,18 +111,6 @@ func _unhandled_input(event: InputEvent) -> void:
 			HAND.Mop:
 				if _atree.get("parameters/Actions/current_state") == ACTION_ACTIVITY:
 					_mopping = strength > 0.5
-			HAND.Item:
-				if _camera_ray.is_colliding():
-					var collision : Node3D = _camera_ray.get_collider()
-					if collision is Interactable:
-						if collision.type == &"Shelf":
-							_DropItem(_camera_ray.get_collision_point())
-				else:
-					_DropItem(Vector3(
-						_item_drop.global_position.x,
-						global_position.y,
-						_item_drop.global_position.z
-					))
 			HAND.Empty:
 				if _has_flashlight:
 					var state : String = _atree.get("parameters/Actions/current_state")
@@ -129,13 +120,30 @@ func _unhandled_input(event: InputEvent) -> void:
 						_atree.set("parameters/Actions/transition_request", ACTION_HIDE_FLASHLIGHT)
 
 	elif event.is_action_pressed("interact"):
+		if _camera_ray.is_colliding():
+			var collision : Node3D = _camera_ray.get_collider()
+			if collision is Interactable:
+				match _hand:
+					HAND.Empty:
+						if not _UsingFlashlight():
+							collision.interact({"player":self})
+						elif collision.type == &"Fusebox" or collision.type == &"Door":
+							collision.interact({"player":self})
+					HAND.Mop:
+						if collision.type != &"Item" and collision.type != &"Flashlight":
+							collision.interact({"player":self})
+					HAND.Item:
+						if collision.type == &"Shelf":
+							_DropItem(_camera_ray.get_collision_point())
+				return
+		
 		match _hand:
-			HAND.Empty:
-				if not _camera_ray.is_colliding(): return
-				var collision : Node3D = _camera_ray.get_collider()
-				if not collision is Interactable: return
-				#if collision.hand_required and _hand != HAND.Empty: return
-				collision.interact({"player":self})
+			HAND.Item:
+				_DropItem(Vector3(
+					_item_drop.global_position.x,
+					global_position.y,
+					_item_drop.global_position.z
+				))
 			HAND.Mop:
 				Relay.relay(&"spawn_mop", {"position": Vector3(
 					_item_drop.global_position.x,
@@ -182,20 +190,26 @@ func _CheckInteractable() -> void:
 				&"Shelf":
 					if _hand != HAND.Item: return
 					collision.message()
-				_:
+				&"Fusebox", &"Door":
 					collision.message()
+				_:
+					if _UsingFlashlight(): return
+					if _hand == HAND.Empty or collision.hand_required == false:
+						collision.message()
 	else:
 		Relay.relay(&"screen_message_hide")
 
 func _UpdateMusicDeathState(delta : float) -> void:
-	if not _music_death_active: return
 	if _music_death < MUSIC_DEATH_TIME:
-		if _music_protection:
+		if _music_death > 0.0 and (_music_protection or not _music_death_active):
 			_music_death = max(0.0, _music_death - delta * 2.0)
-		else:
+		elif _music_death_active:
 			_music_death += delta
+		
+		_stress.material.set_shader_parameter("progress", 0.5 * (_music_death / MUSIC_DEATH_TIME))
 		if _music_death >= MUSIC_DEATH_TIME:
 			death.emit(DEATH_REASON_MUSIC)
+			_stress.material.set_shader_parameter("progress", 0.0)
 
 func _UpdateMopping(delta : float) -> void:
 	if _mopping:
@@ -224,7 +238,10 @@ func _DropItem(pos : Vector3) -> void:
 		"item": itm,
 		"position": pos
 	})
-	
+
+func _UsingFlashlight() -> bool:
+	var state : String = _atree.get("parameters/Actions/current_state")
+	return state == ACTION_HIDE_FLASHLIGHT or state == ACTION_SHOW_FLASHLIGHT
 
 func _ToggleFlashlight() -> void:
 	_flashlight.enabled = not _flashlight.enabled

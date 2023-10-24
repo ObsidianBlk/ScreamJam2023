@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://b33nbjfw0fuf1"]
+[gd_scene load_steps=9 format=3 uid="uid://b33nbjfw0fuf1"]
 
 [ext_resource type="Script" path="res://scenes/world/ui/main_menu/main_menu.gd" id="1_jc670"]
 [ext_resource type="Theme" uid="uid://l11sr7bcm8y6" path="res://scenes/world/Game.theme" id="1_piole"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://cvqlxifdax13t" path="res://assets/logos/obs/Logo_Open_Small.png" id="3_80nya"]
 [ext_resource type="Texture2D" uid="uid://x0qvbk5fvhly" path="res://assets/logos/obs/Logo_Facing_Small.png" id="4_j151m"]
 [ext_resource type="Texture2D" uid="uid://becpbpr451vul" path="res://assets/logos/obs/Logo_Facing_Bright_Small.png" id="5_62j0o"]
+[ext_resource type="Texture2D" uid="uid://befxo4gcst4mb" path="res://assets/Title.png" id="8_02io8"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -17,6 +18,15 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_piole")
 script = ExtResource("1_jc670")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("8_02io8")
 
 [node name="MenuContainer" type="CenterContainer" parent="."]
 layout_mode = 1

@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://cuucxuh7ql6jy"]
+[gd_scene load_steps=7 format=3 uid="uid://cuucxuh7ql6jy"]
 
 [ext_resource type="PackedScene" uid="uid://ds2tniiyxkoo6" path="res://assets/obsidianblk/PA/objects/clock_face.glb" id="1_p7dlc"]
 [ext_resource type="Script" path="res://objects/clock/clock.gd" id="1_tdf7p"]
+[ext_resource type="AudioStream" uid="uid://c624qvvp0wyep" path="res://assets/audio/sfx/clock_tick.wav" id="3_7w5sx"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_y6541"]
 size = Vector2(0.03, 0.345)
@@ -30,3 +31,10 @@ surface_material_override/0 = SubResource("StandardMaterial3D_4dkf2")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.00289877)
 mesh = SubResource("PlaneMesh_wdhyk")
 surface_material_override/0 = SubResource("StandardMaterial3D_4dkf2")
+
+[node name="AudioTick" type="AudioStreamPlayer3D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("3_7w5sx")
+attenuation_model = 2
+unit_size = 5.0
+bus = &"SFX"
