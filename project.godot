@@ -10,7 +10,8 @@ config_version=5
 
 [application]
 
-config/name="ScreamJam2023"
+config/name="Corner Store"
+config/description="You have been hired as a night employee to clean an old Corner Store..."
 config/tags=PackedStringArray("2023", "fps", "horror", "jam", "screamjam")
 run/main_scene="res://scenes/world/world.tscn"
 config/features=PackedStringArray("4.1", "Forward Plus")
@@ -26,6 +27,7 @@ Clock24="*res://scripts/autos/clock24.gd"
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
+window/size/mode=3
 
 [input]
 
