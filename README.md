@@ -29,12 +29,25 @@ Once downloaded simply start the executable.
 
 ## Usage
 
-TBD
+The game is a simple first person game. Most of the interactions will present themselves as needed as you play, however, the following is a basic control rundown...
+
+**[W,A,S,D]** - Forward, Left, Backward, Right (respectively)
+**[E]** - Interact and, Pick up and (for a few items) drop items.
+**[Left Mouse Button]** - Use Mop (if in hand) or Use Flashlight
+
+**Important**: The flashlight is an item in the world. In order to be able to use it, it must first be picked up. You *cannot* use the flashlight while holding the mop or an item.
+
 
 ## Credits
 
-TBD
+Coding and Art (both 2D and 3D) by Bryan "ObsidianBlk" Miller.
+
+All of the sound effects obtained from [Freesound.org](https://freesound.org/) and distributed under a CC0 license.
+
+The music track in the game is ["Next to You"](https://opengameart.org/content/next-to-you) by [Joth](https://opengameart.org/users/joth) under the CC0 license on [OpenGameArt](https://opengameart.org)
 
 ## License
 
 This project is being released under the [MIT License](./LICENSE.md)
+
+
